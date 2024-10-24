@@ -1,9 +1,18 @@
-export default async function Index() {
-  return (
-    <>
-      <main className="flex-1 flex flex-col gap-6 px-4">
-        <h2 className="font-medium text-xl mb-4">Next steps</h2>
-      </main>
-    </>
-  );
-}
+// interface Post {
+//   id: string;
+//   title: string;
+//   content: string;
+// }
+
+// export default async function Index() {
+//   let data = await fetch("http://localhost:3000/api/hello");
+//   let content: Post[] = await data.json();
+
+//   return (
+//     <ul>
+//       {content.map((post: Post) => (
+//         <li key={post.id}>{post.content}</li>
+//       ))}
+//     </ul>
+//   );
+// }

@@ -13,6 +13,8 @@ export default async function ProtectedPage() {
     return redirect("/sign-in");
   }
 
+  
+
   return (
     <div className="flex-1 w-full flex flex-col ">
       <div className="w-full">
