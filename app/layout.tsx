@@ -1,6 +1,4 @@
-import DeployButton from "@/components/deploy-button";
 import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
 import { ThemeProvider } from "next-themes";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
@@ -39,7 +37,7 @@ export default function RootLayout({
                 {children}
               </div>
 
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
+              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-8 mt-auto">
                 <p>XhaleGuard</p>
               </footer>
             </div>
