@@ -1,3 +1,5 @@
+import Hero from "@/components/Hero";
+
 // interface UserInterface {
 //   id: number;
 //   f_name: string;
@@ -45,5 +47,9 @@
 // }
 
 export default async function PeopleInSpace() {
-  return <>hello</>;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 }
