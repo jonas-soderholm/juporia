@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Head from "next/head";
+import Link from "next/link";
 
 const defaultUrl = "http://localhost:3000";
 
@@ -20,6 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
       <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
         <title>XhaleGuard - Basic Cybersecurity training</title>
         <meta
           name="description"
@@ -39,10 +44,14 @@ export default function RootLayout({
             <div className="flex-1 w-full flex flex-col gap-5 items-center">
               <nav className="w-full flex justify-between border-b border-b-foreground/10 h-16">
                 <div className="w-full flex justify-between items-center text-sm">
-                  <div className="flex items-center font-semibold">
-                    <img src="./logo.png" alt="" className="w-10 mx-3" />{" "}
-                    <a className=" text-xl text-[#64FF00]">XhaleGuard</a>
-                  </div>
+                  <Link href="/">
+                    <div className="flex items-center font-semibold">
+                      <img src="./logo.png" alt="" className="w-10 mx-3" />
+                      <a className=" text-xl text-slate-200 font-bold">
+                        XhaleGuard
+                      </a>
+                    </div>
+                  </Link>
                   <HeaderAuth />
                 </div>
               </nav>

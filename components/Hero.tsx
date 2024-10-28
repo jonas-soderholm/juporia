@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
     <section
@@ -12,7 +14,7 @@ export default function Hero() {
         />
       </div>
       <h1 id="main-heading" className="text-[4rem] font-bold mb-4">
-        Cybersecurity Basics for Everyone
+        Basic Cybersecurity for Everyone
       </h1>
 
       <p className="text-[1rem] mb-8 max-w-[35rem]">
@@ -20,17 +22,19 @@ export default function Hero() {
         CEOs and executives.
       </p>
 
-      <button
-        className="btn btn-accent"
-        aria-label="Try 5 free cybersecurity lessons"
-      >
-        Try 5 Free Lessons Now
-      </button>
+      <Link href="/courses">
+        <button
+          className="btn btn-accent"
+          aria-label="Try 5 free cybersecurity lessons"
+        >
+          Try 5 Free Lessons Now
+        </button>
+      </Link>
 
       <p className="mt-3 text-stone-700 text-sm">
         No login or credit card required.
       </p>
-      <p className="text-stone-700 text-sm">Or all courses for $15/month.</p>
+      <p className="text-stone-700 text-sm">Full access - $15/month.</p>
     </section>
   );
 }
