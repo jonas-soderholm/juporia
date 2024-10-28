@@ -38,9 +38,9 @@ export default function HamburgerMenu() {
               <div className="flex w-full flex-col">
                 <div className="divider"></div>
               </div>
-              <li>
+              <div>
                 <LogoutButton />
-              </li>
+              </div>
             </ul>
           </div>
         </div>
