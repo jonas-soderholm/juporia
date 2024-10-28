@@ -1,4 +1,4 @@
-import Hero from "@/components/Hero";
+import Hero from "@/components/hero";
 
 // interface UserInterface {
 //   id: number;
@@ -46,7 +46,7 @@ import Hero from "@/components/Hero";
 //   );
 // }
 
-export default async function PeopleInSpace() {
+export default async function LandingPage() {
   return (
     <>
       <Hero />

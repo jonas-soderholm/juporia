@@ -2,6 +2,7 @@ import HeaderAuth from "@/components/header/auth/header-auth";
 import { ThemeProvider } from "next-themes";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import Head from "next/head";
 
 const defaultUrl = "http://localhost:3000";
 
@@ -18,6 +19,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+      <head>
+        <title>XhaleGuard - Basic Cybersecurity training</title>
+        <meta
+          name="description"
+          content="XhaleGuard cybersecurity awareness training to enhance your security infrastructure."
+        />
+        <title>XhaleGuard</title>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
@@ -26,12 +36,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
+            <div className="flex-1 w-full flex flex-col gap-5 items-center">
               <nav className="w-full flex justify-between border-b border-b-foreground/10 h-16">
                 <div className="w-full flex justify-between items-center text-sm">
                   <div className="flex items-center font-semibold">
-                    <img src="./header-logo.png" alt="" className="w-12 mx-3" />{" "}
-                    <a className=" text-xl">XhaleGuard</a>
+                    <img src="./logo.png" alt="" className="w-10 mx-3" />{" "}
+                    <a className=" text-xl text-[#64FF00]">XhaleGuard</a>
                   </div>
                   <HeaderAuth />
                 </div>

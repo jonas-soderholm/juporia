@@ -6,7 +6,7 @@ import Hero from "../components/hero";
 describe("Hero Component", () => {
   it("renders Hello text in an h1 tag", () => {
     render(<Hero />);
-    const heading = screen.getByRole("heading", { name: /hello/i });
+    const heading = screen.getByRole("heading", { name: "Hello" });
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveClass("text-[5rem] font-bold mb-4");
   });
