@@ -5,6 +5,7 @@ import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { createClient } from "@/utils/supabase/server";
 import HamburgerMenu from "../hamburger-menu";
+import { ThemeSwitcher } from "../../theme-switcher";
 
 export default async function AuthButton() {
   const supabase = await createClient();
@@ -16,6 +17,7 @@ export default async function AuthButton() {
   return user ? (
     <div className="flex items-center ">
       {/* Hey, {user.email}! */}
+      <ThemeSwitcher />
       <div>
         <HamburgerMenu />
       </div>
@@ -23,7 +25,8 @@ export default async function AuthButton() {
   ) : (
     <div className="flex items-center gap-4">
       {/* Buttons aligned to the right */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 mx-3">
+        <ThemeSwitcher />
         <Button asChild size="sm" variant="outline">
           <Link href="/sign-in">Login</Link>
         </Button>

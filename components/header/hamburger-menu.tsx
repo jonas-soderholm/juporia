@@ -33,7 +33,13 @@ export default function HamburgerMenu() {
             <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
               {/* Sidebar content here */}
               <li>
-                <a>Sidebar Item 1</a>
+                <a>Courses</a>
+              </li>
+              <li>
+                <a>FAQ</a>
+              </li>
+              <li>
+                <a>My Account</a>
               </li>
               <div className="flex w-full flex-col">
                 <div className="divider"></div>
