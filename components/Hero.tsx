@@ -8,7 +8,7 @@ export default function Hero() {
     >
       <div className="flex items-center font-semibold">
         <img
-          src="./logo.png"
+          src="./logo.svg"
           alt="XhaleGuard Logo"
           className="w-20 mx-3 mb-4"
         />

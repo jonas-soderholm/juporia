@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className={GeistSans.className} suppressHydrationWarning>
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
           rel="stylesheet"
         />
         <title>XhaleGuard - Basic Cybersecurity training</title>
@@ -46,10 +46,10 @@ export default function RootLayout({
                 <div className="w-full flex justify-between items-center text-sm">
                   <Link href="/">
                     <div className="flex items-center font-semibold">
-                      <img src="./logo.png" alt="" className="w-10 mx-3" />
-                      <a className=" text-xl text-slate-200 font-bold">
+                      <img src="./logo.svg" alt="" className="w-8 mx-3" />
+                      <span className=" text-xl text-slate-200 font-bold">
                         XhaleGuard
-                      </a>
+                      </span>
                     </div>
                   </Link>
                   <HeaderAuth />
