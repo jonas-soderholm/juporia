@@ -1,6 +1,7 @@
 type CourseCardProps = {
   title: string;
   description: string;
+  buttonText: string;
   image: string;
   value: number;
 };
@@ -10,6 +11,7 @@ export default function CourseCard({
   description,
   image,
   value,
+  buttonText,
 }: CourseCardProps) {
   return (
     <>
@@ -28,21 +30,21 @@ export default function CourseCard({
           </div>
 
           <div className="card-actions absolute bottom-0 mb-4">
-            <button className="btn btn-primary ">Start</button>
+            <button className="btn btn-accent">{buttonText}</button>
           </div>
 
           <div
-            className="radial-progress absolute text-[13px] bg-secondary top-0 right-0 m-2"
+            className="radial-progress absolute text-[12px] bg-secondary top-0 right-0 m-2"
             style={
               {
-                "--value": 70,
+                "--value": value,
                 "--size": "3rem",
                 "--thickness": "4px",
               } as React.CSSProperties
             }
             role="progressbar"
           >
-            70%
+            {value}%
           </div>
         </div>
       </div>
