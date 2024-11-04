@@ -11,6 +11,7 @@ export default async function Courses() {
           buttonText="5 free lessons"
           image="/courses-backgrounds/basic1.jpg"
           value={50}
+          linkUrl="/courses/cybersecurity-basics-1"
         />
       </div>
 
@@ -26,6 +27,7 @@ export default async function Courses() {
           buttonText="Subscription needed"
           image="/courses-backgrounds/basic2.jpg"
           value={50}
+          linkUrl="/sign-up"
         />
       </div>
 
@@ -41,6 +43,7 @@ export default async function Courses() {
           buttonText="Subscription needed"
           image="/courses-backgrounds/basic3.jpg"
           value={50}
+          linkUrl="/sign-up"
         />
       </div>
     </>

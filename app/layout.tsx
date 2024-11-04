@@ -30,7 +30,6 @@ export default function RootLayout({
           name="description"
           content="XhaleGuard cybersecurity awareness training to enhance your security infrastructure."
         />
-        <title>XhaleGuard</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="bg-background text-foreground">
@@ -47,7 +46,7 @@ export default function RootLayout({
                   <Link href="/">
                     <div className="flex items-center font-semibold">
                       <img src="./logo.svg" alt="" className="w-8 mx-3" />
-                      <span className=" text-xl text-slate-200 font-bold">
+                      <span className="text-xl text-slate-200 font-bold">
                         XhaleGuard
                       </span>
                     </div>
@@ -55,14 +54,11 @@ export default function RootLayout({
                   <HeaderAuth />
                 </div>
               </nav>
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
-              </div>
-
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-8 mt-auto">
-                <p>XhaleGuard</p>
-              </footer>
             </div>
+            <div className="flex flex-col p-5 items-center">{children}</div>
+            <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-8 mt-auto">
+              <p>XhaleGuard</p>
+            </footer>
           </main>
         </ThemeProvider>
       </body>

@@ -1,7 +1,7 @@
 // Hero.test.tsx
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Hero from "../components/hero";
+import Hero from "../components/hero/hero";
 
 describe("Hero Component", () => {
   it("renders Hello text in an h1 tag", () => {

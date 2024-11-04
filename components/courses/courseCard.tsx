@@ -1,9 +1,12 @@
+import Link from "next/link";
+
 type CourseCardProps = {
   title: string;
   description: string;
   buttonText: string;
   image: string;
   value: number;
+  linkUrl: string;
 };
 
 export default function CourseCard({
@@ -12,6 +15,7 @@ export default function CourseCard({
   image,
   value,
   buttonText,
+  linkUrl,
 }: CourseCardProps) {
   return (
     <>
@@ -30,7 +34,9 @@ export default function CourseCard({
           </div>
 
           <div className="card-actions absolute bottom-0 mb-4">
-            <button className="btn btn-accent">{buttonText}</button>
+            <Link href={linkUrl}>
+              <button className="btn btn-accent">{buttonText}</button>
+            </Link>
           </div>
 
           <div

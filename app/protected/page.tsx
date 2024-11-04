@@ -32,25 +32,3 @@ export default async function ProtectedPage() {
     </div>
   );
 }
-
-// interface SupabaseData {
-//   id: number;
-//   f_name: string;
-//   l_name: string;
-// }
-
-// export default async function ProtectedPage() {
-//   const res = await fetch("http://localhost:3000/api/hello");
-//   const content: SupabaseData[] = await res.json();
-
-//   return (
-//     <ul>
-//       Hello
-//       {content.map((item: SupabaseData) => (
-//         <li key={item.id}>
-//           {item.f_name} {item.l_name}
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// }
