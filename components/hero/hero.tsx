@@ -21,12 +21,13 @@ export default function Hero() {
           id="main-heading"
           className="text-[2rem] sm:text-[4rem] font-bold mb-4 max-w-[60rem]"
         >
-          Basic Essential Cybersecurity for Everyone
+          Learn Essential Cybersecurity Skills—Easily
         </h1>
 
         <p className="text-[1rem] mb-8 max-w-[35rem]">
-          Simple, essential cybersecurity—from team members and everyday users
-          to CEOs and executives.
+          Accessible, beginner-friendly courses designed to empower
+          everyone—from team members to executives—with core cybersecurity
+          knowledge.
         </p>
 
         <Link href="/courses">
