@@ -45,9 +45,13 @@ export default function RootLayout({
                 <div className="w-full flex justify-between items-center text-sm">
                   <Link href="/">
                     <div className="flex items-center font-semibold">
-                      <img src="./logo.svg" alt="" className="w-8 mx-3" />
-                      <span className="text-xl text-slate-200 font-bold">
-                        XhaleGuard
+                      <img
+                        src="./logo.svg"
+                        alt=""
+                        className="w-6 md:w-8 mx-3"
+                      />
+                      <span className="text-[15px] md:text-xl text-slate-200 font-bold">
+                        ExhaleGuard
                       </span>
                     </div>
                   </Link>
@@ -56,7 +60,7 @@ export default function RootLayout({
               </nav>
             </div>
             <div className="flex flex-col p-5 items-center">{children}</div>
-            <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-8 mt-auto">
+            <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-8 mt-28">
               <p>XhaleGuard</p>
             </footer>
           </main>

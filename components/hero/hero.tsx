@@ -19,7 +19,7 @@ export default function Hero() {
         </div>
         <h1
           id="main-heading"
-          className="text-[4rem] font-bold mb-4 max-w-[60rem] "
+          className="text-[2rem] sm:text-[4rem] font-bold mb-4 max-w-[60rem]"
         >
           Basic Essential Cybersecurity for Everyone
         </h1>
@@ -41,36 +41,11 @@ export default function Hero() {
         <p className="mt-3 text-stone-700 text-sm">
           No login or credit card required.
         </p>
-        <p className="text-stone-700 text-sm">Full access - $15/month.</p>
+        <p className="text-stone-700 text-sm">Full access - $19/mo.</p>
       </div>
 
       <ValueProposition />
       <Subscriptions />
     </>
   );
-}
-
-{
-  /* <p className="text-base mb-4 max-w-[35rem] ">
-Established frameworks like CIS 18, NIST, and ISO 27000 are trusted
-for securing organizations. However, for small and medium businesses,
-they can feel overly complex—especially without dedicated
-cybersecurity staff. These frameworks often require a security team to
-implement and maintain effectively.
-</p>
-<p className="text-base mb-4 max-w-[35rem] ">
-Our course bridges this gap, making essential cybersecurity practices
-simple and accessible for everyone—no technical background needed.
-Think of it as your first step toward a stronger security foundation.
-</p>
-<p className="text-base mb-4 max-w-[35rem] ">
-After completing our course, your team will not only be more secure
-but also better prepared to tackle advanced frameworks like CIS 18 or
-NIST with confidence.
-</p>
-<p className="text-base mb-8 max-w-[35rem]">
-Take the first step today. Build your security foundation with us and
-grow into the frameworks that will keep you protected for the long
-term.
-</p> */
 }

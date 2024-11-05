@@ -34,11 +34,11 @@ export default function Subscriptions() {
     <>
       <div className="mx-auto font-bold text-3xl mb-14 mt-[10rem]">PRICING</div>
 
-      <div className="flex justify-center space-x-8 max-w-[60rem] mx-auto">
+      <div className="flex flex-wrap justify-center max-w-[80rem] mx-auto gap-8 px-4">
         {subscriptions.map((subscription, index) => (
           <div
             key={index}
-            className={`card bg-base-100 w-96 ${!subscription.active ? "opacity-50" : ""}`}
+            className={`card bg-base-100 md:w-72 w-full max-w-xs mx-auto ${!subscription.active ? "opacity-50" : ""} shadow-lg rounded-lg`}
           >
             <div className="card-body items-center text-center">
               <h2 className="card-title mb-5">{subscription.title}</h2>
