@@ -1,6 +1,6 @@
 export function ValueProposition() {
   return (
-    <div className="flex flex-col items-center w-full px-4 gap-24 mt-24">
+    <div className="flex flex-col items-center w-full px-4 gap-24 mt-48">
       {/* Is it that important? */}
       <div className="flex flex-col md:flex-row mt-10 items-center gap-4 md:max-w-[80%] mx-auto text-center md:text-left">
         <div className="flex flex-col">

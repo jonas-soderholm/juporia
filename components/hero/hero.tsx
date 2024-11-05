@@ -8,11 +8,11 @@ export default function Hero() {
       {/* Hero  */}
       <div
         aria-labelledby="main-heading"
-        className="flex flex-col items-center justify-center text-center p-6 mt-[3rem]"
+        className="flex flex-col items-center justify-center text-center p-6 mt-[5rem]"
       >
         <div className="flex items-center font-semibold">
           <img
-            src="./logo.svg"
+            src="/logo.svg"
             alt="XhaleGuard Logo"
             className="w-20 mx-3 mb-4"
           />

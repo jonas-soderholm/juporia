@@ -12,20 +12,21 @@ export default function Subscriptions() {
     },
     {
       title: "Personal",
-      description: "All current and upcoming courses inclueded.",
+      description: "All current and upcoming courses included.",
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: true,
-      price: "19$",
+      price: "15$",
       buttontext: "Subscribe",
     },
     {
       title: "Team (Coming Soon)",
-      description: "Invite team members and track their course progression.",
+      description:
+        "Invite team members and track their course progression. 11$ per seat.",
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: false,
-      price: "14$",
+      price: "11$",
       buttontext: "Coming Soon",
     },
   ];
