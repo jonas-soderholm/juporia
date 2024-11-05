@@ -12,7 +12,7 @@ export default function Subscriptions() {
     },
     {
       title: "Personal",
-      description: "Get premium features for individual use.",
+      description: "All current and upcoming courses inclueded.",
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: true,
@@ -20,8 +20,8 @@ export default function Subscriptions() {
       buttontext: "Subscribe",
     },
     {
-      title: "Team",
-      description: "Invite team members and collaborate. 14$ per seat.",
+      title: "Team (Coming Soon)",
+      description: "Invite team members and track their course progression.",
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: false,
@@ -32,13 +32,15 @@ export default function Subscriptions() {
 
   return (
     <>
-      <div className="mx-auto font-bold text-3xl mb-14 mt-[10rem]">PRICING</div>
+      <div className=" flex justify-center mx-auto font-bold text-3xl mb-14 mt-[10rem]">
+        PRICING
+      </div>
 
       <div className="flex flex-wrap justify-center max-w-[80rem] mx-auto gap-8 px-4">
         {subscriptions.map((subscription, index) => (
           <div
             key={index}
-            className={`card bg-base-100 md:w-72 w-full max-w-xs mx-auto ${!subscription.active ? "opacity-50" : ""} shadow-lg rounded-lg`}
+            className={`card bg-base-100 md:w-72 w-full max-w-xs mx-auto ${!subscription.active ? "opacity-50" : ""} rounded-lg`}
           >
             <div className="card-body items-center text-center">
               <h2 className="card-title mb-5">{subscription.title}</h2>
