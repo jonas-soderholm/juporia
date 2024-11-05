@@ -18,43 +18,46 @@ export default function CourseCard({
   linkUrl,
 }: CourseCardProps) {
   return (
-    <div className="card image-full w-full sm:w-[16rem] md:w-[24rem] lg:w-[32rem] shadow-lg h-auto max-h-48">
-      <figure className="w-full h-full">
-        <img
-          src={image}
-          alt="Course image"
-          className="w-full h-full object-cover transform transition-transform duration-300 hover:scale-105"
-        />
-      </figure>
-      <div className="card-body w-full h-full flex flex-col justify-between p-3">
+    <div className="relative w-full sm:w-[16rem] md:w-[24rem] lg:w-[32rem] overflow-hidden rounded-lg">
+      {/* Image */}
+      <img
+        src={image}
+        alt="Course image"
+        className="w-full h-48 object-cover"
+      />
+      <div className="absolute inset-0 bg-[#232424] bg-opacity-65"></div>
+
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col justify-between p-3">
         <div>
-          <h1 className="card-title text-base sm:text-lg md:text-xl text-white">
+          <h1 className="text-base sm:text-lg md:text-xl text-white">
             {title}
           </h1>
-          <p className="text-white text-xs sm:text-sm">{description}</p>
+          <p className="text-white text-xs sm:text-sm mt-2">{description}</p>
         </div>
 
-        <div className="card-actions mt-2">
+        <div className="mt-4">
           <Link href={linkUrl}>
-            <button className="btn btn-accent text-xs sm:text-sm px-3 py-1">
+            <button className="btn btn-accent btn-sm md:btn-md  text-xs sm:text-sm px-3 py-1">
               {buttonText}
             </button>
           </Link>
         </div>
+      </div>
 
-        <div
-          className="radial-progress absolute text-[8px] sm:text-[10px] bg-secondary top-2 right-2"
-          style={
-            {
-              "--value": value,
-              "--size": "2rem",
-              "--thickness": "3px",
-            } as React.CSSProperties
-          }
-          role="progressbar"
-        >
-          {value}%
-        </div>
+      {/* Progress Indicator */}
+      <div
+        className="radial-progress absolute text-[8px] sm:text-[10px] bg-secondary top-2 right-2"
+        style={
+          {
+            "--value": value,
+            "--size": "2rem",
+            "--thickness": "3px",
+          } as React.CSSProperties
+        }
+        role="progressbar"
+      >
+        {value}%
       </div>
     </div>
   );

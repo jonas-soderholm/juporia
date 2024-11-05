@@ -50,7 +50,7 @@ export default function RootLayout({
                         alt=""
                         className="w-6 md:w-8 mx-3"
                       />
-                      <span className="text-[15px] md:text-xl text-slate-200 font-bold">
+                      <span className="text-[15px] md:text-xl font-bold">
                         ExhaleGuard
                       </span>
                     </div>
