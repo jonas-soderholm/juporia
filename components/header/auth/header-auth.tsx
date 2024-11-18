@@ -18,9 +18,9 @@ export default async function AuthButton() {
     <div className="flex items-center ">
       {/* Hey, {user.email}! */}
       <ThemeSwitcher />
-      <a className=" hover:underline ml-2">
+      <div className=" hover:underline ml-2">
         <Link href="/courses">Courses</Link>
-      </a>
+      </div>
       <div>
         <HamburgerMenu />
       </div>

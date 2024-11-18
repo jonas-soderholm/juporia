@@ -15,6 +15,7 @@
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "autoprefixer": "10.4.17",
+    "chart.js": "^4.4.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "geist": "^1.2.1",
@@ -23,12 +24,14 @@
     "next-themes": "^0.3.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "20.10.6",
     "@types/react": "18.2.46",
+    "@types/react-chartjs-2": "^2.5.7",
     "@types/react-dom": "18.2.18",
     "cypress": "^13.15.2",
     "daisyui": "^4.12.13",

@@ -1,5 +1,6 @@
 // Hero.test.tsx
-import { add, sumTwoAdds } from '../../practice';
+import { add, sumTwoAdds } from '../practice';
+import '@testing-library/jest-dom/extend-expect';
 
 describe('add function', () => {
     it('should return the sum of two numbers', () => {

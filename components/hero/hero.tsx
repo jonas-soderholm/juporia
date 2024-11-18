@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Subscriptions from "./subscriptions";
 import { ValueProposition } from "./valueProposition";
+import PieCharts from "./piecharts";
 
 export default function Hero() {
   return (
@@ -45,7 +48,9 @@ export default function Hero() {
         <p className="text-stone-700 text-sm">Full access - $19/mo.</p>
       </div>
 
+
       <ValueProposition />
+      <PieCharts />
       <Subscriptions />
     </>
   );
