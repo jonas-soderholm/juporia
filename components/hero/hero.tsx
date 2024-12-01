@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Subscriptions from "./subscriptions";
-import { ValueProposition } from "./valueProposition";
-import PieCharts from "./piecharts";
+import Subscriptions from "./Subscriptions";
+import { ValueProposition } from "./ValueProposition";
+import PieCharts from "./PieCharts";
 
 export default function Hero() {
   return (
@@ -33,7 +33,7 @@ export default function Hero() {
           knowledge.
         </p>
 
-        <Link href="/courses">
+        <Link href="/public-courses">
           <button
             className="btn btn-accent"
             aria-label="Try 5 free cybersecurity lessons"
@@ -47,7 +47,6 @@ export default function Hero() {
         </p>
         <p className="text-stone-700 text-sm">Full access - $19/mo.</p>
       </div>
-
 
       <ValueProposition />
       <PieCharts />

@@ -32,11 +32,11 @@ export default function PieCharts() {
         Attack consequences on businesses
       </div>
 
-      <div className="flex flex-wrap justify-center max-w-[50rem] mx-auto gap-8 px-4">
+      <div className="flex flex-wrap justify-center max-w-[50rem] mx-auto gap-8 px-4 text-slate-200">
         {pieData.map((data, index) => (
           <div
             key={index}
-            className="card bg-base-100 md:w-56 w-full max-w-lg mx-auto rounded-lg flex flex-col justify-between py-6" 
+            className="card bg-base-100 dark:bg-gray-800 md:w-56 w-full max-w-lg mx-auto rounded-lg flex flex-col justify-between py-6" // Added dark mode class
           >
             <div className="card-body items-center text-center flex-grow">
               <Pie
@@ -66,7 +66,7 @@ export default function PieCharts() {
             </div>
             <header className="card-title mb-3 text-4xl mx-auto flex items-center justify-center">
               {data.title}
-            </header> {/* Fixed height for title */}
+            </header>
             <p className="text-sm mx-auto text-center p-4 h-[5rem]">
               {data.content}
             </p> 

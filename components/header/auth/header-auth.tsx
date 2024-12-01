@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { createClient } from "@/utils/supabase/server";
-import HamburgerMenu from "../hamburger-menu";
+import HamburgerMenu from "../HamburgerMenu";
 import { ThemeSwitcher } from "../../theme-switcher";
 
 export default async function AuthButton() {
@@ -19,7 +19,7 @@ export default async function AuthButton() {
       {/* Hey, {user.email}! */}
       <ThemeSwitcher />
       <div className=" hover:underline ml-2">
-        <Link href="/courses">Courses</Link>
+        <Link href="/public-courses">Courses</Link>
       </div>
       <div>
         <HamburgerMenu />

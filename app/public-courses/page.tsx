@@ -1,4 +1,4 @@
-import CourseCard from "@/components/courses/courseCard";
+import CourseCard from "@/components/courses/CourseCard";
 
 export default async function Courses() {
   return (
@@ -17,7 +17,7 @@ export default async function Courses() {
             buttonText="5 free lessons"
             image="/courses-backgrounds/basic1.jpg"
             value={50}
-            linkUrl="/courses/basics-1"
+            linkUrl="/public-courses/basics-1"
           />
         </div>
 

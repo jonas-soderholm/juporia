@@ -32,7 +32,7 @@ export default function Subscriptions() {
        ExhaleGuard Course Pricing
       </div>
 
-      <div className="flex flex-wrap justify-center max-w-[80rem] mx-auto px-4 gap-8">
+      <div className="flex flex-wrap justify-center max-w-[80rem] mx-auto px-4 gap-8 text-slate-200">
         {subscriptions.map((subscription, index) => (
           <div
             key={index}
