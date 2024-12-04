@@ -33,7 +33,7 @@ export default function Hero() {
           knowledge.
         </p>
 
-        <Link href="/public-courses">
+        <Link href="/public-demo/courses">
           <button
             className="btn btn-accent"
             aria-label="Try 5 free cybersecurity lessons"

@@ -19,7 +19,7 @@ export default async function AuthButton() {
       {/* Hey, {user.email}! */}
       <ThemeSwitcher />
       <div className=" hover:underline ml-2">
-        <Link href="/public-courses">Courses</Link>
+        <Link href="/public-demo/courses">Courses</Link>
       </div>
       <div>
         <HamburgerMenu />

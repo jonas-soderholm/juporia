@@ -38,33 +38,36 @@ export default function Lessons({ title, sections }: LessonProps) {
 
   if (currentSection >= sections.length) {
     return (
-      <div>
-        <h1>{title}</h1>
-        <p>🎉 Lesson Complete! 🎉</p>
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="my-5 text-2xl font-bold">{title}</h1>
+
         <div>
-          <h2>Completed Questions:</h2>
+          <h2 className=" font-bold underline text-gray-600">
+            Completed Questions:
+          </h2>
           {completedSections.map((section, index) => (
-            <div key={index}>
+            <div className="my-3" key={index}>
               <p>
                 <strong>Question:</strong> {section.question}
               </p>
               <p>
-                <strong>Your Answer:</strong> {section.answer}
+                <strong>Answer:</strong> {section.answer}
               </p>
-              <hr />
+              <hr className="mt-3" />
             </div>
           ))}
+          <p className="my-4 text-green-600">🎉 Lesson Complete! 🎉</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>{title}</h1>
-      <div>
+    <div className="flex flex-col justify-center items-center">
+      <h1 className="my-5 text-2xl font-bold">{title}</h1>
+      <div className="bg-red-700">
         {completedSections.map((section, index) => (
-          <div key={index}>
+          <div className="text-gray-800" key={index}>
             <p>
               <strong>Question:</strong> {section.question}
             </p>
@@ -75,11 +78,13 @@ export default function Lessons({ title, sections }: LessonProps) {
           </div>
         ))}
       </div>
-      <div>
-        <p>{sections[currentSection].text}</p>
-        <p>
+      <div className="bg-gray-700">
+        <p className="my-4">{sections[currentSection].text}</p>
+        <p className="my-1">
           <strong>{sections[currentSection].question}</strong>
         </p>
+      </div>
+      <div className="bg-blue-700 m-4">
         <input
           type="text"
           value={userInput}

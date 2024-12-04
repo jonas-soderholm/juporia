@@ -17,7 +17,7 @@ export default async function Courses() {
             buttonText="5 free lessons"
             image="/courses-backgrounds/basic1.jpg"
             value={50}
-            linkUrl="/public-courses/basics-1"
+            linkUrl="/public-demo/courses/cybersecurity-basics-1"
           />
         </div>
 

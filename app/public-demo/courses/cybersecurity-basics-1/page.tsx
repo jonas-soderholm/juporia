@@ -3,7 +3,7 @@ import LessonBox from "@/components/courses/LessonsBox";
 import ProgressBar from "@/components/courses/ProgressBar";
 
 // Base url
-const BASE_URL = "/public-courses/basics-1";
+const BASE_URL = "/public-demo/courses/cybersecurity-basics-1";
 
 export default function Basics1() {
   return (
