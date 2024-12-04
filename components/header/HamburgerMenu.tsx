@@ -3,8 +3,8 @@ import LogoutButton from "./auth/logout-button";
 export default function HamburgerMenu() {
   return (
     <>
-      <div className="flex mx-2">
-        <div className="drawer">
+      <div className="flex mx-2 text-slate-200">
+        <div className="drawer drawer-end">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             {/* Page content here */}
@@ -24,7 +24,10 @@ export default function HamburgerMenu() {
               </svg>
             </label>
           </div>
-          <div className="drawer-side">
+          <div
+            className="drawer-side mt-[4rem]
+          "
+          >
             <label
               htmlFor="my-drawer"
               aria-label="close sidebar"

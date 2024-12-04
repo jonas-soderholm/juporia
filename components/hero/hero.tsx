@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Subscriptions from "./Subscriptions";
 import { ValueProposition } from "./ValueProposition";
-import PieCharts from "./PieCharts";
+import PieCharts from "./Piecharts";
 
 export default function Hero() {
   return (
@@ -35,7 +35,7 @@ export default function Hero() {
 
         <Link href="/public-demo/courses">
           <button
-            className="btn btn-accent"
+            className="btn-custom-primary"
             aria-label="Try 5 free cybersecurity lessons"
           >
             Try 5 Free Lessons Now

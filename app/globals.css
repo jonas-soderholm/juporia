@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* black white */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -70,4 +71,8 @@
 
 body {
   font-family: "Open Sans", sans-serif;
+}
+
+.btn-custom-primary {
+  @apply btn bg-blue-500 text-white px-4 py-2 hover:bg-blue-700 rounded-full;
 }
