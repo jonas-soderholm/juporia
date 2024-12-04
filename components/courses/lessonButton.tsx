@@ -8,7 +8,7 @@ type Lesson = {
 export function LessonButton({ lessonName, link }: Lesson) {
   return (
     <Link href={link}>
-      <button className="btn btn-accent max-w-xs" aria-label="">
+      <button className="btn-custom-primary" aria-label="">
         {lessonName}
       </button>
     </Link>

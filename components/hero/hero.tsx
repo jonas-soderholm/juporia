@@ -11,20 +11,13 @@ export default function Hero() {
       {/* Hero  */}
       <div
         aria-labelledby="main-heading"
-        className="flex flex-col items-center justify-center text-center p-6 mt-[5rem]"
+        className="flex flex-col items-center justify-center text-center text-slate-200 bg-exhaleguard-primary py-12"
       >
-        <div className="flex items-center font-semibold">
-          <img
-            src="/logo.svg"
-            alt="XhaleGuard Logo"
-            className="w-20 mx-3 mb-4"
-          />
-        </div>
         <h1
           id="main-heading"
           className="text-[2rem] sm:text-[4rem] font-bold mb-4 max-w-[60rem]"
         >
-          Learn Essential Cybersecurity Skills—Easily
+          Cybersecurity Awareness Training.
         </h1>
 
         <p className="text-[1rem] mb-8 max-w-[35rem]">
@@ -42,15 +35,16 @@ export default function Hero() {
           </button>
         </Link>
 
-        <p className="mt-3 text-stone-700 text-sm">
+        <p className="mt-3 text-slate-400 text-sm">
           No login or credit card required.
         </p>
-        <p className="text-stone-700 text-sm">Full access - $19/mo.</p>
+        <p className="text-slate-400 text-sm">Full access - $15/mo.</p>
       </div>
 
       <ValueProposition />
       <PieCharts />
       <Subscriptions />
+      <div></div>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import HamburgerMenu from "./HamburgerMenu";
+import NavigationDrawer from "./NavigationDrawer";
 import { ThemeSwitcher } from "../theme-switcher";
 import { createClient } from "@/utils/supabase/server";
 
@@ -12,7 +12,7 @@ export default async function Header() {
 
   return (
     <>
-      <nav className="w-full flex justify-between border-b border-b-foreground/10 h-16 bg-blue-600">
+      <nav className="w-full flex justify-between shadow-md h-16 bg-exhaleguard-primary sticky top-0 z-50">
         <div className="w-full flex justify-between items-center text-sm">
           <Link href="/">
             <div className="flex items-center font-semibold">
@@ -27,8 +27,8 @@ export default async function Header() {
             <div className="hover:underline ml-2 text-slate-200">
               <Link href="/public-demo/courses">Courses</Link>
             </div>
-            {/* Pass user data to HamburgerMenu */}
-            <HamburgerMenu user={user} />
+            {/* Pass user data to NavigationDrawer */}
+            <NavigationDrawer user={user} />
           </div>
         </div>
       </nav>

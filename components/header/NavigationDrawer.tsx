@@ -4,7 +4,7 @@ import LogoutButton from "./auth/logout-button";
 import Link from "next/link";
 import type { User } from "@supabase/auth-js";
 
-export default function HamburgerMenu({ user }: { user: User | null }) {
+export default function NavigationDrawer({ user }: { user: User | null }) {
   const closeDrawer = () => {
     const drawerToggle = document.getElementById(
       "my-drawer"
@@ -68,6 +68,11 @@ export default function HamburgerMenu({ user }: { user: User | null }) {
                 </Link>
               </li>
             )}
+            <li>
+              <Link href="/faq" onClick={closeDrawer}>
+                Pricing
+              </Link>
+            </li>
             {user ? (
               <>
                 <div className="flex w-full flex-col">

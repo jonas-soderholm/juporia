@@ -12,7 +12,7 @@ export default function LessonBox({
   overlayImage,
 }: LessonBoxProps) {
   return (
-    <div className="relative flex justify-center md:min-w-[50rem]">
+    <div className="relative flex justify-center md:min-w-[50rem] bg-exhaleguard-primary">
       {/* Show overlay if user is not subscribed */}
       {!isSubscribed && (
         <>

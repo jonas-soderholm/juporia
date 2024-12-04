@@ -28,7 +28,7 @@ export default function RootLayout({
           name="description"
           content="XhaleGuard cybersecurity awareness training to enhance your security infrastructure."
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.svg" />
       </head>
       <body className="bg-background text-foreground">
         <ThemeProvider
@@ -41,7 +41,7 @@ export default function RootLayout({
             {/* Header/Nav Section */}
             <Header />
             {/* Main Content Area */}
-            <div className="flex-1 p-5">{children}</div>
+            <div className="flex-1">{children}</div>
 
             {/* Footer Section */}
             <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-8 mt-28">
