@@ -25,7 +25,7 @@ export default function CourseCard({
         alt="Course image"
         className="w-full h-48 object-cover"
       />
-      <div className="absolute inset-0 bg-[#232424] bg-opacity-65"></div>
+      <div className="absolute inset-0 bg-[#000000] bg-opacity-75"></div>
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-between p-3">
@@ -38,7 +38,7 @@ export default function CourseCard({
 
         <div className="mt-4">
           <Link href={linkUrl}>
-            <button className="btn btn-accent btn-sm md:btn-md  text-xs sm:text-sm px-3 py-1">
+            <button className="btn-custom-primary-reverse mt-6 hover:bg-blue-500 text-xs sm:text-sm px-3 py-1">
               {buttonText}
             </button>
           </Link>

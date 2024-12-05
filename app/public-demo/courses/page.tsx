@@ -3,9 +3,9 @@ import CourseCard from "@/components/courses/CourseCard";
 export default async function Courses() {
   return (
     <>
-      <div className="text-3xl font-bold text-center mb-8">
+      <h1 className="text-3xl font-bold text-center my-8">
         Cybersecurity Courses
-      </div>
+      </h1>
 
       {/* Wrapper for consistent spacing */}
       <div className="space-y-4 flex flex-col items-center px-4">

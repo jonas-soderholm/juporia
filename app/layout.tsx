@@ -28,7 +28,7 @@ export default function RootLayout({
           name="description"
           content="XhaleGuard cybersecurity awareness training to enhance your security infrastructure."
         />
-        <link rel="icon" href="/logo.svg" />
+        <link rel="icon" href="/tower.png" />
       </head>
       <body className="bg-background text-foreground">
         <ThemeProvider
