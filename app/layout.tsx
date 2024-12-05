@@ -17,7 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${GeistSans.className} overflow-y-scroll`}
+      suppressHydrationWarning
+    >
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"

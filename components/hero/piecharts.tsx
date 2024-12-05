@@ -29,17 +29,17 @@ export default function PieCharts() {
 
   return (
     <>
-      <div className="flex justify-center mx-auto font-bold text-3xl mb-14 mt-[10rem] ">
+      <h1 className="flex justify-center mx-auto font-bold text-3xl mb-14 mt-[10rem]">
         Attack Consequences On Businesses
-      </div>
+      </h1>
 
-      <div className="flex flex-wrap justify-center max-w-[70rem] mx-auto gap-8 px-4 text-slate-200">
+      <div className="flex flex-wrap justify-center max-w-[70rem] mx-auto bg-blue-600 rounded-lg text-slate-200 p-6">
         {pieData.map((data, index) => (
           <div
             key={index}
-            className="card  bg-base-100 px-12 md:w-72 w-full max-w-lg mx-auto rounded-lg flex flex-col justify-between py-6" // Added dark mode class
+            className="card px-2 md:w-72 mx-auto rounded-lg flex flex-col justify-between py-6" // Added dark mode class
           >
-            <div className="card-body items-center text-center flex-grow">
+            <div className="card-body items-center text-center flex-grow w-72">
               <Pie
                 data={{
                   labels: [`${data.percentage}%`],
@@ -68,7 +68,7 @@ export default function PieCharts() {
             <header className="card-title mb-3 text-4xl mx-auto flex items-center justify-center">
               {data.title}
             </header>
-            <p className="text-sm mx-auto text-center p-4 h-[5rem]">
+            <p className="mx-auto text-center p-4 h-[5rem] text-xl">
               {data.content}
             </p>
           </div>
