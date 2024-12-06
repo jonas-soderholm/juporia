@@ -78,9 +78,18 @@ body {
   background-attachment: fixed;  */
 }
 
+.bg-darkmode {
+  background-color: #0a0a0a;
+}
+
 .btn-custom-primary {
   @apply btn text-slate-200 dark:text-slate-200 bg-transparent px-4 py-2 hover:bg-blue-900
  hover:text-slate-200 rounded-full border-slate-200 border-2 hover:border-transparent;
+}
+
+.btn-custom-primary-border {
+  @apply btn text-slate-200 dark:text-slate-200 bg-transparent px-4 py-2 hover:bg-blue-600
+  hover:text-slate-200 rounded-full border-slate-200 border-2 hover:border-transparent;
 }
 
 .btn-custom-primary-reverse {
@@ -93,7 +102,8 @@ body {
 }
 
 .btn-custom-primary-lesson {
-  @apply btn bg-transparent text-slate-200 px-4 py-2 hover:bg-gray-500 hover:text-slate-200 rounded-full border-slate-200 border-2;
+  @apply btn text-slate-200 dark:text-slate-200 bg-transparent px-4 py-2 hover:bg-blue-600
+  hover:text-slate-200 rounded-full border-slate-200 border-2 hover:border-transparent;
 }
 
 .bg-exhaleguard-primary {

@@ -8,11 +8,11 @@ const BASE_URL = "/public-demo/courses/cybersecurity-basics-1";
 export default function Basics1() {
   return (
     <>
-      <ProgressBar amountOfLessons={15} />
-
-      <div className="flex justify-center text-3xl my-10 font-bold">
+      <div className="flex justify-center text-3xl font-bold mt-5">
         Cybersecurity Basics 1
       </div>
+
+      <ProgressBar amountOfLessons={15} />
 
       {/* First Box */}
       <div className="flex justify-center mb-12">

@@ -50,7 +50,7 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
 
             {/* Footer Section */}
-            <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-8 mt-28">
+            <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-8">
               <p>ExhaleGuard</p>
             </footer>
           </main>
