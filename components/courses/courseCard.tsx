@@ -18,41 +18,39 @@ export default function CourseCard({
   linkUrl,
 }: CourseCardProps) {
   return (
-    <div className="relative w-full sm:w-[16rem] md:w-[24rem] lg:w-[32rem] overflow-hidden rounded-lg">
+    <div className="relative w-full sm:w-[45rem] md:w-[45rem] lg:w-[45rem] overflow-hidden rounded-lg">
       {/* Image */}
       <img
         src={image}
         alt="Course image"
-        className="w-full h-48 object-cover"
+        className="w-full h-[12rem] object-cover"
       />
-      <div className="absolute inset-0 bg-[#000000] bg-opacity-75"></div>
+      <div className="absolute inset-0 bg-[#000000] bg-opacity-85"></div>
 
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-between p-3">
         <div>
-          <h1 className="text-base sm:text-lg md:text-xl text-white">
+          <h1 className="text-xl md:text-[1.5rem] text-white font-bold max-w-[20rem] md:max-w-[25rem] ">
             {title}
           </h1>
-          <p className="text-white text-xs sm:text-sm mt-2">{description}</p>
+          <p className="text-white text-xs sm:text-sm mt-2 max-w-[27rem]">
+            {description}
+          </p>
         </div>
 
-        <div className="mt-4">
-          <Link href={linkUrl}>
-            <button className="btn-custom-primary-reverse mt-6 hover:bg-blue-500 text-xs sm:text-sm px-3 py-1">
-              {buttonText}
-            </button>
-          </Link>
-        </div>
+        <Link href={linkUrl}>
+          <button className="btn-custom-primary-course">{buttonText}</button>
+        </Link>
       </div>
 
       {/* Progress Indicator */}
       <div
-        className="radial-progress absolute text-[8px] sm:text-[10px] bg-secondary top-2 right-2"
+        className="radial-progress absolute text-[12px] sm:text-[12px] bg-secondary top-2 right-2"
         style={
           {
             "--value": value,
             "--size": "2rem",
-            "--thickness": "3px",
+            "--thickness": "4px",
           } as React.CSSProperties
         }
         role="progressbar"

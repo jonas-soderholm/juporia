@@ -15,7 +15,7 @@ export default function Hero() {
             id="main-heading"
             className="text-[2rem] sm:text-[3rem] font-bold mb-4 max-w-[50rem]"
           >
-            Cybersecurity Awareness Training.
+            Cybersecurity And Privicy Awareness Training.
           </h1>
 
           <p className="text-[1rem] mb-8 max-w-[35rem]">
@@ -24,7 +24,10 @@ export default function Hero() {
             cybersecurity and privacy.
           </p>
 
-          <Link href="/public-demo/courses">
+          <Link
+            href="/public-demo/courses"
+            aria-label="View free cybersecurity lessons"
+          >
             <button
               className="btn-custom-primary"
               aria-label="Try 5 free cybersecurity lessons"
@@ -42,7 +45,8 @@ export default function Hero() {
         <div className="justify-center items-center h-[500px] hidden xl:flex">
           <img
             src="./courses-backgrounds/basic1.jpg"
-            alt="Background showing basic courses"
+            alt="Cybersecurity course background promoting basic cybersecurity training"
+            loading="lazy"
             className="w-auto h-auto max-w-full max-h-full object-contain"
           />
         </div>

@@ -13,27 +13,46 @@ export default async function Header() {
   return (
     <>
       <nav className="w-full flex justify-between shadow-md h-[4rem] bg-exhaleguard-primary sticky top-0 z-50 overflow-hidden">
-        <div className="w-full flex justify-between items-center text-sm ">
+        <div className="w-full flex justify-between items-center text-sm">
+          {/* Logo */}
           <Link href="/">
             <div className="flex items-center font-semibold">
-              <img src="/tower.png" alt="" className="w-6 md:w-8 mx-4" />
+              <img
+                src="/tower.png"
+                alt="Xhale Logo"
+                className="w-6 md:w-8 mx-4"
+              />
               <span className="text-[20px] md:text-2xl font-bold text-slate-200 ml-[-18px]">
                 Xhale
               </span>
             </div>
           </Link>
+
+          {/* Right-side links */}
           <div className="flex items-center justify-center">
+            {/* Theme Switcher */}
             <ThemeSwitcher />
+
+            {/* Courses Link */}
             <div className="hover:underline ml-2 text-slate-200">
               <Link href="/public-demo/courses">Courses</Link>
             </div>
-            <div className="hidden md:flex">
-              <div className="ml-2 text-slate-200 pointer-events-none">|</div>
-              <div className="hover:underline ml-2 text-slate-200">
-                <Link href="/sign-in">Login</Link>
-              </div>
+
+            {/* Auth Links */}
+            <div
+              className={`hidden md:flex items-center ${!user ? "ml-2" : ""}`}
+            >
+              {user ? null : (
+                <>
+                  <div className="text-slate-200 pointer-events-none">|</div>
+                  <div className="hover:underline text-slate-200 ml-2">
+                    <Link href="/sign-in">Login</Link>
+                  </div>
+                </>
+              )}
             </div>
-            {/* Pass user data to NavigationDrawer */}
+
+            {/* Navigation Drawer */}
             <NavigationDrawer user={user} />
           </div>
         </div>

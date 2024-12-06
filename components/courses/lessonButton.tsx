@@ -8,10 +8,7 @@ type Lesson = {
 export function LessonButton({ lessonName, link }: Lesson) {
   return (
     <Link href={link}>
-      <button
-        className="btn-custom-primary-reverse mt-6 hover:bg-blue-500"
-        aria-label=""
-      >
+      <button className="btn-custom-primary-lesson mt-6 hover:border-transparent">
         {lessonName}
       </button>
     </Link>
