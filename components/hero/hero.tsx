@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Subscriptions from "./Subscriptions";
-import { ValueProposition } from "./ValueProposition";
 
 export default function Hero() {
   return (
@@ -49,10 +47,6 @@ export default function Hero() {
           />
         </div>
       </section>
-
-      <ValueProposition />
-      {/* <PieCharts /> */}
-      <Subscriptions />
     </>
   );
 }

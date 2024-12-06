@@ -11,7 +11,7 @@ export default function ProgressBar({ amountOfLessons }: ProgressBarProps) {
           min={0}
           max={100}
           value="25"
-          className="range range-xs h-2 cursor-default range-accent"
+          className="progress h-2 cursor-default range-accent"
           step={100 / amountOfLessons}
           style={{ height: "16px", WebkitAppearance: "none" }}
           disabled

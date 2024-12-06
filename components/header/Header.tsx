@@ -12,13 +12,13 @@ export default async function Header() {
 
   return (
     <>
-      <nav className="w-full flex justify-between shadow-md h-[4rem] bg-exhaleguard-primary sticky top-0 z-50">
+      <nav className="w-full flex justify-between shadow-md h-[4rem] bg-exhaleguard-primary sticky top-0 z-50 overflow-hidden">
         <div className="w-full flex justify-between items-center text-sm ">
           <Link href="/">
             <div className="flex items-center font-semibold">
               <img src="/tower.png" alt="" className="w-6 md:w-8 mx-4" />
               <span className="text-[20px] md:text-2xl font-bold text-slate-200 ml-[-18px]">
-                BlockTower
+                Xhale
               </span>
             </div>
           </Link>

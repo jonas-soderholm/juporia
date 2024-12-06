@@ -1,18 +1,27 @@
 "use client";
 
+import { useEffect } from "react";
+import { usePathname } from "next/navigation"; // For App Router
 import LogoutButton from "./auth/logout-button";
 import Link from "next/link";
 import type { User } from "@supabase/auth-js";
 
 export default function NavigationDrawer({ user }: { user: User | null }) {
+  const pathname = usePathname();
+
   const closeDrawer = () => {
     const drawerToggle = document.getElementById(
       "my-drawer"
     ) as HTMLInputElement;
     if (drawerToggle) {
-      drawerToggle.checked = false; // Close the drawer
+      drawerToggle.checked = false;
     }
   };
+
+  useEffect(() => {
+    // Close the drawer whenever the pathname changes
+    closeDrawer();
+  }, [pathname]);
 
   return (
     <div className="flex mx-2 text-slate-200">
