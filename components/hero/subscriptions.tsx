@@ -1,3 +1,5 @@
+import { Prices } from "./Prices";
+
 export default function Subscriptions() {
   const subscriptions = [
     {
@@ -7,7 +9,7 @@ export default function Subscriptions() {
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: true,
-      price: "0$",
+      price: `${Prices.Free}$`,
       buttontext: "Try 5 Free Lessons Now",
     },
     {
@@ -16,7 +18,7 @@ export default function Subscriptions() {
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: true,
-      price: "15$",
+      price: `${Prices.Individual}$`,
       buttontext: "Subscribe",
     },
     {
@@ -26,7 +28,7 @@ export default function Subscriptions() {
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: false,
-      price: "11$",
+      price: `${Prices.Team}$`,
       buttontext: "Coming Soon",
     },
   ];

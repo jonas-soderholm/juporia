@@ -1,4 +1,5 @@
 "use client";
+import { Prices } from "./Prices";
 
 import Link from "next/link";
 
@@ -39,12 +40,14 @@ export default function Hero() {
           <p className="mt-3 text-slate-400 text-sm">
             No login or credit card required.
           </p>
-          <p className="text-slate-400 text-sm">Full access - $15/mo.</p>
+          {/* <p className="text-slate-400 text-sm">
+            Full access - {Prices.Individual}/mo.
+          </p> */}
         </div>
 
         <div className="justify-center items-center h-[500px] hidden xl:flex">
           <img
-            src="./courses-backgrounds/basic1.jpg"
+            src="./device-mockup.png"
             alt="Cybersecurity course background promoting basic cybersecurity training"
             loading="lazy"
             className="w-auto h-auto max-w-full max-h-full object-contain"

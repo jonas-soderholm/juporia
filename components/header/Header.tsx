@@ -23,7 +23,7 @@ export default async function Header() {
                 className="w-6 md:w-8 mx-4"
               />
               <span className="text-[20px] md:text-2xl font-bold text-slate-200 ml-[-18px]">
-                Xhale
+                ExhaleGuard
               </span>
             </div>
           </Link>
