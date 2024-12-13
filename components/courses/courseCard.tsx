@@ -18,7 +18,7 @@ export default function CourseCard({
   linkUrl,
 }: CourseCardProps) {
   return (
-    <div className="relative w-full sm:w-[45rem] md:w-[45rem] lg:w-[45rem] overflow-hidden rounded-lg">
+    <div className="relative w-full sm:w-[30rem] md:w-[35rem] lg:w-[35rem] overflow-hidden rounded-lg">
       {/* Image */}
       <img
         src={image}
@@ -30,10 +30,10 @@ export default function CourseCard({
       {/* Content */}
       <div className="absolute inset-0 flex flex-col justify-between p-3">
         <div>
-          <h1 className="text-xl md:text-[1.5rem] text-white font-bold max-w-[20rem] md:max-w-[25rem] ">
+          <h1 className="text-lg md:text-[1.5rem] text-slate-200 font-bold max-w-[16rem] md:max-w-[30rem] ">
             {title}
           </h1>
-          <p className="text-white text-xs sm:text-sm mt-2 max-w-[27rem]">
+          <p className="text-slate-200 text-xs sm:text-sm mt-2 max-w-[27rem]">
             {description}
           </p>
         </div>

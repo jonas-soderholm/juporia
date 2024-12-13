@@ -102,8 +102,8 @@ body {
 }
 
 .btn-custom-primary-lesson {
-  @apply btn text-slate-200 dark:text-slate-200 bg-transparent px-4 py-2 hover:bg-blue-600
-  hover:text-slate-200 rounded-full border-slate-200 border-2 hover:border-transparent;
+  @apply btn bg-blue-600 text-slate-200 rounded-full border-none hover:bg-blue-900
+   hover:text-slate-200 px-3 py-1 text-[11px] md:px-4 md:text-sm;
 }
 
 .bg-exhaleguard-primary {

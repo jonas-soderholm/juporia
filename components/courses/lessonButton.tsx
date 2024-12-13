@@ -14,7 +14,7 @@ export function LessonButton({ lessonName, link, disabled, done }: Lesson) {
       {disabled ? (
         // Render a disabled button without a Link wrapper
         <button
-          className={`btn-custom-primary-reverse mt-[-1rem] !bg-gray-800 !text-gray-600 cursor-not-allowed`}
+          className={`btn-custom-primary-lesson !bg-gray-800 !text-gray-600 cursor-not-allowed`}
           style={{ pointerEvents: "none" }}
           disabled
         >
@@ -24,8 +24,8 @@ export function LessonButton({ lessonName, link, disabled, done }: Lesson) {
         // Render an enabled button with the Link wrapper
         <Link href={link}>
           <button
-            className={`btn-custom-primary-reverse hover:border-transparent mt-[-1rem] ${
-              done ? "!bg-gray-200 !text-gray-500" : ""
+            className={`btn-custom-primary-lesson hover:border-transparent ${
+              done ? "!bg-gray-300 !text-gray-500" : ""
             }`}
           >
             {lessonName}
