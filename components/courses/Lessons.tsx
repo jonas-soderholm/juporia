@@ -2,9 +2,11 @@
 import { useState } from "react";
 
 interface Section {
-  text: string; // Instructional text for the section
+  id: number; // Unique identifier for the section
+  content: string; // Instructional text for the section
   question: string; // Question for the user
   answer: string; // Correct answer
+  sectionTitle: string; // Title of the section
 }
 
 interface LessonProps {
@@ -36,6 +38,7 @@ export default function Lessons({ title, sections }: LessonProps) {
     }
   };
 
+  // Displaying completed lesson
   if (currentSection >= sections.length) {
     return (
       <div className="flex flex-col justify-center items-center">
@@ -62,6 +65,7 @@ export default function Lessons({ title, sections }: LessonProps) {
     );
   }
 
+  // Answering questions
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="my-5 text-2xl font-bold">{title}</h1>
@@ -72,14 +76,17 @@ export default function Lessons({ title, sections }: LessonProps) {
               <strong>Question:</strong> {section.question}
             </p>
             <p>
-              <strong>Your Answer:</strong> {section.answer}
+              <strong>Your Answer:</strong>
             </p>
             <hr />
           </div>
         ))}
       </div>
       <div className="bg-gray-700">
-        <p className="my-4">{sections[currentSection].text}</p>
+        <h1 className="my-5 text-2xl font-bold">
+          {sections[currentSection].sectionTitle}
+        </h1>
+        <p className="my-4">{sections[currentSection].content}</p>
         <p className="my-1">
           <strong>{sections[currentSection].question}</strong>
         </p>
