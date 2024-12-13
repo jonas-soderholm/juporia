@@ -3,7 +3,7 @@ export function ValueProposition() {
     {
       title: "Is Cybersecurity Important?",
       description:
-        "Cybersecurity is crucial today to protect data, maintain trust, and prevent costly breaches. With rising online threats, security safeguards everyone’s digital environment.",
+        "Especially in cybersecurity, a team is only as strong as its weakest link. An untrained employee can become an entry point for malicious data or miss key security protocols. ExhaleGuard helps companies educate all employees to strengthen security and prevent threats.",
       image: "/value-propositions-images/question-mark-shield.svg",
     },
     {

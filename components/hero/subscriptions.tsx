@@ -9,7 +9,7 @@ export default function Subscriptions() {
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: true,
-      price: `${Prices.Free}$`,
+      price: Prices.Free,
       buttontext: "Try 5 Free Lessons Now",
     },
     {
@@ -18,7 +18,7 @@ export default function Subscriptions() {
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: true,
-      price: `${Prices.Individual}$`,
+      price: Prices.Individual,
       buttontext: "Subscribe",
     },
     {
@@ -28,7 +28,7 @@ export default function Subscriptions() {
       image:
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: false,
-      price: `${Prices.Team}$`,
+      price: Prices.Team,
       buttontext: "Coming Soon",
     },
   ];
@@ -49,8 +49,7 @@ export default function Subscriptions() {
               <h2 className="card-title mb-5">{subscription.title}</h2>
               <div className="price">
                 <div className="my-5 text-[4rem] font-bold">
-                  {subscription.price}
-                  <span className="text-sm">/mo</span>
+                  {subscription.price}$<span className="text-sm">/mo</span>
                 </div>
               </div>
 
