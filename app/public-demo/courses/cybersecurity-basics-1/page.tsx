@@ -1,124 +1,101 @@
 import { LessonButton } from "@/components/courses/LessonButton";
-import LessonBox from "@/components/courses/LessonsBox";
-import ProgressBar from "@/components/courses/ProgressBar";
 
-// Base url
+// Base URL for lessons
 const BASE_URL = "/public-demo/courses/cybersecurity-basics-1";
+
+// Lessons with enabled status
+export const lessons = [
+  {
+    name: "Passwords: How Long Does It Take to Hack?",
+    link: "/password",
+    enabled: true, // Lesson is complete
+    done: true,
+  },
+  {
+    name: "Public Wi-Fi: A Target for Hackers",
+    link: "/password2",
+    enabled: true,
+    done: false,
+  },
+  {
+    name: "Social Engineering: Manipulating Trust",
+    link: "/password3",
+    enabled: false,
+    done: false,
+  },
+  {
+    name: "Phishing Scams: Recognizing the Threat",
+    link: "/password4",
+    enabled: false,
+    done: false,
+  },
+  {
+    name: "Malware: Understanding the Basics",
+    link: "/password5",
+    enabled: false,
+    done: false,
+  },
+];
+
+// Helper Functions
+const getCheckmarkColor = (done: boolean) =>
+  done ? "bg-green-400" : "text-slate-200";
+
+const isButtonDisabled = (index: number) =>
+  index > 0 && !lessons[index].enabled;
 
 export default function Basics1() {
   return (
     <>
-      <div className="flex justify-center text-3xl font-bold mt-5">
-        Cybersecurity Basics 1
-      </div>
+      <ul className="timeline timeline-vertical relative mt-[6rem] bg-gray-700 p-6 rounded-lg m-10 max-w-[40rem] mx-auto">
+        {/* Vertical Line */}
+        <div className="absolute left-1/2 top-0 h-full w-[2px] bg-slate-200 transform -translate-x-1/2"></div>
 
-      <ProgressBar amountOfLessons={15} />
+        {lessons.map((lesson, index) => (
+          <li key={index} className="relative">
+            {/* Lesson Content */}
+            <div
+              className={`timeline-${
+                index % 2 === 0 ? "start" : "end"
+              } timeline-box bg-transparent border-transparent shadow-none`}
+            >
+              <LessonButton
+                lessonName={lesson.name}
+                link={`${BASE_URL}${lesson.link}`}
+                disabled={isButtonDisabled(index)} // Disable button if needed
+                done={lesson.done} // Add done status
+              />
+            </div>
 
-      {/* First Box */}
-      <div className="flex justify-center mb-12">
-        <LessonBox isSubscribed={true} overlayImage="/logo.svg">
-          <div className="flex justify-center mb-4">
-            <LessonButton
-              lessonName="Passwords: How Long Does It Take to Hack?"
-              link={`${BASE_URL}/password`}
-            />
-          </div>
-
-          {/* Second level (two buttons side by side) */}
-          <div className="flex justify-center gap-8 mb-4">
-            <LessonButton
-              lessonName="Public Wi-Fi: A Target for Hackers"
-              link={`${BASE_URL}/password2`}
-            />
-            <LessonButton
-              lessonName="Social Engineering: Manipulating Trust"
-              link={`${BASE_URL}/password3`}
-            />
-          </div>
-
-          {/* Third level (two buttons side by side) */}
-          <div className="flex justify-center gap-4 mb-4">
-            <LessonButton
-              lessonName="Phishing Scams: Recognizing the Threat"
-              link={`${BASE_URL}/password4`}
-            />
-          </div>
-
-          {/* Fourth level (one button)  */}
-          <div className="flex justify-center mb-4">
-            <LessonButton
-              lessonName="Malware: Understanding the Basics"
-              link={`${BASE_URL}/password5`}
-            />
-          </div>
-        </LessonBox>
-      </div>
-
-      {/* Second Box */}
-      <div className="flex justify-center mb-12">
-        <LessonBox isSubscribed={false} overlayImage="/logo.svg">
-          {/* Top level (single button) */}
-          <div className="flex justify-center mb-4">
-            <LessonButton
-              lessonName="Ransomware: How to Protect Yourself"
-              link={`${BASE_URL}/ransomware`}
-            />
-          </div>
-
-          {/* Second level (two buttons side by side) */}
-          <div className="flex justify-center gap-8 mb-4">
-            <LessonButton
-              lessonName="VPNs: Secure Your Internet Connection"
-              link={`${BASE_URL}/vpn`}
-            />
-            <LessonButton
-              lessonName="Data Breaches: What You Need to Know"
-              link={`${BASE_URL}/data-breach`}
-            />
-          </div>
-
-          {/* Third level (one button) */}
-          <div className="flex justify-center mb-4">
-            <LessonButton
-              lessonName="Secure Password Management"
-              link={`${BASE_URL}/password-management`}
-            />
-          </div>
-        </LessonBox>
-      </div>
-
-      {/* Third Box */}
-      <div className="flex justify-center">
-        <LessonBox isSubscribed={false} overlayImage="/logo.svg">
-          {/* Top level (single button) */}
-          <div className="flex justify-center mb-4">
-            <LessonButton
-              lessonName="Two-Factor Authentication: Why It Matters"
-              link={`${BASE_URL}/two-factor-auth`}
-            />
-          </div>
-
-          {/* Second level (two buttons side by side) */}
-          <div className="flex justify-center gap-8 mb-4">
-            <LessonButton
-              lessonName="Cybersecurity Best Practices"
-              link={`${BASE_URL}/best-practices`}
-            />
-            <LessonButton
-              lessonName="Identifying Phishing Attempts"
-              link={`${BASE_URL}/phishing-identification`}
-            />
-          </div>
-
-          {/* Third level (one button) */}
-          <div className="flex justify-center mb-4">
-            <LessonButton
-              lessonName="Understanding Firewalls"
-              link={`${BASE_URL}/firewalls`}
-            />
-          </div>
-        </LessonBox>
-      </div>
+            {/* Checkmark */}
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              {lesson.done ? (
+                // Checkmark for completed lessons
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="h-4 w-4 text-white bg-green-500 rounded-full p-1"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M16.704 5.292a1 1 0 00-1.408 0L8 12.586l-2.296-2.296a1 1 0 10-1.408 1.416l3 3a1 1 0 001.408 0l8-8a1 1 0 000-1.416z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : lesson.enabled ? (
+                // Enabled state: White circle with a blue dot
+                <div className="h-4 w-4 bg-white rounded-full flex items-center justify-center border border-gray-300">
+                  <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
+                </div>
+              ) : (
+                // Disabled state: Plain white circle
+                <div className="h-4 w-4 bg-white rounded-full border border-gray-300"></div>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
