@@ -1,5 +1,4 @@
-// components/Lesson.tsx
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 interface Section {
   id: number; // Unique identifier for the section
@@ -20,6 +19,8 @@ export default function Lessons({ title, sections }: LessonProps) {
   const [feedback, setFeedback] = useState("");
   const [completedSections, setCompletedSections] = useState<Section[]>([]);
 
+  const currentSectionRef = useRef<HTMLDivElement | null>(null);
+
   const handleSubmit = () => {
     if (
       userInput.trim().toLowerCase() ===
@@ -27,80 +28,97 @@ export default function Lessons({ title, sections }: LessonProps) {
     ) {
       const completed = sections[currentSection];
       setCompletedSections((prev) => [...prev, completed]);
-      setFeedback("Correct!");
+      setFeedback("");
       setUserInput("");
-      setTimeout(() => {
-        setFeedback("");
-        setCurrentSection((prev) => prev + 1);
-      }, 1000);
+
+      // Move to the next section immediately
+      setCurrentSection((prev) => prev + 1);
+
+      // Scroll to the next section
+      if (currentSectionRef.current) {
+        currentSectionRef.current.scrollIntoView({ behavior: "smooth" });
+      }
     } else {
       setFeedback("Wrong. Try again.");
     }
   };
 
-  // Displaying completed lesson
-  if (currentSection >= sections.length) {
-    return (
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="my-5 text-2xl font-bold">{title}</h1>
+  // Check if the lesson is completed
+  const isLessonCompleted = currentSection >= sections.length;
 
-        <div>
-          <h2 className=" font-bold underline text-gray-600">
-            Completed Questions:
-          </h2>
-          {completedSections.map((section, index) => (
-            <div className="my-3" key={index}>
-              <p>
-                <strong>Question:</strong> {section.question}
+  return (
+    <div className="flex flex-col justify-center items-center p-4">
+      {/* Lesson Title */}
+      <h1 className="text-3xl font-bold mb-6 mt-4">{title}</h1>
+
+      {/* Completed Sections */}
+      <div className="w-full max-w-2xl p-4 rounded-lg mb-6 ">
+        <div className="flex flex-col gap-4">
+          {completedSections.map((section) => (
+            <div
+              key={section.id}
+              className="p-3 rounded-lg border-2 border-gray-500 dark:text-gray-500 text-gray-500"
+            >
+              <h3 className="font-bold text-lg">{section.sectionTitle}</h3>
+              <p className="text-sm mt-1">{section.content}</p>
+              <p className="font-semibold mt-2">{section.question}</p>
+              <p className="text-green-600 font-bold mt-1">
+                Your Answer: {section.answer}
               </p>
-              <p>
-                <strong>Answer:</strong> {section.answer}
-              </p>
-              <hr className="mt-3" />
             </div>
           ))}
-          <p className="my-4 text-green-600">🎉 Lesson Complete! 🎉</p>
         </div>
       </div>
-    );
-  }
 
-  // Answering questions
-  return (
-    <div className="flex flex-col justify-center items-center">
-      <h1 className="my-5 text-2xl font-bold">{title}</h1>
-      <div className="bg-red-700">
-        {completedSections.map((section, index) => (
-          <div className="text-gray-800" key={index}>
-            <p>
-              <strong>Question:</strong> {section.question}
-            </p>
-            <p>
-              <strong>Your Answer:</strong>
-            </p>
-            <hr />
+      {/* Current Section */}
+      {!isLessonCompleted && (
+        <div
+          ref={currentSectionRef}
+          className="w-full max-w-2xl p-2 rounded-lg mb-[17.5rem]"
+        >
+          <h2 className="text-xl font-semibold mb-4">
+            {sections[currentSection].sectionTitle}
+          </h2>
+          <p className="mb-4 text-sm">{sections[currentSection].content}</p>
+          <p className="font-semibold mb-2">
+            {sections[currentSection].question}
+          </p>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              placeholder="Your answer"
+              className="border border-gray-300 rounded-lg p-2 w-full"
+            />
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-500 text-white p-2 rounded-lg"
+            >
+              Submit
+            </button>
           </div>
-        ))}
-      </div>
-      <div className="bg-gray-700">
-        <h1 className="my-5 text-2xl font-bold">
-          {sections[currentSection].sectionTitle}
-        </h1>
-        <p className="my-4">{sections[currentSection].content}</p>
-        <p className="my-1">
-          <strong>{sections[currentSection].question}</strong>
-        </p>
-      </div>
-      <div className="bg-blue-700 m-4">
-        <input
-          type="text"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Your answer"
-        />
-        <button onClick={handleSubmit}>Submit</button>
-        <p>{feedback}</p>
-      </div>
+          {feedback && (
+            <p
+              className={`mt-2 font-bold ${
+                feedback === "Correct!" ? "text-green-600" : "text-red-600"
+              }`}
+            >
+              {feedback}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Lesson Completed */}
+      {isLessonCompleted && (
+        <div className="w-full max-w-2xl bg-green-100 p-4 rounded-lg shadow-md text-center mb-[17.5rem]">
+          <h2 className="text-2xl font-bold text-green-700 mb-4">
+            Congratulations!
+          </h2>
+          <p className="text-lg">You’ve completed the lesson.</p>
+        </div>
+      )}
     </div>
   );
 }
