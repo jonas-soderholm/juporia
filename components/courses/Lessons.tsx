@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface Section {
   id: number; // Unique identifier for the section
-  content: string; // Instructional text for the section
+  content: string[]; // Array of instructional text pieces
   question: string; // Question for the user
   answer: string; // Correct answer
   sectionTitle: string; // Title of the section
@@ -14,37 +14,58 @@ interface LessonProps {
 }
 
 export default function Lessons({ title, sections }: LessonProps) {
-  const [currentSection, setCurrentSection] = useState(0);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [currentContentIndex, setCurrentContentIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState("");
   const [completedSections, setCompletedSections] = useState<Section[]>([]);
-
   const currentSectionRef = useRef<HTMLDivElement | null>(null);
 
+  // Automatically scroll to the latest content or question
+  useEffect(() => {
+    if (currentSectionRef.current) {
+      currentSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [currentContentIndex, currentSectionIndex]);
+
+  const handleNext = () => {
+    const section = sections[currentSectionIndex];
+
+    // If there is more content in the current section, show it
+    if (currentContentIndex < section.content.length - 1) {
+      setCurrentContentIndex((prev) => prev + 1);
+    }
+  };
+
   const handleSubmit = () => {
+    const section = sections[currentSectionIndex];
+
     if (
-      userInput.trim().toLowerCase() ===
-      sections[currentSection].answer.toLowerCase()
+      userInput.trim().toLowerCase() === section.answer.trim().toLowerCase()
     ) {
-      const completed = sections[currentSection];
-      setCompletedSections((prev) => [...prev, completed]);
-      setFeedback("");
+      setFeedback("Correct!");
+
+      // Mark the section as completed with its content up to the current point
+      setCompletedSections((prev) => [
+        ...prev,
+        {
+          ...section,
+          content: section.content.slice(0, currentContentIndex + 1),
+        },
+      ]);
+
       setUserInput("");
+      setFeedback("");
 
       // Move to the next section immediately
-      setCurrentSection((prev) => prev + 1);
-
-      // Scroll to the next section
-      if (currentSectionRef.current) {
-        currentSectionRef.current.scrollIntoView({ behavior: "smooth" });
-      }
+      setCurrentSectionIndex((prev) => prev + 1);
+      setCurrentContentIndex(0); // Reset content index for the new section
     } else {
       setFeedback("Wrong. Try again.");
     }
   };
 
-  // Check if the lesson is completed
-  const isLessonCompleted = currentSection >= sections.length;
+  const isLessonCompleted = currentSectionIndex >= sections.length;
 
   return (
     <div className="flex flex-col justify-center items-center p-4">
@@ -52,7 +73,7 @@ export default function Lessons({ title, sections }: LessonProps) {
       <h1 className="text-3xl font-bold mb-6 mt-4">{title}</h1>
 
       {/* Completed Sections */}
-      <div className="w-full max-w-2xl p-4 rounded-lg mb-6 ">
+      <div className="w-full max-w-2xl p-4 rounded-lg mb-6">
         <div className="flex flex-col gap-4">
           {completedSections.map((section) => (
             <div
@@ -60,7 +81,11 @@ export default function Lessons({ title, sections }: LessonProps) {
               className="p-3 rounded-lg border-2 border-gray-500 dark:text-gray-500 text-gray-500"
             >
               <h3 className="font-bold text-lg">{section.sectionTitle}</h3>
-              <p className="text-sm mt-1">{section.content}</p>
+              {section.content.map((text, idx) => (
+                <p key={idx} className="text-sm mt-1">
+                  {text}
+                </p>
+              ))}
               <p className="font-semibold mt-2">{section.question}</p>
               <p className="text-green-600 font-bold mt-1">
                 Your Answer: {section.answer}
@@ -74,46 +99,67 @@ export default function Lessons({ title, sections }: LessonProps) {
       {!isLessonCompleted && (
         <div
           ref={currentSectionRef}
-          className="w-full max-w-2xl p-2 rounded-lg mb-[17.5rem]"
+          className="w-full max-w-2xl p-2 rounded-lg mb-[10rem]"
         >
           <h2 className="text-xl font-semibold mb-4">
-            {sections[currentSection].sectionTitle}
+            {sections[currentSectionIndex].sectionTitle}
           </h2>
-          <p className="mb-4 text-sm">{sections[currentSection].content}</p>
-          <p className="font-semibold mb-2">
-            {sections[currentSection].question}
-          </p>
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              placeholder="Your answer"
-              className="border border-gray-300 rounded-lg p-2 w-full"
-            />
+          {/* Show content up to the current index */}
+          {sections[currentSectionIndex].content
+            .slice(0, currentContentIndex + 1)
+            .map((text, idx) => (
+              <p key={idx} className="mb-4 text-sm">
+                {text}
+              </p>
+            ))}
+          {currentContentIndex ===
+            sections[currentSectionIndex].content.length - 1 && (
+            <>
+              <p className="font-semibold mb-2">
+                {sections[currentSectionIndex].question}
+              </p>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  value={userInput}
+                  onChange={(e) => setUserInput(e.target.value)}
+                  placeholder="Your answer"
+                  className="border border-gray-300 rounded-lg p-2 w-full"
+                />
+                <button
+                  onClick={handleSubmit}
+                  className="bg-blue-500 text-white p-2 rounded-lg"
+                >
+                  Submit
+                </button>
+              </div>
+              {feedback && (
+                <p
+                  className={`mt-2 font-bold ${
+                    feedback === "Correct!" ? "text-green-600" : "text-red-600"
+                  }`}
+                >
+                  {feedback}
+                </p>
+              )}
+            </>
+          )}
+          {currentContentIndex <
+            sections[currentSectionIndex].content.length - 1 && (
             <button
-              onClick={handleSubmit}
-              className="bg-blue-500 text-white p-2 rounded-lg"
+              onClick={handleNext}
+              className="mt-4 bg-gray-500 text-white p-2 rounded-lg"
             >
-              Submit
+              Next
             </button>
-          </div>
-          {feedback && (
-            <p
-              className={`mt-2 font-bold ${
-                feedback === "Correct!" ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {feedback}
-            </p>
           )}
         </div>
       )}
 
       {/* Lesson Completed */}
       {isLessonCompleted && (
-        <div className="w-full max-w-2xl bg-green-100 p-4 rounded-lg shadow-md text-center mb-[17.5rem]">
-          <h2 className="text-2xl font-bold text-green-700 mb-4">
+        <div className="w-full max-w-2xl dark:bg-base-100 bg-green-100 p-4 rounded-lg shadow-md text-center mb-[10rem]">
+          <h2 className="text-2xl font-bold text-green-600 mb-4">
             Congratulations!
           </h2>
           <p className="text-lg">You’ve completed the lesson.</p>

@@ -9,35 +9,33 @@ const lessonData = {
   sections: [
     {
       id: 1,
-      sectionTitle: "How Long?",
-      content:
-        "password manager should be asswords should be long and uasswords should be long and uasswords should be long and ulong and unique for each account!!!.",
+      sectionTitle: "How to Create Secure Passwords",
+      content: [
+        "Passwords should be long and unique for each account.",
+        "This helps protect your accounts from hackers.",
+      ],
       question: "What should passwords be?",
-      answer: "password manager",
+      answer: "asd",
     },
     {
       id: 2,
       sectionTitle: "Using Password Managers",
-      content:
-        "password manager a password manager helps you create and store secure passwords.",
+      content: [
+        "Using a password manager helps you create secure passwords.",
+        "It also stores your passwords safely.",
+      ],
       question: "What tool helps create and store passwords?",
-      answer: "password manager",
+      answer: "asd",
     },
     {
-      id: 1,
-      sectionTitle: "How Long?",
-      content:
-        "password manager should be long and unique for each account!!!.",
-      question: "What should passwords be?",
-      answer: "password manager",
-    },
-    {
-      id: 2,
+      id: 3,
       sectionTitle: "Using Password Managers",
-      content:
-        "password manager Using a password manager helps you create and store secure passwords.",
+      content: [
+        "Using a password manager helps yg a password manager helps yg a password manager helps you create secg a password manager helps yg a password manager helps yure passwords.",
+        "It also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps y passwords safely.",
+      ],
       question: "What tool helps create and store passwords?",
-      answer: "password manager",
+      answer: "asd",
     },
   ],
 };
