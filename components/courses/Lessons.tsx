@@ -20,6 +20,7 @@ export default function Lessons({ title, sections }: LessonProps) {
   const [feedback, setFeedback] = useState("");
   const [completedSections, setCompletedSections] = useState<Section[]>([]);
   const currentSectionRef = useRef<HTMLDivElement | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Automatically scroll to the latest content or question
   useEffect(() => {
@@ -61,6 +62,11 @@ export default function Lessons({ title, sections }: LessonProps) {
       setCurrentSectionIndex((prev) => prev + 1);
       setCurrentContentIndex(0); // Reset content index for the new section
     } else {
+      setIsAnimating(true);
+
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 1500);
       setFeedback("Wrong. Try again.");
     }
   };
@@ -136,7 +142,9 @@ export default function Lessons({ title, sections }: LessonProps) {
               {feedback && (
                 <p
                   className={`mt-2 font-bold ${
-                    feedback === "Correct!" ? "text-green-600" : "text-red-600"
+                    feedback === "Correct!"
+                      ? "text-green-600"
+                      : `text-red-600  ${isAnimating ? "animate-bounce" : ""}`
                   }`}
                 >
                   {feedback}
