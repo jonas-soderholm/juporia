@@ -46,7 +46,7 @@ export default async function Header() {
                 <>
                   <div className="text-slate-200 pointer-events-none">|</div>
                   <div className="hover:underline text-slate-200 ml-2">
-                    <Link href="/sign-in">Login</Link>
+                    <Link href="/sign-in">Sign in</Link>
                   </div>
                 </>
               )}
