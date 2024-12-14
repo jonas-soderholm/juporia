@@ -60,6 +60,15 @@
   }
 }
 
+input:-webkit-autofill {
+  background-color: rgb(11, 88, 197) important;
+  -webkit-box-shadow: 0 0 0px 1000px #191e24 inset !important; /* Tailwind's bg-base-200 */
+  -webkit-text-fill-color: rgb(
+    226 232 240
+  ) !important; /* Tailwind's text-gray-300 */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 @layer base {
   * {
     @apply border-border;

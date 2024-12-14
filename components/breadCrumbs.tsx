@@ -21,8 +21,8 @@ const BreadCrumbs = () => {
   });
 
   return (
-    <div className="breadcrumbs text-[9px] md:text-xs mx-2 flex items-center stop-0 z-10 bg-background">
-      <ul className="flex space-x-2">
+    <div className="breadcrumbs text-[9px] md:text-xs fixed top-0 left-0 w-full z-50 bg-transparent px-4 py-2 mt-[4rem]">
+      <ul className="flex flex-wrap space-x-2">
         <li>
           <Link href="/" className="dark:text-gray-300 hover:underline">
             Home
@@ -30,7 +30,7 @@ const BreadCrumbs = () => {
         </li>
         {breadcrumbArray.map((crumb, index) => (
           <li key={index} className="flex items-center space-x-2">
-            {index > 0 && <span className="text-gray-400"></span>}
+            {index > 0 && <span className="text-gray-400">/</span>}
             <Link
               href={crumb.href}
               className="dark:text-gray-300 hover:underline"

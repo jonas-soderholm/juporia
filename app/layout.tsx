@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Header from "@/components/header/Header";
 import BreadCrumbs from "@/components/breadCrumbs";
+import { Logo } from "@/components/Logo";
 
 const defaultUrl = "http://localhost:3000";
 
@@ -34,8 +35,7 @@ export default function RootLayout({
           name="description"
           content="Learn cybersecurity and privacy fundamentals with beginner-friendly, interactive courses. Try 5 free lessons today—no login required."
         />
-
-        <link rel="icon" href="/tower.png" />
+        <link rel="icon" href={Logo.Tower} />
       </head>
       <body className="bg-background text-foreground">
         <ThemeProvider
