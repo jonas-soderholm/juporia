@@ -25,7 +25,7 @@ export function LessonButton({ lessonName, link, disabled, done }: Lesson) {
         <Link href={link}>
           <button
             className={`btn-custom-primary-lesson hover:border-transparent ${
-              done ? "!bg-gray-300 !text-gray-500" : ""
+              done ? "!bg-gray-500  !text-gray-400" : ""
             }`}
           >
             {lessonName}
