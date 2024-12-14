@@ -2,6 +2,7 @@ import { ThemeProvider } from "next-themes";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Header from "@/components/header/Header";
+import BreadCrumbs from "@/components/breadCrumbs";
 
 const defaultUrl = "http://localhost:3000";
 
@@ -47,6 +48,8 @@ export default function RootLayout({
             {/* Header/Nav Section */}
             <Header />
             {/* Main Content Area */}
+
+            <BreadCrumbs />
             <div className="flex-1">{children}</div>
 
             {/* Footer Section */}

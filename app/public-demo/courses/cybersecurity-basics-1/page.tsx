@@ -72,7 +72,6 @@ export default function Basics1() {
       <h1 className="text-xl md:text-3xl font-bold text-center">
         {lessonName}
       </h1>
-
       {/* Flowchart for Courses */}
       {lessons.map((lesson, courseIndex) => (
         <>
