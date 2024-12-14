@@ -18,7 +18,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
       {/* Form */}
       <div className="flex justify-center items-center bg-base-300 px-6 py-6 rounded-lg border-slate-700 border-2 w-[350px] mx-auto">
         <form className="flex-1 flex flex-col">
-          <div className="flex flex-col gap-2 [&>input]:mb-3 my-2">
+          <div className="flex flex-col gap-2 [&>input]:mb-3 mb-2 mt-3">
             <Label className="text-slate-200" htmlFor="email">
               Email
             </Label>
@@ -33,7 +33,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
                 Password
               </Label>
               <Link
-                className="text-xs text-foreground underline text-blue-400"
+                className="text-xs text-foreground underline !text-blue-400"
                 href="/forgot-password"
               >
                 Forgot Password?
