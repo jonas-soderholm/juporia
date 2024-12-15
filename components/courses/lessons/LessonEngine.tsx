@@ -13,7 +13,7 @@ interface LessonProps {
   sections: Section[]; // Array of sections
 }
 
-export default function Lessons({ title, sections }: LessonProps) {
+export default function LessonEngine({ title, sections }: LessonProps) {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
