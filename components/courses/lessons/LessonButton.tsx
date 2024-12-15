@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { lessons } from "@/app/public-demo/courses/cybersecurity-basics-1/page";
 
 type Lesson = {
   lessonName: string;

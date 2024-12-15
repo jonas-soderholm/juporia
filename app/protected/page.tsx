@@ -1,8 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import Hero from "@/components/hero/Hero";
-import Subscriptions from "@/components/hero/Subscriptions";
-import { ValueProposition } from "@/components/hero/ValueProposition";
+import Hero from "@/components/landing-page/Hero";
+import Subscriptions from "@/components/landing-page/Subscriptions";
+import { ValueProposition } from "@/components/landing-page/ValueProposition";
 
 export default async function ProtectedPage() {
   const supabase = await createClient();

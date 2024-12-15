@@ -1,7 +1,7 @@
-import { LessonButton } from "@/components/courses/LessonButton";
+import { LessonButton } from "@/components/courses/lessons/LessonButton";
 
 // Base URL for lessons
-const BASE_URL = "/public-demo/courses/cybersecurity-basics-1";
+const BASE_URL = "/courses/cybersecurity-basics-1";
 
 // Page title
 const lessonName = "Cybersecurity Basics 1.0";

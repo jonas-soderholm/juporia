@@ -1,4 +1,5 @@
-import { Prices } from "./Prices";
+import { Prices } from "@/app/constants/prices";
+import Link from "next/link";
 
 export default function Subscriptions() {
   const subscriptions = [
@@ -11,6 +12,7 @@ export default function Subscriptions() {
       active: true,
       price: Prices.Free,
       buttontext: "Try 5 Free Lessons Now",
+      route: "/courses",
     },
     {
       title: "Personal",
@@ -20,6 +22,7 @@ export default function Subscriptions() {
       active: true,
       price: Prices.Individual,
       buttontext: "Subscribe",
+      route: "/subscribe",
     },
     {
       title: "Team (Coming Soon)",
@@ -30,6 +33,7 @@ export default function Subscriptions() {
       active: false,
       price: Prices.Team,
       buttontext: "Coming Soon",
+      route: "/subscribe",
     },
   ];
 
@@ -56,9 +60,14 @@ export default function Subscriptions() {
               <p>{subscription.description}</p>
               <div className="card-actions">
                 {subscription.active ? (
-                  <button className="btn-custom-primary-reverse mt-6 hover:bg-blue-500">
-                    {subscription.buttontext}
-                  </button>
+                  <Link
+                    href={subscription.route}
+                    aria-label="View free cybersecurity lessons"
+                  >
+                    <button className="btn-custom-primary-reverse mt-6 hover:bg-blue-500">
+                      {subscription.buttontext}
+                    </button>
+                  </Link>
                 ) : (
                   <button className="btn btn-disabled" disabled>
                     Coming Soon

@@ -2,8 +2,8 @@ import { ThemeProvider } from "next-themes";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Header from "@/components/header/Header";
-import BreadCrumbs from "@/components/breadCrumbs";
-import { Logo } from "@/components/Logo";
+import BreadCrumbs from "@/components/breadcrumbs/BreadCrumbs";
+import { Logo } from "./constants/logo";
 
 const defaultUrl = "http://localhost:3000";
 
