@@ -23,10 +23,7 @@ export default function Hero() {
             cybersecurity and privacy.
           </p>
 
-          <Link
-            href="/public-demo/courses"
-            aria-label="View free cybersecurity lessons"
-          >
+          <Link href="/courses" aria-label="View free cybersecurity lessons">
             <button
               className="btn-custom-primary"
               aria-label="Try 5 free cybersecurity lessons"
