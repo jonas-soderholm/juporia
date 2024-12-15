@@ -1,6 +1,6 @@
 "use client";
 
-import Lessons from "@/components/courses/Lessons";
+import Lessons from "@/components/courses/lessons/LessonEngine";
 
 const lessonData = {
   title: "Password Security",

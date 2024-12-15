@@ -1,6 +1,4 @@
 "use client";
-import { Prices } from "./Prices";
-
 import Link from "next/link";
 
 export default function Hero() {
@@ -47,7 +45,7 @@ export default function Hero() {
 
         <div className="justify-center items-center h-[500px] hidden xl:flex">
           <img
-            src="./device-mockup.png"
+            src="./images/hero/device-mockup.png"
             alt="Cybersecurity course background promoting basic cybersecurity training"
             loading="lazy"
             className="w-auto h-auto max-w-full max-h-full object-contain"

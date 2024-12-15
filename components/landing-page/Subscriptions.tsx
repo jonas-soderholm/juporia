@@ -1,4 +1,4 @@
-import { Prices } from "./Prices";
+import { Prices } from "../../app/constants/Prices";
 
 export default function Subscriptions() {
   const subscriptions = [

@@ -1,6 +1,6 @@
-import CourseCard from "@/components/courses/CourseCard";
+import CourseCard from "./CourseCard";
 
-export default async function Courses() {
+export default async function AllCourses() {
   // Array of course data
   const courses = [
     {
@@ -9,16 +9,16 @@ export default async function Courses() {
         "Learn the fundamentals of cybersecurity in this beginner-friendly course.",
       buttonText: "5 free lessons",
       active: true,
-      image: "/courses-backgrounds/basic1.jpg",
+      image: "/images/courses-backgrounds/basic1.jpg",
       value: 50,
-      linkUrl: "/public-demo/courses/cybersecurity-basics-1",
+      linkUrl: "/courses/cybersecurity-basics-1",
     },
     {
       title: "Cybersecurity Basics 2.0",
       description:
         "Expand on the basics with more advanced topics and interactive exercises.",
       buttonText: "Subscription needed",
-      image: "/courses-backgrounds/basic1.jpg",
+      image: "/images/courses-backgrounds/basic1.jpg",
       value: 50,
       linkUrl: "/sign-up",
     },
@@ -27,7 +27,7 @@ export default async function Courses() {
       description:
         "Understand privacy principles and how to protect your personal data.",
       buttonText: "Subscription needed",
-      image: "/courses-backgrounds/basic1.jpg",
+      image: "/images/courses-backgrounds/basic1.jpg",
       value: 50,
       linkUrl: "/sign-up",
     },
@@ -36,7 +36,7 @@ export default async function Courses() {
       description:
         "Explore frameworks and strategies for managing third-party cybersecurity risks.",
       buttonText: "Subscription needed",
-      image: "/courses-backgrounds/basic1.jpg",
+      image: "/images/courses-backgrounds/basic1.jpg",
       value: 50,
       linkUrl: "/sign-up",
     },

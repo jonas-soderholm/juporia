@@ -1,8 +1,8 @@
 import Link from "next/link";
 import NavigationDrawer from "./NavigationDrawer";
-import { ThemeSwitcher } from "../theme-switcher";
+import { ThemeSwitcher } from "../ui/theme-switcher";
 import { createClient } from "@/utils/supabase/server";
-import { Logo } from "../Logo";
+import { Logo } from "../../app/constants/logo";
 
 export default async function Header() {
   const supabase = await createClient();
@@ -36,7 +36,7 @@ export default async function Header() {
 
             {/* Courses Link */}
             <div className="hover:underline ml-2 text-slate-200">
-              <Link href="/public-demo/courses">Courses</Link>
+              <Link href="/courses">Courses</Link>
             </div>
 
             {/* Auth Links */}
