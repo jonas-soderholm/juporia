@@ -6,6 +6,7 @@ interface Section {
   question: string; // Question for the user
   answer: string; // Correct answer
   sectionTitle: string; // Title of the section
+  images?: string[];
 }
 
 interface LessonProps {
@@ -21,6 +22,7 @@ export default function LessonEngine({ title, sections }: LessonProps) {
   const [completedSections, setCompletedSections] = useState<Section[]>([]);
   const currentSectionRef = useRef<HTMLDivElement | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [submitButtonName, setSubmitButtonName] = useState("Submit");
 
   // Automatically scroll to the latest content or question
   useEffect(() => {
@@ -44,23 +46,28 @@ export default function LessonEngine({ title, sections }: LessonProps) {
     if (
       userInput.trim().toLowerCase() === section.answer.trim().toLowerCase()
     ) {
-      setFeedback("Correct!");
+      setSubmitButtonName("Correct!");
 
-      // Mark the section as completed with its content up to the current point
-      setCompletedSections((prev) => [
-        ...prev,
-        {
-          ...section,
-          content: section.content.slice(0, currentContentIndex + 1),
-        },
-      ]);
+      setTimeout(() => {
+        setSubmitButtonName("Submit");
+        setFeedback("Correct!");
 
-      setUserInput("");
-      setFeedback("");
+        // Mark the section as completed with its content up to the current point
+        setCompletedSections((prev) => [
+          ...prev,
+          {
+            ...section,
+            content: section.content.slice(0, currentContentIndex + 1),
+          },
+        ]);
 
-      // Move to the next section immediately
-      setCurrentSectionIndex((prev) => prev + 1);
-      setCurrentContentIndex(0); // Reset content index for the new section
+        setUserInput("");
+        setFeedback("");
+
+        // Move to the next section immediately
+        setCurrentSectionIndex((prev) => prev + 1);
+        setCurrentContentIndex(0); // Reset content index for the new section
+      }, 1000);
     } else {
       setIsAnimating(true);
 
@@ -80,22 +87,28 @@ export default function LessonEngine({ title, sections }: LessonProps) {
 
       {/* Completed Sections */}
       <div className="w-full max-w-2xl p-4 rounded-lg mb-6">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 ">
           {completedSections.map((section) => (
             <div
               key={section.id}
               className="p-3 rounded-lg border-2 border-gray-500 dark:text-gray-500 text-gray-500"
             >
               <h3 className="font-bold text-lg">{section.sectionTitle}</h3>
-              {section.content.map((text, idx) => (
-                <p key={idx} className="text-sm mt-1">
-                  {text}
-                </p>
+              {section.content.map((text, index) => (
+                <div key={index} className="mt-1">
+                  <p className="text-sm">{text}</p>
+                  {/* Check if images exist and render the corresponding image */}
+                  {section.images && section.images[index] && (
+                    <img
+                      src={section.images[index]}
+                      alt={`Image for ${text}`}
+                      className="mt-2 rounded-lg max-w-full mx-auto"
+                    />
+                  )}
+                </div>
               ))}
               <p className="font-semibold mt-2">{section.question}</p>
-              <p className="text-green-600 font-bold mt-1">
-                Your Answer: {section.answer}
-              </p>
+              <p className="text-green-600 font-bold mt-1">{section.answer}</p>
             </div>
           ))}
         </div>
@@ -113,10 +126,18 @@ export default function LessonEngine({ title, sections }: LessonProps) {
           {/* Show content up to the current index */}
           {sections[currentSectionIndex].content
             .slice(0, currentContentIndex + 1)
-            .map((text, idx) => (
-              <p key={idx} className="mb-4 text-sm">
-                {text}
-              </p>
+            .map((text, index) => (
+              <div key={index} className="mb-4">
+                {sections[currentSectionIndex].images &&
+                  sections[currentSectionIndex].images[index] && (
+                    <img
+                      src={sections[currentSectionIndex].images[index]}
+                      alt={`Image for ${text}`}
+                      className="mt-2 rounded-lg max-w-full mx-auto"
+                    />
+                  )}
+                <p>{text}</p>
+              </div>
             ))}
           {currentContentIndex ===
             sections[currentSectionIndex].content.length - 1 && (
@@ -136,7 +157,7 @@ export default function LessonEngine({ title, sections }: LessonProps) {
                   onClick={handleSubmit}
                   className="bg-blue-500 text-white p-2 rounded-lg"
                 >
-                  Submit
+                  {submitButtonName}
                 </button>
               </div>
               {feedback && (

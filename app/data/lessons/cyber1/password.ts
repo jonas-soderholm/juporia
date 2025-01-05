@@ -12,6 +12,11 @@ export const passwordData = {
       ],
       question: "What should passwords be?",
       answer: "asd",
+      images: [
+        "/images/hero/device-mockup.png",
+        "/images/hero/device-mockup.png",
+        "/images/hero/device-mockup.png",
+      ],
     },
     {
       id: 2,

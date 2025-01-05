@@ -1,4 +1,4 @@
-import CourseCard from "@/components/courses/courses/CourseCard";
+import CourseCard from "@/components/courses/CourseCard";
 import { allCourses } from "../data/courses/all-courses";
 
 export default async function AllCourses() {

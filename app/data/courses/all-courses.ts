@@ -1,10 +1,18 @@
 export const allCourses = [
   {
+    title: "Internet and Computer Basics",
+    description:
+      "Learn how computers and the internet work—no prior knowledge needed! Build a foundation for understanding cybersecurity better.",
+    buttonText: "Start Learning for Free",
+    image: "/images/courses-backgrounds/basic1.jpg",
+    value: 50,
+    linkUrl: "/courses/computer-internet-basics",
+  },
+  {
     title: "Cybersecurity Basics 1.0",
     description:
       "Learn the fundamentals of cybersecurity in this beginner-friendly course.",
     buttonText: "5 free lessons",
-    active: true,
     image: "/images/courses-backgrounds/basic1.jpg",
     value: 50,
     linkUrl: "/courses/cybersecurity-basics-1",

@@ -1,4 +1,4 @@
-import { LessonButton } from "@/components/courses/lessons/LessonButton";
+import { LessonButton } from "@/components/lessons/LessonButton";
 
 // Base URL for lessons
 const BASE_URL = "/courses/cybersecurity-basics-1";
@@ -19,7 +19,7 @@ export const lessons = [
         position: "start",
       },
       {
-        name: "Public Wi-Fi: A Target for Hackers",
+        name: "Who Can See Your Activity Online?",
         link: "/password2",
         enabled: false,
         done: false,
@@ -32,6 +32,20 @@ export const lessons = [
         done: false,
         position: "start",
       },
+      {
+        name: "Phishing: Recognizing Fake Emails",
+        link: "/phishing",
+        enabled: false,
+        done: false,
+        position: "start",
+      },
+      {
+        name: "Public Wi-Fi: A Target for Hackers",
+        link: "/mfa",
+        enabled: false,
+        done: false,
+        position: "end",
+      },
     ],
   },
   {
@@ -39,24 +53,38 @@ export const lessons = [
     lessons: [
       {
         name: "Phishing Scams: Recognizing the Threat",
-        link: "/password4",
-        enabled: false,
-        done: false,
-        position: "end",
-      },
-      {
-        name: "Malware: Understanding the Basics",
-        link: "/password5",
+        link: "/level2/phishing-scams",
         enabled: false,
         done: false,
         position: "start",
       },
       {
-        name: "Secure Software: Best Practices",
-        link: "/password6",
+        name: "Malware: Understanding the Basics",
+        link: "/level2/malware-basics",
         enabled: false,
         done: false,
         position: "end",
+      },
+      {
+        name: "Secure Software: Best Practices",
+        link: "/level2/secure-software",
+        enabled: false,
+        done: false,
+        position: "start",
+      },
+      {
+        name: "Data Encryption: Keeping Data Safe",
+        link: "/level2/data-encryption",
+        enabled: false,
+        done: false,
+        position: "end",
+      },
+      {
+        name: "Ransomware: Protecting Your Devices",
+        link: "/level2/ransomware-protection",
+        enabled: false,
+        done: false,
+        position: "start",
       },
     ],
   },
