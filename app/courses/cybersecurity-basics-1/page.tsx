@@ -1,4 +1,4 @@
-import { LessonButton } from "@/components/lessons/LessonButton";
+import { LessonButton } from "@/components/courses/LessonButton";
 
 // Base URL for lessons
 const BASE_URL = "/courses/cybersecurity-basics-1";

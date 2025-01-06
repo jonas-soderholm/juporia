@@ -6,17 +6,16 @@ export const passwordData = {
     {
       id: 1,
       sectionTitle: "How to Create Secure Passwords",
+      // Each section contains an array of content entries. Every entry in 'content'
+      // generates a new "Next" button and is displayed sequentially.
       content: [
-        "Passwords should be long and unique for each account.",
-        "This helps protect your accounts from hackers.",
+        "Passwords should be long and unique for each account. It also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a pIt also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a pIt also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a pIt also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a p",
+        "This helps protect your accounts from hackers. It also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a pIt also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a p",
       ],
       question: "What should passwords be?",
       answer: "asd",
-      images: [
-        "/images/hero/device-mockup.png",
-        "/images/hero/device-mockup.png",
-        "/images/hero/device-mockup.png",
-      ],
+      // Each image corresponds to the content entry at the same index
+      images: ["/images/hero/device-mockup.png"],
     },
     {
       id: 2,

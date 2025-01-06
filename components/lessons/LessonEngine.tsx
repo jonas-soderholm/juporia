@@ -1,18 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-
-interface Section {
-  id: number; // Unique identifier for the section
-  content: string[]; // Array of instructional text pieces
-  question: string; // Question for the user
-  answer: string; // Correct answer
-  sectionTitle: string; // Title of the section
-  images?: string[];
-}
-
-interface LessonProps {
-  title: string; // Title of the lesson
-  sections: Section[]; // Array of sections
-}
+import { useState, useEffect } from "react";
+import { LessonProps, Section } from "./LessonLayout";
+import LessonContent from "./LessonLayout";
 
 export default function LessonEngine({ title, sections }: LessonProps) {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
@@ -20,180 +8,85 @@ export default function LessonEngine({ title, sections }: LessonProps) {
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState("");
   const [completedSections, setCompletedSections] = useState<Section[]>([]);
-  const currentSectionRef = useRef<HTMLDivElement | null>(null);
+  const [scrollTrigger, setScrollTrigger] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [submitButtonName, setSubmitButtonName] = useState("Submit");
 
-  // Automatically scroll to the latest content or question
+  // Smoothly scroll to the bottom of the page
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
+  // Trigger scroll after layout updates
   useEffect(() => {
-    if (currentSectionRef.current) {
-      currentSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    if (scrollTrigger) {
+      scrollToBottom();
+      setScrollTrigger(false); // Reset flag to avoid repeated scrolling
     }
-  }, [currentContentIndex, currentSectionIndex]);
+  }, [completedSections, currentContentIndex]);
 
   const handleNext = () => {
     const section = sections[currentSectionIndex];
 
-    // If there is more content in the current section, show it
     if (currentContentIndex < section.content.length - 1) {
       setCurrentContentIndex((prev) => prev + 1);
+      setScrollTrigger(true); // Trigger scroll after updating content index
     }
   };
 
   const handleSubmit = () => {
-    const section = sections[currentSectionIndex];
+    const currentSection = sections[currentSectionIndex];
 
     if (
-      userInput.trim().toLowerCase() === section.answer.trim().toLowerCase()
+      userInput.trim().toLowerCase() ===
+      currentSection.answer.trim().toLowerCase()
     ) {
-      setSubmitButtonName("Correct!");
+      setFeedback("Correct!");
 
       setTimeout(() => {
-        setSubmitButtonName("Submit");
-        setFeedback("Correct!");
-
-        // Mark the section as completed with its content up to the current point
+        // Save the current section to completedSections
         setCompletedSections((prev) => [
           ...prev,
           {
-            ...section,
-            content: section.content.slice(0, currentContentIndex + 1),
+            ...currentSection,
+            content: currentSection.content.slice(0, currentContentIndex + 1),
           },
         ]);
 
+        // Update state for the next section
+        setCurrentSectionIndex((prev) => prev + 1);
+        setCurrentContentIndex(0);
         setUserInput("");
         setFeedback("");
-
-        // Move to the next section immediately
-        setCurrentSectionIndex((prev) => prev + 1);
-        setCurrentContentIndex(0); // Reset content index for the new section
-      }, 1000);
+        setScrollTrigger(true); // Trigger scroll after updating section
+      }, 700);
     } else {
+      setFeedback(" Try again.");
       setIsAnimating(true);
 
       setTimeout(() => {
-        setIsAnimating(false);
+        setIsAnimating(false); // End animation after 1.5 seconds
       }, 1500);
-      setFeedback("Wrong. Try again.");
     }
   };
 
-  const isLessonCompleted = currentSectionIndex >= sections.length;
-
   return (
     <div className="flex flex-col justify-center items-center p-4">
-      {/* Lesson Title */}
       <h1 className="text-3xl font-bold mb-6 mt-4">{title}</h1>
-
-      {/* Completed Sections */}
-      <div className="w-full max-w-2xl p-4 rounded-lg mb-6">
-        <div className="flex flex-col gap-4 ">
-          {completedSections.map((section) => (
-            <div
-              key={section.id}
-              className="p-3 rounded-lg border-2 border-gray-500 dark:text-gray-500 text-gray-500"
-            >
-              <h3 className="font-bold text-lg">{section.sectionTitle}</h3>
-              {section.content.map((text, index) => (
-                <div key={index} className="mt-1">
-                  <p className="text-sm">{text}</p>
-                  {/* Check if images exist and render the corresponding image */}
-                  {section.images && section.images[index] && (
-                    <img
-                      src={section.images[index]}
-                      alt={`Image for ${text}`}
-                      className="mt-2 rounded-lg max-w-full mx-auto"
-                    />
-                  )}
-                </div>
-              ))}
-              <p className="font-semibold mt-2">{section.question}</p>
-              <p className="text-green-600 font-bold mt-1">{section.answer}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Current Section */}
-      {!isLessonCompleted && (
-        <div
-          ref={currentSectionRef}
-          className="w-full max-w-2xl p-2 rounded-lg mb-[10rem]"
-        >
-          <h2 className="text-xl font-semibold mb-4">
-            {sections[currentSectionIndex].sectionTitle}
-          </h2>
-          {/* Show content up to the current index */}
-          {sections[currentSectionIndex].content
-            .slice(0, currentContentIndex + 1)
-            .map((text, index) => (
-              <div key={index} className="mb-4">
-                {sections[currentSectionIndex].images &&
-                  sections[currentSectionIndex].images[index] && (
-                    <img
-                      src={sections[currentSectionIndex].images[index]}
-                      alt={`Image for ${text}`}
-                      className="mt-2 rounded-lg max-w-full mx-auto"
-                    />
-                  )}
-                <p>{text}</p>
-              </div>
-            ))}
-          {currentContentIndex ===
-            sections[currentSectionIndex].content.length - 1 && (
-            <>
-              <p className="font-semibold mb-2">
-                {sections[currentSectionIndex].question}
-              </p>
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={userInput}
-                  onChange={(e) => setUserInput(e.target.value)}
-                  placeholder="Your answer"
-                  className="border border-gray-300 rounded-lg p-2 w-full"
-                />
-                <button
-                  onClick={handleSubmit}
-                  className="bg-blue-500 text-white p-2 rounded-lg"
-                >
-                  {submitButtonName}
-                </button>
-              </div>
-              {feedback && (
-                <p
-                  className={`mt-2 font-bold ${
-                    feedback === "Correct!"
-                      ? "text-green-600"
-                      : `text-red-600  ${isAnimating ? "animate-bounce" : ""}`
-                  }`}
-                >
-                  {feedback}
-                </p>
-              )}
-            </>
-          )}
-          {currentContentIndex <
-            sections[currentSectionIndex].content.length - 1 && (
-            <button
-              onClick={handleNext}
-              className="mt-4 bg-gray-500 text-white p-2 rounded-lg"
-            >
-              Next
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Lesson Completed */}
-      {isLessonCompleted && (
-        <div className="w-full max-w-2xl dark:bg-base-100 bg-green-100 p-4 rounded-lg shadow-md text-center mb-[10rem]">
-          <h2 className="text-2xl font-bold text-green-600 mb-4">
-            Congratulations!
-          </h2>
-          <p className="text-lg">You’ve completed the lesson.</p>
-        </div>
-      )}
+      <LessonContent
+        sections={sections}
+        currentSectionIndex={currentSectionIndex}
+        currentContentIndex={currentContentIndex}
+        completedSections={completedSections}
+        feedback={feedback}
+        userInput={userInput}
+        handleNext={handleNext}
+        handleSubmit={handleSubmit}
+        setUserInput={setUserInput}
+        isAnimating={isAnimating} // Pass animation state to LessonContent
+      />
     </div>
   );
 }
