@@ -1,17 +1,20 @@
 import React from "react";
 import Image from "next/image";
+import "./lesson.css";
+import Link from "next/link";
 
 export interface Section {
   id: number;
   content: string[];
   question: string;
-  answer: string;
+  answerKeywords: string[];
   sectionTitle: string;
   images?: string[];
 }
 
 export interface LessonProps {
   title: string;
+  lessonsOverviewUrl: string;
   sections: Section[];
 }
 
@@ -26,6 +29,7 @@ interface LessonContentProps {
   handleNext: () => void;
   handleSubmit: () => void;
   setUserInput: (value: string) => void;
+  lessonsOverviewUrl: string;
 }
 
 const LessonContent: React.FC<LessonContentProps> = ({
@@ -36,6 +40,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
   feedback,
   userInput,
   isAnimating,
+  lessonsOverviewUrl,
   handleNext,
   handleSubmit,
   setUserInput,
@@ -81,7 +86,16 @@ const LessonContent: React.FC<LessonContentProps> = ({
                     />
                   </g>
                 </svg>
-                {section.answer}
+                <div className="flex flex-wrap items-center gap-2">
+                  {section.answerKeywords.map((keyword, index) => (
+                    <div
+                      key={index}
+                      className="bg-slate-600 text-green-500 px-2 rounded-md text-xs"
+                    >
+                      {keyword}
+                    </div>
+                  ))}
+                </div>
               </p>
             </div>
           ))}
@@ -106,7 +120,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
                       className="mt-2 rounded-lg max-w-full mx-auto"
                     />
                   )}
-                <p>{text}</p>
+                <p className=" animate-fade-in">{text}</p>
               </div>
             ))}
           {currentContentIndex ===
@@ -197,6 +211,11 @@ const LessonContent: React.FC<LessonContentProps> = ({
             Congratulations!
           </h2>
           <p className="text-lg">You’ve completed the lesson.</p>
+          <Link href={lessonsOverviewUrl}>
+            <button className="btn-custom-primary mt-6">
+              Back To More Lessons
+            </button>
+          </Link>
         </div>
       )}
     </>

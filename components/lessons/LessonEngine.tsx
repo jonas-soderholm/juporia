@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import { LessonProps, Section } from "./LessonLayout";
 import LessonContent from "./LessonLayout";
+import { lessons } from "@/app/courses/cybersecurity-basics-1/page";
 
-export default function LessonEngine({ title, sections }: LessonProps) {
+export default function LessonEngine({
+  title,
+  sections,
+  lessonsOverviewUrl,
+}: LessonProps) {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
@@ -39,14 +44,49 @@ export default function LessonEngine({ title, sections }: LessonProps) {
   const handleSubmit = () => {
     const currentSection = sections[currentSectionIndex];
 
-    if (
+    // Check if `answerKeywords` exists and is an array
+    if (Array.isArray(currentSection.answerKeywords)) {
+      const userInputNormalized = userInput.trim().toLowerCase();
+
+      // Check for a match
+      const isAnswerCorrect = currentSection.answerKeywords.some((keyword) =>
+        userInputNormalized.includes(keyword.toLowerCase())
+      );
+
+      if (isAnswerCorrect) {
+        setFeedback("Correct!");
+
+        setTimeout(() => {
+          setCompletedSections((prev) => [
+            ...prev,
+            {
+              ...currentSection,
+              content: currentSection.content.slice(0, currentContentIndex + 1),
+            },
+          ]);
+
+          setCurrentSectionIndex((prev) => prev + 1);
+          setCurrentContentIndex(0);
+          setUserInput("");
+          setFeedback("");
+          setScrollTrigger(true); // Trigger scroll
+        }, 700);
+      } else {
+        setFeedback("Try again.");
+        setIsAnimating(true);
+
+        setTimeout(() => {
+          setIsAnimating(false);
+        }, 1500);
+      }
+    } else if (
       userInput.trim().toLowerCase() ===
-      currentSection.answer.trim().toLowerCase()
+      currentSection.answerKeywords?.trim().toLowerCase()
     ) {
+      // Fallback to exact match
       setFeedback("Correct!");
 
       setTimeout(() => {
-        // Save the current section to completedSections
         setCompletedSections((prev) => [
           ...prev,
           {
@@ -55,19 +95,18 @@ export default function LessonEngine({ title, sections }: LessonProps) {
           },
         ]);
 
-        // Update state for the next section
         setCurrentSectionIndex((prev) => prev + 1);
         setCurrentContentIndex(0);
         setUserInput("");
         setFeedback("");
-        setScrollTrigger(true); // Trigger scroll after updating section
+        setScrollTrigger(true); // Trigger scroll
       }, 700);
     } else {
-      setFeedback(" Try again.");
+      setFeedback("Try again.");
       setIsAnimating(true);
 
       setTimeout(() => {
-        setIsAnimating(false); // End animation after 1.5 seconds
+        setIsAnimating(false);
       }, 1500);
     }
   };
@@ -85,7 +124,8 @@ export default function LessonEngine({ title, sections }: LessonProps) {
         handleNext={handleNext}
         handleSubmit={handleSubmit}
         setUserInput={setUserInput}
-        isAnimating={isAnimating} // Pass animation state to LessonContent
+        isAnimating={isAnimating}
+        lessonsOverviewUrl={lessonsOverviewUrl}
       />
     </div>
   );

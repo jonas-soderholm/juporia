@@ -1,41 +1,48 @@
+import { CourseNames } from "@/app/constants/course-names";
+
 export const passwordData = {
   title: "Password Security",
-  courseId: 101,
-  lessonId: 10101,
+  courseId: 1,
+  lessonId: 1,
+  lessonsOverviewUrl: CourseNames.Cyber1,
   sections: [
     {
       id: 1,
-      sectionTitle: "How to Create Secure Passwords",
-      // Each section contains an array of content entries. Every entry in 'content'
-      // generates a new "Next" button and is displayed sequentially.
+      sectionTitle: "The Importance of Strong Passwords",
       content: [
-        "Passwords should be long and unique for each account. It also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a pIt also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a pIt also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a pIt also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a p",
-        "This helps protect your accounts from hackers. It also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a pIt also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a p",
+        "A password is often the first line of defense against unauthorized access to your online accounts. Weak passwords make it easier for attackers to gain control over your sensitive information.",
+        "Using strong passwords reduces the likelihood of your accounts being compromised in case of brute force or dictionary attacks. Strong passwords are also harder to guess or crack, even by sophisticated algorithms.",
+        "Hackers often exploit commonly used passwords or personal details such as birth dates. It's important to create passwords that are unrelated to your personal information and follow modern security guidelines.",
       ],
-      question: "What should passwords be?",
-      answer: "asd",
-      // Each image corresponds to the content entry at the same index
-      images: ["/images/hero/device-mockup.png"],
+      question: "Why are strong passwords important?",
+      answerKeywords: [
+        "asd",
+        "12 characters",
+        "uppercase",
+        "lowercase",
+        "numbers",
+        "special characters",
+      ],
+      images: ["", "/images/hero/device-mockup.png"],
     },
     {
       id: 2,
-      sectionTitle: "Using Password Managers",
+      sectionTitle: "How to Create Secure Passwords",
       content: [
-        "Using a password manager helps you create secure passwords.",
-        "It also stores your passwords safely.",
+        "A strong password should be at least 12 characters long and include a mix of uppercase and lowercase letters, numbers, and special characters.",
+        "Avoid using common words, predictable phrases, or sequences such as 'password123' or 'qwerty'. These are easy targets for attackers.",
+        "Passphrases can be a good option. For example, a sentence like 'I love hiking at 6 AM!' can be turned into a strong password: 'ILhiking@6AM!'.",
       ],
-      question: "What tool helps create and store passwords?",
-      answer: "asd",
-    },
-    {
-      id: 3,
-      sectionTitle: "Using Password Managers",
-      content: [
-        "Using a password manager helps yg a password manager helps yg a password manager helps you create secg a password manager helps yg a password manager helps yure passwords.",
-        "It also stores yourg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps yg a password manager helps y passwords safely.",
+      question: "Name two characteristics of a strong password.",
+      answerKeywords: [
+        "asd",
+        "12 characters",
+        "uppercase",
+        "lowercase",
+        "numbers",
+        "special characters",
       ],
-      question: "What tool helps create and store passwords?",
-      answer: "asd",
+      images: [""],
     },
   ],
 };
