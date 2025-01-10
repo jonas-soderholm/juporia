@@ -1,13 +1,18 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { LessonProps, Section } from "./LessonLayout";
 import LessonContent from "./LessonLayout";
-import { lessons } from "@/app/courses/cybersecurity-basics-1/page";
 
 export default function LessonEngine({
   title,
   sections,
   lessonsOverviewUrl,
-}: LessonProps) {
+}: LessonProps & {
+  userId: number;
+  courseId: number;
+  lessonId: number;
+}) {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
@@ -30,7 +35,7 @@ export default function LessonEngine({
       scrollToBottom();
       setScrollTrigger(false); // Reset flag to avoid repeated scrolling
     }
-  }, [completedSections, currentContentIndex]);
+  }, [scrollTrigger]);
 
   const handleNext = () => {
     const section = sections[currentSectionIndex];
@@ -41,52 +46,24 @@ export default function LessonEngine({
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const currentSection = sections[currentSectionIndex];
 
-    // Check if `answerKeywords` exists and is an array
-    if (Array.isArray(currentSection.answerKeywords)) {
-      const userInputNormalized = userInput.trim().toLowerCase();
+    // Normalize user input
+    const userInputNormalized = userInput.trim().toLowerCase();
 
-      // Check for a match
-      const isAnswerCorrect = currentSection.answerKeywords.some((keyword) =>
-        userInputNormalized.includes(keyword.toLowerCase())
-      );
+    // Validate against `answerKeywords`
+    const isAnswerCorrect = currentSection.answerKeywords.some((keyword) =>
+      userInputNormalized.includes(keyword.trim().toLowerCase())
+    );
 
-      if (isAnswerCorrect) {
-        setFeedback("Correct!");
-
-        setTimeout(() => {
-          setCompletedSections((prev) => [
-            ...prev,
-            {
-              ...currentSection,
-              content: currentSection.content.slice(0, currentContentIndex + 1),
-            },
-          ]);
-
-          setCurrentSectionIndex((prev) => prev + 1);
-          setCurrentContentIndex(0);
-          setUserInput("");
-          setFeedback("");
-          setScrollTrigger(true); // Trigger scroll
-        }, 700);
-      } else {
-        setFeedback("Try again.");
-        setIsAnimating(true);
-
-        setTimeout(() => {
-          setIsAnimating(false);
-        }, 1500);
-      }
-    } else if (
-      userInput.trim().toLowerCase() ===
-      currentSection.answerKeywords?.trim().toLowerCase()
-    ) {
-      // Fallback to exact match
+    if (isAnswerCorrect) {
       setFeedback("Correct!");
 
       setTimeout(() => {
+        const isLastSection = currentSectionIndex === sections.length - 1;
+
+        // Add the current section to `completedSections`
         setCompletedSections((prev) => [
           ...prev,
           {
@@ -95,11 +72,19 @@ export default function LessonEngine({
           },
         ]);
 
-        setCurrentSectionIndex((prev) => prev + 1);
-        setCurrentContentIndex(0);
-        setUserInput("");
-        setFeedback("");
-        setScrollTrigger(true); // Trigger scroll
+        if (isLastSection) {
+          // Mark lesson as completed
+          setCurrentSectionIndex(sections.length); // This triggers the "lesson completed" condition
+          setFeedback("");
+          setUserInput("");
+        } else {
+          // Move to the next section
+          setCurrentSectionIndex((prev) => prev + 1);
+          setCurrentContentIndex(0);
+          setUserInput("");
+          setFeedback("");
+          setScrollTrigger(true); // Trigger scroll
+        }
       }, 700);
     } else {
       setFeedback("Try again.");

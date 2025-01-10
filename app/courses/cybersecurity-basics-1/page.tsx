@@ -104,7 +104,7 @@ export default function Basics1() {
       {lessons.map((lesson, courseIndex) => (
         <>
           {/* Course Title */}
-          <h2 className="text-lg  text-slate-200 text-left">{lesson.title}</h2>
+          <h2 className="text-lg text-left">{lesson.title}</h2>
 
           <div
             key={courseIndex}

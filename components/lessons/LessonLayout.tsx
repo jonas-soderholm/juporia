@@ -60,7 +60,6 @@ const LessonContent: React.FC<LessonContentProps> = ({
               <h3 className="font-bold text-lg">{section.sectionTitle}</h3>
               {section.content.map((text: string, index: number) => (
                 <div key={index} className="mt-1">
-                  <p className="text-sm">{text}</p>
                   {section.images && section.images[index] && (
                     <img
                       src={section.images[index]}
@@ -68,6 +67,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
                       className="mt-2 rounded-lg max-w-full mx-auto"
                     />
                   )}
+                  <p className="text-sm">{text}</p>
                 </div>
               ))}
               <p className="font-semibold mt-2">{section.question}</p>
@@ -206,14 +206,15 @@ const LessonContent: React.FC<LessonContentProps> = ({
 
       {/* Lesson Completed */}
       {isLessonCompleted && (
-        <div className="w-full max-w-2xl dark:bg-base-100 bg-green-100 p-4 rounded-lg shadow-md text-center mb-[10rem]">
-          <h2 className="text-2xl font-bold text-green-600 mb-4">
+        <div className="  p-4 rounded-lg text-center mb-[10rem]">
+          <h2 className="text-3xl">🥳</h2>
+          <h2 className="text-3xl font-bold text-green-600 my-2">
             Congratulations!
           </h2>
           <p className="text-lg">You’ve completed the lesson.</p>
           <Link href={lessonsOverviewUrl}>
-            <button className="btn-custom-primary mt-6">
-              Back To More Lessons
+            <button className="btn-custom-primary-reverse mt-4">
+              Back For More Lessons
             </button>
           </Link>
         </div>
