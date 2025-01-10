@@ -7,7 +7,7 @@ const BASE_URL = "/courses/cybersecurity-basics-1";
 const lessonName = "Cybersecurity Basics 1.0";
 
 // Courses and lessons
-export const lessons = [
+const lessons = [
   {
     title: "Level 1",
     lessons: [
@@ -21,27 +21,6 @@ export const lessons = [
       {
         name: "Who Can See Your Activity Online?",
         link: "/password2",
-        enabled: false,
-        done: false,
-        position: "end",
-      },
-      {
-        name: "Social Engineering: Manipulating Trust",
-        link: "/password3",
-        enabled: false,
-        done: false,
-        position: "start",
-      },
-      {
-        name: "Phishing: Recognizing Fake Emails",
-        link: "/phishing",
-        enabled: false,
-        done: false,
-        position: "start",
-      },
-      {
-        name: "Public Wi-Fi: A Target for Hackers",
-        link: "/mfa",
         enabled: false,
         done: false,
         position: "end",
@@ -64,27 +43,6 @@ export const lessons = [
         enabled: false,
         done: false,
         position: "end",
-      },
-      {
-        name: "Secure Software: Best Practices",
-        link: "/level2/secure-software",
-        enabled: false,
-        done: false,
-        position: "start",
-      },
-      {
-        name: "Data Encryption: Keeping Data Safe",
-        link: "/level2/data-encryption",
-        enabled: false,
-        done: false,
-        position: "end",
-      },
-      {
-        name: "Ransomware: Protecting Your Devices",
-        link: "/level2/ransomware-protection",
-        enabled: false,
-        done: false,
-        position: "start",
       },
     ],
   },

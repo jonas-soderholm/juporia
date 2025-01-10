@@ -13,69 +13,48 @@ datasource db {
 //   directUrl = env("DIRECT_URL")
 // }
 
-// User table mapped to Supabase auth.users
+
+// User table
 model User {
-  id             String        @id // Supabase auth.users.id
-  email          String        @unique // Email from Supabase
-  subscriptions  Subscription[] // Tracks the user's subscriptions (access to courses)
-  progressions   Progress[]    // Tracks user progress in courses
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
+  id            String     @id // Supabase auth.users.id
+  email         String     @unique
+  subscriptions Subscription[]
+  progress      Progress[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
 
+// Subscription table
 model Subscription {
   id          Int      @id @default(autoincrement())
-  startDate   DateTime // When the access started
-  endDate     DateTime // When the access ends (e.g., 1 month after start)
-  isActive    Boolean  @default(true) // Indicates if the subscription is still active
-  userId      String   // Reference to User
-  user        User     @relation(fields: [userId], references: [id]) // Establish relationship with User
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean  @default(true)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
 }
 
+// Progress table
 model Progress {
-  id           Int      @id @default(autoincrement())
-  courseId     Int
-  lessonId     Int?     // Nullable to allow progress tracking for the course overall
-  sectionId    Int?     // Nullable to track specific sections within a lesson
-  course       Course   @relation(fields: [courseId], references: [id])  // Links progress to the course
-  lesson       Lesson?  @relation(fields: [lessonId], references: [id])  // Links progress to a lesson (optional)
-  section      LessonSection? @relation(fields: [sectionId], references: [id])  // Links progress to a section (optional)
-  completed    Boolean  @default(false) // Tracks if the section/lesson/course is completed
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id          Int      @id @default(autoincrement())
+  userId      String
+  courseNr    Int
+  lessonNr    Int      @default(0) // Number of lessons completed
+  sectionNr   Int      @default(0) // Number of sections completed
+  completed   Boolean  @default(false) // Tracks if the course is fully completed
+  user        User     @relation(fields: [userId], references: [id])
+  course      Course   @relation(fields: [courseNr], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  userId       String   // We explicitly need to define userId
-  user         User     @relation(fields: [userId], references: [id]) // Links progress to a user
-
-  // Composite key for uniqueness at the course, lesson, and section level
-  @@unique([courseId, lessonId, sectionId])
+  @@unique([userId, courseNr]) // Ensure a single progress row per user per course
 }
 
+// Course table
 model Course {
-  id           Int             @id @default(autoincrement())
-  progressions Progress[]       // Tracks progress in this course
-  lessons      Lesson[]         // Links lessons to the course
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
-}
-
-model Lesson {
-  id           Int             @id @default(autoincrement())
-  courseId     Int
-  course       Course           @relation(fields: [courseId], references: [id])
-  progressions Progress[]       // Track progress for this lesson
-  sections     LessonSection[]  // Tracks sections within this lesson
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
-}
-
-model LessonSection {
-  id           Int              @id @default(autoincrement())
-  lessonId     Int
-  lesson       Lesson           @relation(fields: [lessonId], references: [id])
-  progressions Progress[]       // Add this relation field for bidirectional mapping
-  createdAt    DateTime         @default(now())
-  updatedAt    DateTime         @updatedAt
-
-  @@unique([lessonId, id]) // Ensure unique sections within a lesson
+  id        Int      @id @default(autoincrement())
+  name      String   @default("Default Course Name") // Add a default value
+  progress  Progress[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

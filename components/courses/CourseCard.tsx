@@ -7,6 +7,7 @@ type CourseCardProps = {
   image: string;
   value: number;
   linkUrl: string;
+  onClick?: () => void;
 };
 
 export default function CourseCard({
@@ -16,6 +17,7 @@ export default function CourseCard({
   value,
   buttonText,
   linkUrl,
+  onClick,
 }: CourseCardProps) {
   return (
     <div className="relative w-full sm:w-[30rem] md:w-[35rem] lg:w-[35rem] overflow-hidden rounded-lg">
@@ -39,7 +41,9 @@ export default function CourseCard({
         </div>
 
         <Link href={linkUrl}>
-          <button className="btn-custom-primary-course">{buttonText}</button>
+          <button onClick={onClick} className="btn-custom-primary-course">
+            {buttonText}
+          </button>
         </Link>
       </div>
 

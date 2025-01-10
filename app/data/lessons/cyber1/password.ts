@@ -1,7 +1,7 @@
 import { CourseNames } from "@/app/constants/course-names";
 
 export const passwordData = {
-  title: "Password Security",
+  title: "Passwords: How Long Does It Take to Hack?",
   courseId: 1,
   lessonId: 1,
   lessonsOverviewUrl: CourseNames.Cyber1,

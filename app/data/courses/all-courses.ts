@@ -1,5 +1,6 @@
 export const allCourses = [
   {
+    id: 1,
     title: "Internet and Computer Basics",
     description:
       "Learn how computers and the internet work—no prior knowledge needed! Build a foundation for understanding cybersecurity better.",
@@ -9,6 +10,7 @@ export const allCourses = [
     linkUrl: "/courses/computer-internet-basics",
   },
   {
+    id: 2,
     title: "Cybersecurity Basics 1.0",
     description:
       "Learn the fundamentals of cybersecurity in this beginner-friendly course.",
@@ -18,6 +20,7 @@ export const allCourses = [
     linkUrl: "/courses/cybersecurity-basics-1",
   },
   {
+    id: 3,
     title: "Cybersecurity Basics 2.0",
     description:
       "Expand on the basics with more advanced topics and interactive exercises.",
@@ -27,6 +30,7 @@ export const allCourses = [
     linkUrl: "/sign-up",
   },
   {
+    id: 4,
     title: "Privacy Basics",
     description:
       "Understand privacy principles and how to protect your personal data.",
@@ -36,6 +40,7 @@ export const allCourses = [
     linkUrl: "/sign-up",
   },
   {
+    id: 5,
     title: "Cybersecurity Frameworks and Third-Party Risk Management",
     description:
       "Explore frameworks and strategies for managing third-party cybersecurity risks.",
