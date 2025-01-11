@@ -1,5 +1,6 @@
 export const cyber1AllLessonButtons = [
   {
+    course: "1",
     title: "Level 1",
     lessons: [
       {

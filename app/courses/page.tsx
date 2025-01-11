@@ -3,7 +3,7 @@
 import React from "react";
 import CourseCard from "@/components/courses/CourseCard";
 import { allCourses } from "../data/courses/all-courses";
-import { createCourseAndProgress } from "@/utils/create-course";
+import { createCourseAndProgress } from "@/utils/course-progression-actions";
 import { all } from "cypress/types/bluebird";
 
 export default function AllCourses() {
