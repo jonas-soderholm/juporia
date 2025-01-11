@@ -25,6 +25,6 @@ import { data } from "cypress/types/jquery";
 // // Call the function with the specific userId and courseId
 // deleteProgressRecord("24bf1a16-2fb6-4ce1-966d-9de9f4250e0a", 2);
 
-const { updateSectionNr } = require("./utils/create-course");
+const { courseCompleted } = require("./utils/create-course");
 
-updateSectionNr(2, 5, "24bf1a16-2fb6-4ce1-966d-9de9f4250e0a");
+courseCompleted(2, "24bf1a16-2fb6-4ce1-966d-9de9f4250e0a");

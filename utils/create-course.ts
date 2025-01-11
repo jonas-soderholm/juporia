@@ -114,3 +114,33 @@ export async function updateSectionNr(
     await prisma.$disconnect();
   }
 }
+
+export async function courseCompleted(courseNr: number, userId: string) {
+  try {
+    await prisma.$transaction(async (tx) => {
+      // Update the lesson number in the Progress table for the given user and course
+      await tx.progress.update({
+        where: {
+          userId_courseNr: {
+            userId: userId,
+            courseNr: courseNr,
+          },
+        },
+        data: {
+          completed: true,
+        },
+      });
+    });
+
+    console.log(
+      `Lesson number updated to ${courseNr} for course ${courseNr} and user ${userId}.`
+    );
+  } catch (error) {
+    console.error(
+      `Error updating lesson number to ${courseNr} for course ${courseNr} and user:`,
+      error
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}
