@@ -1,26 +1,16 @@
-export const cyber1AllLessonButtons = [
+export const internetAllLessonButtons = [
   {
     course: "1",
     title: "Level 1",
     lessons: [
       {
-        name: "Passwords: How Long Does It Take to Hack?",
-        link: "/password",
+        name: "INTERNET: How Long Does It Take to Hack?",
+        link: "/internet",
         position: "start",
       },
       {
         name: "Who Can See Your Activity Online?",
-        link: "/password2",
-        position: "end",
-      },
-      {
-        name: "Passwords: How Long Does It Take to Hack?",
-        link: "/password",
-        position: "start",
-      },
-      {
-        name: "Who Can See Your Activity Online?",
-        link: "/password2",
+        link: "/internet2",
         position: "end",
       },
     ],

@@ -1,8 +1,5 @@
 import { LessonButton } from "@/components/courses/LessonButton";
 
-// Base URL (can vary per course)
-const BASE_URL = "/courses/cybersecurity-basics-1";
-
 // Function to preprocess lessons based on progress
 interface Lesson {
   name: string;
@@ -34,12 +31,15 @@ interface AllLessonsInCourseProps {
   lessonName: string;
   lessonsData: Level[];
   lessonNr: number; // Current lesson number
+  courseNr: number;
+  baseUrl: string;
 }
 
 export default function AllLessonsInCourse({
   lessonName,
   lessonsData,
   lessonNr,
+  baseUrl,
 }: AllLessonsInCourseProps) {
   // Process lessons with progress
   const lessons = preprocessLessons(lessonsData, lessonNr);
@@ -70,7 +70,7 @@ export default function AllLessonsInCourse({
                   <div className="absolute left-1/2 top-0 h-full w-[2px] bg-slate-200 transform -translate-x-1/2"></div>
                   <LessonButton
                     lessonName={lesson.name}
-                    link={lesson.enabled ? `${BASE_URL}${lesson.link}` : "#"} // Disabled lessons are not clickable
+                    link={lesson.enabled ? `${baseUrl}${lesson.link}` : "#"} // Disabled lessons are not clickable
                     disabled={!lesson.enabled}
                     done={lesson.done}
                   />

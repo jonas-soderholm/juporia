@@ -3,15 +3,15 @@
 import { useState, useEffect } from "react";
 import { LessonProps, Section } from "./LessonLayout";
 import LessonContent from "./LessonLayout";
+import { updateLessonNr } from "@/utils/course-progression-actions";
 
 export default function LessonEngine({
   title,
   sections,
   lessonsOverviewUrl,
+  courseNr,
 }: LessonProps & {
-  userId: number;
-  courseId: number;
-  lessonId: number;
+  courseNr: number;
 }) {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
@@ -46,6 +46,11 @@ export default function LessonEngine({
     }
   };
 
+  const completeLesson = (courseNr: number) => {
+    updateLessonNr(courseNr);
+    console.log(courseNr);
+  };
+
   const handleSubmit = async () => {
     const currentSection = sections[currentSectionIndex];
 
@@ -77,6 +82,7 @@ export default function LessonEngine({
           setCurrentSectionIndex(sections.length); // This triggers the "lesson completed" condition
           setFeedback("");
           setUserInput("");
+          completeLesson(courseNr);
         } else {
           // Move to the next section
           setCurrentSectionIndex((prev) => prev + 1);

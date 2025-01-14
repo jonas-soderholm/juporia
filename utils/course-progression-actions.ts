@@ -47,14 +47,11 @@ export async function createCourseAndProgress(courseNr: number) {
   }
 }
 
-export async function updateLessonNr(
-  courseNr: number,
-  lessonNr: number,
-  userId: string
-) {
+export async function updateLessonNr(courseNr: number) {
+  const userId = await getUserId();
   try {
     await prisma.$transaction(async (tx) => {
-      // Update the lesson number in the Progress table for the given user and course
+      // Increment the lesson number in the Progress table for the given user and course
       await tx.progress.update({
         where: {
           userId_courseNr: {
@@ -63,17 +60,19 @@ export async function updateLessonNr(
           },
         },
         data: {
-          lessonNr: lessonNr,
+          lessonNr: {
+            increment: 1, // Increment the current value of lessonNr by 1
+          },
         },
       });
     });
 
     console.log(
-      `Lesson number updated to ${lessonNr} for course ${courseNr} and user ${userId}.`
+      `Lesson number incremented for course ${courseNr} and user ${userId}.`
     );
   } catch (error) {
     console.error(
-      `Error updating lesson number to ${lessonNr} for course ${courseNr} and user:`,
+      `Error incrementing lesson number for course ${courseNr} and user ${userId}:`,
       error
     );
   } finally {

@@ -1,3 +1,5 @@
+import { CoursePathAndNr } from "@/app/constants/course-names";
+
 export const allCourses = [
   {
     id: 1,
@@ -7,7 +9,7 @@ export const allCourses = [
     buttonText: "Start Learning for Free",
     image: "/images/courses-backgrounds/basic1.jpg",
     value: 50,
-    linkUrl: "/courses/computer-internet-basics",
+    linkUrl: CoursePathAndNr.InternetAndComputers.path,
   },
   {
     id: 2,
@@ -17,7 +19,7 @@ export const allCourses = [
     buttonText: "5 free lessons",
     image: "/images/courses-backgrounds/basic1.jpg",
     value: 50,
-    linkUrl: "/courses/cybersecurity-basics-1",
+    linkUrl: CoursePathAndNr.Cyber1.path,
   },
   {
     id: 3,
@@ -27,7 +29,7 @@ export const allCourses = [
     buttonText: "Subscription needed",
     image: "/images/courses-backgrounds/basic1.jpg",
     value: 50,
-    linkUrl: "/sign-up",
+    linkUrl: CoursePathAndNr.Cyber2.path,
   },
   {
     id: 4,
@@ -37,7 +39,7 @@ export const allCourses = [
     buttonText: "Subscription needed",
     image: "/images/courses-backgrounds/basic1.jpg",
     value: 50,
-    linkUrl: "/sign-up",
+    linkUrl: CoursePathAndNr.Privacy.path,
   },
   {
     id: 5,
@@ -47,6 +49,6 @@ export const allCourses = [
     buttonText: "Subscription needed",
     image: "/images/courses-backgrounds/basic1.jpg",
     value: 50,
-    linkUrl: "/sign-up",
+    linkUrl: CoursePathAndNr.ThirdParty.path,
   },
 ];

@@ -1,21 +1,21 @@
 import AllLessonsInCourse from "@/components/courses/AllLessonsInCourse";
-import { cyber1AllLessonButtons } from "@/app/data/lessons/2-cyber1/all-lesson-buttons";
-import { getLessonNr } from "@/utils/course-progression-actions";
 import { getUserId } from "@/utils/supabase/get-user";
 import { CoursePathAndNr } from "@/app/constants/course-names";
+import { internetAllLessonButtons } from "@/app/data/lessons/1-internet-computers/all-lesson-buttons";
+import { getLessonNr } from "@/utils/course-progression-actions";
 
-export default async function CybersecurityBasics() {
-  const courseNr = 2;
+export default async function InternetAndComputers() {
+  const courseNr = 1;
   const userId = await getUserId();
   const currentLessonNr = await getLessonNr(courseNr, userId);
 
   return (
     <AllLessonsInCourse
-      lessonName="Cybersecurity Basics 1.0"
+      lessonName="Internet And Computers"
       courseNr={courseNr}
-      lessonsData={cyber1AllLessonButtons}
+      lessonsData={internetAllLessonButtons}
       lessonNr={currentLessonNr}
-      baseUrl={CoursePathAndNr.Cyber1.path}
+      baseUrl={CoursePathAndNr.InternetAndComputers.path}
     />
   );
 }
