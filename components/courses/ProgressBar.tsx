@@ -5,12 +5,12 @@ type ProgressBarProps = {
 export default function ProgressBar({ progressValue }: ProgressBarProps) {
   return (
     <div
-      className="radial-progress absolute text-[12px] sm:text-[12px] bg-secondary top-2 right-2"
+      className="radial-progress absolute font-bold text-[12px] text-slate-200  sm:text-[12px] bg-blue-900 top-2 right-2"
       style={
         {
           "--value": progressValue,
-          "--size": "2rem",
-          "--thickness": "4px",
+          "--size": "2.2rem",
+          "--thickness": "3px",
         } as React.CSSProperties
       }
       role="progressbar"

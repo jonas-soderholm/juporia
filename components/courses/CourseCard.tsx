@@ -37,7 +37,7 @@ export default function CourseCard({
           <h1 className="text-lg md:text-[1.5rem] text-slate-200 font-bold max-w-[16rem] md:max-w-[30rem] ">
             {title}
           </h1>
-          <p className="text-slate-200 text-xs sm:text-sm mt-2 max-w-[27rem]">
+          <p className="text-slate-200 text-xs sm:text-sm mt-2 max-w-[18.5rem] sm:max-w-[25rem] md:max-w-[27rem]">
             {description}
           </p>
         </div>
