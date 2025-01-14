@@ -1,13 +1,21 @@
 type ProgressBarProps = {
-  amountOfLessons: number;
+  progressValue: number; // Precomputed progress value
 };
 
-export default function ProgressBar({ amountOfLessons }: ProgressBarProps) {
-  const progressValue = 40; // Current progress value out of 100
-
+export default function ProgressBar({ progressValue }: ProgressBarProps) {
   return (
-    <div className="flex justify-center py-6">
-      <progress className="progress w-56" value="10" max="100"></progress>
+    <div
+      className="radial-progress absolute text-[12px] sm:text-[12px] bg-secondary top-2 right-2"
+      style={
+        {
+          "--value": progressValue,
+          "--size": "2rem",
+          "--thickness": "4px",
+        } as React.CSSProperties
+      }
+      role="progressbar"
+    >
+      {Math.round(progressValue)}%
     </div>
   );
 }

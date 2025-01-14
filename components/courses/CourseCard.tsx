@@ -1,12 +1,14 @@
-import Link from "next/link";
+import ProgressBar from "./ProgressBar";
 
 type CourseCardProps = {
   title: string;
+  courseNr: number;
+  lessonAmount: number;
   description: string;
   buttonText: string;
   image: string;
-  value: number;
   linkUrl: string;
+  progress: number; // Include progress prop
   onClick?: () => void;
 };
 
@@ -14,13 +16,13 @@ export default function CourseCard({
   title,
   description,
   image,
-  value,
   buttonText,
   linkUrl,
+  progress, // Destructure progress
   onClick,
 }: CourseCardProps) {
   return (
-    <div className="relative w-full sm:w-[30rem] md:w-[35rem] lg:w-[35rem] overflow-hidden rounded-lg">
+    <div className="relative w-full sm:w-[30rem] md:w-[35rem] lg:w-[35rem] overflow-hidden rounded-lg mb-6">
       {/* Image */}
       <img
         src={image}
@@ -40,26 +42,16 @@ export default function CourseCard({
           </p>
         </div>
 
-        <Link href={linkUrl}>
+        <a href={linkUrl}>
           <button onClick={onClick} className="btn-custom-primary-course">
             {buttonText}
           </button>
-        </Link>
+        </a>
       </div>
 
       {/* Progress Indicator */}
-      <div
-        className="radial-progress absolute text-[12px] sm:text-[12px] bg-secondary top-2 right-2"
-        style={
-          {
-            "--value": value,
-            "--size": "2rem",
-            "--thickness": "4px",
-          } as React.CSSProperties
-        }
-        role="progressbar"
-      >
-        {value}%
+      <div className="absolute top-2 right-2">
+        <ProgressBar progressValue={progress} />
       </div>
     </div>
   );

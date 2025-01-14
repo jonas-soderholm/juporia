@@ -43,3 +43,9 @@ export const cyber1AllLessonButtons = [
     ],
   },
 ];
+
+// Calculate the total number of lessons
+export const cyber1TotalLessons = cyber1AllLessonButtons.reduce(
+  (total, level) => total + (level.lessons?.length || 0),
+  0
+);

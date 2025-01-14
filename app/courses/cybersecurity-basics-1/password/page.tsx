@@ -4,7 +4,6 @@ import { passwordData } from "@/app/data/lessons/2-cyber1/lesson-specific/passwo
 export default async function Password() {
   return (
     <LessonEngine
-      title={passwordData.title}
       lessonsOverviewUrl={passwordData.lessonsOverviewUrl}
       sections={passwordData.sections}
       courseNr={passwordData.courseNr}

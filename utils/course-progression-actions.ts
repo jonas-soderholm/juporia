@@ -114,7 +114,8 @@ export async function updateSectionNr(
   }
 }
 
-export async function getLessonNr(courseNr: number, userId: string) {
+export async function getLessonNr(courseNr: number) {
+  const userId = await getUserId();
   try {
     const progress = await prisma.progress.findUnique({
       where: { userId_courseNr: { userId, courseNr } },

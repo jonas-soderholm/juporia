@@ -13,7 +13,6 @@ export interface Section {
 }
 
 export interface LessonProps {
-  title: string;
   lessonsOverviewUrl: string;
   sections: Section[];
 }

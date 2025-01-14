@@ -33,3 +33,9 @@ export const internetAllLessonButtons = [
     ],
   },
 ];
+
+// Calculate the total number of lessons
+export const internetComputerTotalLessons = internetAllLessonButtons.reduce(
+  (total, level) => total + (level.lessons?.length || 0),
+  0
+);
