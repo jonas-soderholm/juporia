@@ -4,7 +4,6 @@ import { internetAndComputersData } from "@/app/data/lessons/1-internet-computer
 export default async function Internet() {
   return (
     <LessonEngine
-      title={internetAndComputersData.title}
       lessonsOverviewUrl={internetAndComputersData.lessonsOverviewUrl}
       sections={internetAndComputersData.sections}
       courseNr={internetAndComputersData.courseNr}

@@ -6,7 +6,6 @@ import LessonContent from "./LessonLayout";
 import { updateLessonNr } from "@/utils/course-progression-actions";
 
 export default function LessonEngine({
-  title,
   sections,
   lessonsOverviewUrl,
   courseNr,
@@ -104,7 +103,7 @@ export default function LessonEngine({
 
   return (
     <div className="flex flex-col justify-center items-center p-4">
-      <h1 className="text-3xl font-bold mb-6 mt-4">{title}</h1>
+      {/* <h1 className="text-3xl font-bold mb-6 mt-4">{title}</h1> */}
       <LessonContent
         sections={sections}
         currentSectionIndex={currentSectionIndex}

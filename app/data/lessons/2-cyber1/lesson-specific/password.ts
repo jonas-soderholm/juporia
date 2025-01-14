@@ -1,9 +1,9 @@
-import { CoursePathAndNr } from "@/app/constants/course-names";
+import { CourseInfo } from "@/app/constants/course-info";
 
 export const passwordData = {
   title: "Passwords: How Long Does It Take to Hack?",
-  courseNr: 2,
-  lessonsOverviewUrl: CoursePathAndNr.Cyber1.path,
+  courseNr: CourseInfo.Cyber1.courseNr,
+  lessonsOverviewUrl: CourseInfo.Cyber1.path,
   sections: [
     {
       id: 1,

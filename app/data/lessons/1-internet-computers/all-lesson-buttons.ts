@@ -1,6 +1,8 @@
+import { CourseInfo } from "@/app/constants/course-info";
+
 export const internetAllLessonButtons = [
   {
-    course: "1",
+    courseNr: CourseInfo.InternetAndComputers.courseNr,
     title: "Level 1",
     lessons: [
       {
