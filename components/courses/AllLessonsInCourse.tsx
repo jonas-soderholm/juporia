@@ -1,4 +1,8 @@
+"use client";
+
 import { LessonButton } from "@/components/courses/LessonButton";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 // Function to preprocess lessons based on progress
 interface Lesson {
@@ -46,6 +50,20 @@ export default function AllLessonsInCourse({
 }: AllLessonsInCourseProps) {
   // Process lessons with progress
   const lessons = preprocessLessons(lessonsData, lessonNr);
+  const pathname = usePathname();
+  const initialRender = useRef(true);
+
+  // Rerender if user press back arrow in url to refresh progression
+  useEffect(() => {
+    if (initialRender.current) {
+      // Skip the first render
+      initialRender.current = false;
+      return;
+    }
+
+    console.log("[DEBUG] Pathname changed:", pathname);
+    window.location.reload();
+  }, [pathname]);
 
   return (
     <div className="flex flex-col items-center gap-6 p-6">

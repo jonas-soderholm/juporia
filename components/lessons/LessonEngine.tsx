@@ -26,8 +26,11 @@ export default function LessonEngine({
   const [currentContentIndex, setCurrentContentIndex] = useState(0);
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState("");
-  const [scrollTrigger, setScrollTrigger] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  const scrollDown = (amount: number) => {
+    window.scrollBy({ top: amount, behavior: "smooth" });
+  };
 
   useEffect(() => {
     const fetchProgress = async () => {
@@ -57,9 +60,12 @@ export default function LessonEngine({
   const handleNext = () => {
     const section = sections[currentSectionIndex];
 
+    setTimeout(() => {
+      scrollDown(250);
+    }, 100);
+
     if (currentContentIndex < section.content.length - 1) {
       setCurrentContentIndex((prev) => prev + 1);
-      setScrollTrigger(true);
     }
   };
 

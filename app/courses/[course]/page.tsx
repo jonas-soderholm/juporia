@@ -3,6 +3,8 @@ import { CourseInfo } from "@/constants/course-info";
 import { getLessonNr } from "@/utils/course-progression-actions";
 import { redirectIfNotSubscribed } from "@/utils/supabase/subscription";
 
+export const revalidate = 0;
+
 export default async function CoursePage({
   params: rawParams,
 }: {
