@@ -1,4 +1,4 @@
-import { CourseInfo } from "@/app/constants/course-info";
+import { CourseInfo } from "@/constants/course-info";
 
 export const internetAllLessonButtons = [
   {
@@ -7,12 +7,12 @@ export const internetAllLessonButtons = [
     lessons: [
       {
         name: "INTERNET: How Long Does It Take to Hack?",
-        link: "/internet",
+        link: "/internet-computer-basics",
         position: "start",
       },
       {
         name: "Who Can See Your Activity Online?",
-        link: "/internet2",
+        link: "/who-can-see",
         position: "end",
       },
     ],
@@ -22,13 +22,8 @@ export const internetAllLessonButtons = [
     lessons: [
       {
         name: "Phishing Scams: Recognizing the Threat",
-        link: "/level2/phishing-scams",
+        link: "/phishing-scams",
         position: "start",
-      },
-      {
-        name: "Malware: Understanding the Basics",
-        link: "/level2/malware-basics",
-        position: "end",
       },
     ],
   },
@@ -39,3 +34,5 @@ export const internetComputerTotalLessons = internetAllLessonButtons.reduce(
   (total, level) => total + (level.lessons?.length || 0),
   0
 );
+
+export default internetAllLessonButtons;

@@ -14,6 +14,9 @@ interface Level {
   lessons: Lesson[];
 }
 
+// Export variable to capture the `done` state globally
+export let exportedDoneState: boolean | null = null;
+
 const preprocessLessons = (lessons: Level[], lessonNr: number): Level[] => {
   let currentIndex = 0; // Tracks the global lesson index
   return lessons.map((level) => ({
@@ -52,18 +55,13 @@ export default function AllLessonsInCourse({
       </h1>
 
       {/* Flowchart for Courses */}
-      {lessons.map((lesson, courseIndex) => (
-        <>
-          <h2 className="text-lg text-left">{lesson.title}</h2>
-          <div
-            key={courseIndex}
-            className="bg-gray-700 p-6 rounded-lg border border-gray-500 max-w-[40rem] w-full"
-          >
-            {/* Course Title */}
-
+      {lessons.map((lessonGroup, courseIndex) => (
+        <div key={courseIndex} className="w-full max-w-3xl">
+          <h2 className="text-lg text-left">{lessonGroup.title}</h2>
+          <div className="bg-gray-700 p-6 rounded-lg border border-gray-500">
             <ul className="timeline timeline-vertical relative">
-              {lesson.lessons.map((lesson, index) => (
-                <li key={index} className="relative">
+              {lessonGroup.lessons.map((lesson, lessonIndex) => (
+                <li key={lessonIndex} className="relative">
                   {/* Lesson Content */}
                   <div
                     className={`timeline-${lesson.position} timeline-box bg-transparent border-transparent shadow-none`}
@@ -107,7 +105,7 @@ export default function AllLessonsInCourse({
               ))}
             </ul>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );

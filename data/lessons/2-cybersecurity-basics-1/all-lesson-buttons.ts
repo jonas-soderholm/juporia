@@ -1,18 +1,18 @@
-import { CourseInfo } from "@/app/constants/course-info";
+import { CourseInfo } from "@/constants/course-info";
 
-export const cyber1AllLessonButtons = [
+const cyber1AllLessonButtons = [
   {
     courseNr: CourseInfo.Cyber1.courseNr,
     title: "Level 1",
     lessons: [
       {
-        name: "Passwords: How Long Does It Take to Hack?",
-        link: "/password",
+        name: "CYVER1",
+        link: "/cyver-lol",
         position: "start",
       },
       {
-        name: "Who Can See Your Activity Online?",
-        link: "/password2",
+        name: "CYVER1",
+        link: "/cyver-lol2",
         position: "end",
       },
       {
@@ -21,7 +21,7 @@ export const cyber1AllLessonButtons = [
         position: "start",
       },
       {
-        name: "Who Can See Your Activity Online?",
+        name: "CYVER1",
         link: "/password2",
         position: "end",
       },
@@ -49,3 +49,5 @@ export const cyber1TotalLessons = cyber1AllLessonButtons.reduce(
   (total, level) => total + (level.lessons?.length || 0),
   0
 );
+
+export default cyber1AllLessonButtons;

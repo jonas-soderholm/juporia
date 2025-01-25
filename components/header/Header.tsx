@@ -2,7 +2,7 @@ import Link from "next/link";
 import NavigationDrawer from "./NavigationDrawer";
 import { ThemeSwitcher } from "../ui/theme-switcher";
 import { createClient } from "@/utils/supabase/server";
-import { Logo } from "../../app/constants/logo";
+import { Logo } from "@/constants/logo";
 
 export default async function Header() {
   const supabase = await createClient();

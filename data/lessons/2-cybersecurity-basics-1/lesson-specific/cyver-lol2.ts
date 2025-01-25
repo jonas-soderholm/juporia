@@ -1,12 +1,12 @@
-import { CourseInfo } from "@/app/constants/course-info";
+import { CourseInfo } from "@/constants/course-info";
 
 export const internetAndComputersData = {
-  courseNr: CourseInfo.InternetAndComputers.courseNr,
-  lessonsOverviewUrl: CourseInfo.InternetAndComputers.path,
+  courseNr: CourseInfo.Cyber1.courseNr,
+  lessonsOverviewUrl: CourseInfo.Cyber1.path,
   sections: [
     {
       id: 1,
-      sectionTitle: "The Importance of Strong Passwords",
+      sectionTitle: "CYVER?2222222222",
       content: [
         "A password is often the first line of defense against unauthorized access to your online accounts. Weak passwords make it easier for attackers to gain control over your sensitive information.",
         "Using strong passwords reduces the likelihood of your accounts being compromised in case of brute force or dictionary attacks. Strong passwords are also harder to guess or crack, even by sophisticated algorithms.",

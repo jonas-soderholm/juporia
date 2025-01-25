@@ -1,4 +1,4 @@
-import { Prices } from "@/app/constants/prices";
+import { Prices } from "@/constants/prices";
 import Link from "next/link";
 
 export default function Subscriptions() {

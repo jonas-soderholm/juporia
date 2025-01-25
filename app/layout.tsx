@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import BreadCrumbs from "@/components/breadcrumbs/BreadCrumbs";
-import { Logo } from "./constants/logo";
+import { Logo } from "@/constants/logo";
 
 const defaultUrl = "http://localhost:3000";
 

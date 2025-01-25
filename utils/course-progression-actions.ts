@@ -80,14 +80,11 @@ export async function updateLessonNr(courseNr: number) {
   }
 }
 
-export async function updateSectionNr(
-  courseNr: number,
-  sectionNr: number,
-  userId: string
-) {
+export async function updateSectionNr(courseNr: number) {
+  const userId = await getUserId(); // Obtain the user ID dynamically
   try {
     await prisma.$transaction(async (tx) => {
-      // Update the lesson number in the Progress table for the given user and course
+      // Increment the section number in the Progress table for the given user and course
       await tx.progress.update({
         where: {
           userId_courseNr: {
@@ -96,21 +93,54 @@ export async function updateSectionNr(
           },
         },
         data: {
-          sectionNr: sectionNr,
+          sectionNr: {
+            increment: 1, // Increment the current value of sectionNr by 1
+          },
         },
       });
     });
 
     console.log(
-      `Lesson number updated to ${sectionNr} for course ${courseNr} and user ${userId}.`
+      `Section number incremented for course ${courseNr} and user ${userId}.`
     );
   } catch (error) {
     console.error(
-      `Error updating lesson number to ${sectionNr} for course ${courseNr} and user:`,
+      `Error incrementing section number for course ${courseNr} and user ${userId}:`,
       error
     );
   } finally {
-    await prisma.$disconnect();
+    await prisma.$disconnect(); // Optional, depends on your environment
+  }
+}
+
+export async function resetSectionNr(courseNr: number) {
+  const userId = await getUserId(); // Obtain the user ID dynamically
+  try {
+    await prisma.$transaction(async (tx) => {
+      // Reset the section number in the Progress table for the given user and course
+      await tx.progress.update({
+        where: {
+          userId_courseNr: {
+            userId: userId,
+            courseNr: courseNr,
+          },
+        },
+        data: {
+          sectionNr: 0, // Reset sectionNr to 0
+        },
+      });
+    });
+
+    console.log(
+      `Section number reset to 0 for course ${courseNr} and user ${userId}.`
+    );
+  } catch (error) {
+    console.error(
+      `Error resetting section number for course ${courseNr} and user ${userId}:`,
+      error
+    );
+  } finally {
+    await prisma.$disconnect(); // Optional, depends on your environment
   }
 }
 
@@ -128,6 +158,32 @@ export async function getLessonNr(courseNr: number) {
       error
     );
     throw error;
+  }
+}
+
+export async function getSectionNr(courseNr: number) {
+  const userId = await getUserId(); // Obtain the user ID dynamically
+  try {
+    const progress = await prisma.progress.findUnique({
+      where: {
+        userId_courseNr: {
+          userId: userId,
+          courseNr: courseNr,
+        },
+      },
+      select: {
+        sectionNr: true, // Retrieve only the sectionNr field
+      },
+    });
+
+    // Return sectionNr or default to 0 if no progress exists
+    return progress?.sectionNr || 0;
+  } catch (error) {
+    console.error(
+      `Error retrieving section number for course ${courseNr} and user ${userId}:`,
+      error
+    );
+    throw error; // Re-throw the error to let the caller handle it
   }
 }
 

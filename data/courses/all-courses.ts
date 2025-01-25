@@ -1,5 +1,5 @@
-import { CourseInfo } from "@/app/constants/course-info";
-import { cyber1TotalLessons } from "../lessons/2-cyber1/all-lesson-buttons";
+import { CourseInfo } from "@/constants/course-info";
+import { cyber1TotalLessons } from "../lessons/2-cybersecurity-basics-1/all-lesson-buttons";
 import { internetComputerTotalLessons } from "../lessons/1-internet-computers/all-lesson-buttons";
 
 export const allCourses = [
