@@ -1,3 +1,5 @@
+"use server";
+
 import { getUserId } from "@/utils/supabase/get-user";
 import { redirect } from "next/navigation";
 
@@ -20,23 +22,60 @@ export async function redirectIfNotSubscribed() {
   }
 }
 
-export async function isSubscribed() {
+export async function isSubscribed(): Promise<boolean> {
   try {
-    // Fetch the authenticated user's ID
     const userId = await getUserId();
 
-    // Check if the user has an active subscription
+    // Fetch the user's subscription
     const subscription = await prisma.subscription.findFirst({
       where: {
-        userId: userId,
-        isActive: true, // Ensure subscription is active
+        userId,
+      },
+      select: {
+        startDate: true,
+        endDate: true,
       },
     });
 
-    return !!subscription; // Return true if an active subscription exists, otherwise false
+    if (!subscription) return false;
+
+    const now = new Date();
+    const isActive =
+      now >= subscription.startDate && now <= subscription.endDate;
+
+    return isActive;
   } catch (error) {
-    console.error("Error checking subscription:", error);
-    return false; // Default to false if any error occurs
+    console.error("Error checking subscription status:", error);
+    return false;
+  }
+}
+
+export async function getSubscriptionDaysLeft(): Promise<number | null> {
+  try {
+    const userId = await getUserId();
+
+    // Get the active subscription
+    const subscription = await prisma.subscription.findFirst({
+      where: {
+        userId,
+        isActive: true,
+      },
+      select: { endDate: true },
+    });
+
+    if (!subscription?.endDate) return null;
+
+    const expiresAt = new Date(subscription.endDate);
+    const today = new Date();
+    const timeLeft = Math.max(
+      0,
+      Math.ceil((expiresAt.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+    );
+
+    return timeLeft;
+  } catch (error) {
+    console.error("Error checking subscription expiration:", error);
+    return null;
   }
 }
 

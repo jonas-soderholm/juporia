@@ -22,7 +22,7 @@ export default function Subscriptions() {
       active: true,
       price: Prices.Individual,
       buttontext: "Get Access",
-      route: "/subscription",
+      route: "/account",
     },
     {
       title: "Team (Coming Soon)",

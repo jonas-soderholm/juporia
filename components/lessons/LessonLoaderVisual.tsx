@@ -8,7 +8,7 @@ function LessonLoaderVisual({ children }: { children: ReactNode }) {
     // Show content after a delay
     const timer = setTimeout(() => {
       setShowContent(true);
-    }, 750);
+    }, 550);
 
     return () => clearTimeout(timer); // Clean up the timer
   }, []); // Trigger effect on component mount

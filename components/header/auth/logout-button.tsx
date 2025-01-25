@@ -3,7 +3,11 @@
 import { signOutAction } from "@/app/actions";
 import { useEffect, useState } from "react";
 
-export default function LogoutButton() {
+type LogoutButtonProps = {
+  onClick?: () => void; // Optional onClick prop
+};
+
+export default function LogoutButton({ onClick }: LogoutButtonProps) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {

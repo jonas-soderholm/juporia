@@ -1,4 +1,5 @@
-// utils/getUser.ts
+"use server";
+
 import { createClient } from "@/utils/supabase/server";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -38,5 +39,23 @@ export async function redirectIfNotLoggedIn() {
   } catch (error) {
     console.error("Error checking user authentication:", error);
     redirect("/sign-in"); // Redirect on error
+  }
+}
+
+export async function getUserEmail() {
+  try {
+    // Fetch the authenticated user's ID
+    const userId = await getUserId();
+
+    // Fetch the user's email address
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true },
+    });
+
+    return user?.email; // Return the user's email address
+  } catch (error) {
+    console.error("Error fetching user email:", error);
+    return null; // Return null on error
   }
 }
