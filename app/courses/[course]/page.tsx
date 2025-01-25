@@ -1,12 +1,15 @@
 import AllLessonsInCourse from "@/components/courses/AllLessonsInCourse";
 import { CourseInfo } from "@/constants/course-info";
 import { getLessonNr } from "@/utils/course-progression-actions";
+import { redirectIfNotSubscribed } from "@/utils/supabase/subscription";
 
 export default async function CoursePage({
   params: rawParams,
 }: {
   params: { course: string };
 }) {
+  await redirectIfNotSubscribed();
+
   const params = await Promise.resolve(rawParams); // Ensure params are awaited
 
   const { course } = params;

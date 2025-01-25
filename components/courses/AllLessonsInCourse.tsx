@@ -48,7 +48,7 @@ export default function AllLessonsInCourse({
   const lessons = preprocessLessons(lessonsData, lessonNr);
 
   return (
-    <div className="flex flex-col items-center gap-8 p-6">
+    <div className="flex flex-col items-center gap-6 p-6">
       {/* Page Title */}
       <h1 className="text-xl md:text-3xl font-bold text-center">
         {lessonName}
@@ -57,7 +57,7 @@ export default function AllLessonsInCourse({
       {/* Flowchart for Courses */}
       {lessons.map((lessonGroup, courseIndex) => (
         <div key={courseIndex} className="w-full max-w-3xl">
-          <h2 className="text-lg text-left">{lessonGroup.title}</h2>
+          <h2 className="text-lg text-center mb-6">{lessonGroup.title}</h2>
           <div className="bg-gray-700 p-6 rounded-lg border border-gray-500">
             <ul className="timeline timeline-vertical relative">
               {lessonGroup.lessons.map((lesson, lessonIndex) => (

@@ -57,7 +57,7 @@ export default function CourseCard({
 
         <button
           onClick={handleCourseClick}
-          className="btn-custom-primary-course"
+          className="btn-custom-primary-course w-[10rem]"
         >
           {buttonText}
         </button>

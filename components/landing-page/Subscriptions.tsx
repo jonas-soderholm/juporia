@@ -21,8 +21,8 @@ export default function Subscriptions() {
         "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
       active: true,
       price: Prices.Individual,
-      buttontext: "Subscribe",
-      route: "/subscribe",
+      buttontext: "Get Access",
+      route: "/subscription",
     },
     {
       title: "Team (Coming Soon)",

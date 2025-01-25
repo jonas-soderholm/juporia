@@ -10,7 +10,7 @@ export const allCourses = [
     description:
       "Learn how computers and the internet work—no prior knowledge needed! Build a foundation for understanding cybersecurity better.",
     buttonText: "Start",
-    image: "/images/courses-backgrounds/basic1.jpg",
+    image: "/images/courses-backgrounds/internetcomputer_bg.jpg",
     linkUrl: CourseInfo.InternetAndComputers.path,
   },
   {
@@ -20,7 +20,7 @@ export const allCourses = [
     description:
       "Learn the fundamentals of cybersecurity in this beginner-friendly course.",
     buttonText: "Start",
-    image: "/images/courses-backgrounds/basic1.jpg",
+    image: "/images/courses-backgrounds/cyber1_bg.jpg",
     linkUrl: CourseInfo.Cyber1.path,
   },
   {
@@ -30,7 +30,7 @@ export const allCourses = [
     description:
       "Expand on the basics with more advanced topics and interactive exercises.",
     buttonText: "Start",
-    image: "/images/courses-backgrounds/basic1.jpg",
+    image: "/images/courses-backgrounds/cyber2_bg.jpg",
     linkUrl: CourseInfo.Cyber2.path,
   },
   {
@@ -40,7 +40,7 @@ export const allCourses = [
     description:
       "Understand privacy principles and how to protect your personal data.",
     buttonText: "Start",
-    image: "/images/courses-backgrounds/basic1.jpg",
+    image: "/images/courses-backgrounds/privacy_bg.jpg",
     linkUrl: CourseInfo.Privacy.path,
   },
   {
@@ -50,7 +50,7 @@ export const allCourses = [
     description:
       "Explore frameworks and strategies for managing third-party cybersecurity risks.",
     buttonText: "Start",
-    image: "/images/courses-backgrounds/basic1.jpg",
+    image: "/images/courses-backgrounds/third_party_bg.jpg",
     linkUrl: CourseInfo.ThirdParty.path,
   },
 ];
