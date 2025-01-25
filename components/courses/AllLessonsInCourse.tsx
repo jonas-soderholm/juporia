@@ -56,7 +56,7 @@ export default function AllLessonsInCourse({
 
       {/* Flowchart for Courses */}
       {lessons.map((lessonGroup, courseIndex) => (
-        <div key={courseIndex} className="w-full max-w-3xl">
+        <div key={courseIndex} className=" w-full max-w-3xl">
           <h2 className="text-lg text-center mb-6">{lessonGroup.title}</h2>
           <div className="bg-gray-700 p-6 rounded-lg border border-gray-500">
             <ul className="timeline timeline-vertical relative">

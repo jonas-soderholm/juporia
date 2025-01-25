@@ -13,3 +13,99 @@
   animation: fade-in 0.7s ease-out;
   opacity: 1; /* Ensure fully visible after animation */
 }
+
+/* loading lesson */
+.loader {
+  width: 40px;
+  aspect-ratio: 1;
+  color: rgb(11, 88, 197);
+  position: relative;
+  background:
+    conic-gradient(from 134deg at top, currentColor 92deg, #0000 0) top,
+    conic-gradient(from -46deg at bottom, currentColor 92deg, #0000 0) bottom;
+  background-size: 100% 50%;
+  background-repeat: no-repeat;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  --g: currentColor 14.5px, #0000 0 calc(100% - 14.5px), currentColor 0;
+  background: linear-gradient(45deg, var(--g)),
+    linear-gradient(-45deg, var(--g));
+  animation: l7 1s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+@keyframes l7 {
+  33% {
+    inset: -10px;
+    transform: rotate(0deg);
+  }
+  66% {
+    inset: -10px;
+    transform: rotate(90deg);
+  }
+  100% {
+    inset: 0;
+    transform: rotate(90deg);
+  }
+}
+
+/* Loader animation */
+/* .loader {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  animation: l6-0 0.7s infinite linear;
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  grid-area: 1/1;
+  background: #514b82;
+  animation:
+    l6-1 0.7s infinite linear,
+    l6-2 0.7s infinite linear;
+}
+
+.loader:after {
+  --s: -1;
+  animation-direction: reverse;
+}
+
+@keyframes l6-0 {
+  0%,
+  9%,
+  91%,
+  100% {
+    background: #514b82;
+  }
+  10%,
+  90% {
+    background: transparent;
+  }
+}
+
+@keyframes l6-1 {
+  0%,
+  33% {
+    clip-path: polygon(0 0, 50% 100%, 100% 0, 100% 100%, 0 100%);
+  }
+  66%,
+  100% {
+    clip-path: polygon(50% 0, 50% 100%, 50% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes l6-2 {
+  0%,
+  10%,
+  90%,
+  100% {
+    transform: scale(var(--s, 1)) translateY(0);
+  }
+  33%,
+  66% {
+    transform: scale(var(--s, 1)) translateY(50%);
+  }
+} */

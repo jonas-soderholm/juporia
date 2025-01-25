@@ -49,7 +49,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
   return (
     <>
       {/* Completed Sections */}
-      <div className="w-full max-w-2xl p-4 rounded-lg mb-6">
+      <div className=" animate-fade-in w-full max-w-2xl p-4 rounded-lg mb-6">
         <div className="flex flex-col gap-4">
           {completedSections.map((section) => (
             <div

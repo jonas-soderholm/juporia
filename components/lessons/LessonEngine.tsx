@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { LessonProps, Section } from "./LessonLayout";
 import LessonContent from "./LessonLayout";
-
+import LessonLoaderVisual from "./LessonLoaderVisual";
 import {
   updateLessonNr,
   updateSectionNr,
@@ -118,19 +118,21 @@ export default function LessonEngine({
 
   return (
     <div className="flex flex-col justify-center items-center p-4">
-      <LessonContent
-        sections={sections}
-        currentSectionIndex={currentSectionIndex}
-        currentContentIndex={currentContentIndex}
-        completedSections={completedSections}
-        feedback={feedback}
-        userInput={userInput}
-        handleNext={handleNext}
-        handleSubmit={handleSubmit}
-        setUserInput={setUserInput}
-        isAnimating={isAnimating}
-        lessonsOverviewUrl={lessonsOverviewUrl}
-      />
+      <LessonLoaderVisual>
+        <LessonContent
+          sections={sections}
+          currentSectionIndex={currentSectionIndex}
+          currentContentIndex={currentContentIndex}
+          completedSections={completedSections}
+          feedback={feedback}
+          userInput={userInput}
+          handleNext={handleNext}
+          handleSubmit={handleSubmit}
+          setUserInput={setUserInput}
+          isAnimating={isAnimating}
+          lessonsOverviewUrl={lessonsOverviewUrl}
+        />
+      </LessonLoaderVisual>
     </div>
   );
 }
