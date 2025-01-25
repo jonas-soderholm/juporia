@@ -2,8 +2,8 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 import { redirect } from "next/navigation";
+const prisma = new PrismaClient();
 
 export async function getUserId() {
   const supabase = await createClient();
@@ -18,6 +18,21 @@ export async function getUserId() {
   }
 
   return sessionUser.id;
+}
+
+export async function getUserEmail() {
+  const supabase = await createClient();
+
+  // Fetch the authenticated user
+  const {
+    data: { user: sessionUser },
+  } = await supabase.auth.getUser();
+
+  if (!sessionUser) {
+    throw new Error("User not authenticated");
+  }
+
+  return sessionUser.email;
 }
 
 export async function redirectIfNotLoggedIn() {
@@ -42,20 +57,47 @@ export async function redirectIfNotLoggedIn() {
   }
 }
 
-export async function getUserEmail() {
-  try {
-    // Fetch the authenticated user's ID
-    const userId = await getUserId();
+export async function getFullUser() {
+  const supabase = await createClient();
 
-    // Fetch the user's email address
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { email: true },
-    });
+  // Fetch the authenticated user from Supabase
+  const {
+    data: { user: sessionUser },
+  } = await supabase.auth.getUser();
 
-    return user?.email; // Return the user's email address
-  } catch (error) {
-    console.error("Error fetching user email:", error);
-    return null; // Return null on error
+  if (!sessionUser) {
+    throw new Error("User not authenticated");
   }
+
+  // Fetch user details from Prisma, including subscriptions
+  const user = await prisma.user.findUnique({
+    where: { id: sessionUser.id },
+    include: {
+      subscriptions: true, // Include related subscriptions
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found in database");
+  }
+
+  // Determine the active subscription (if any) and calculate days left
+  const now = new Date();
+  const activeSubscription = user.subscriptions.find((sub) => {
+    return sub.isActive && now >= sub.startDate && now <= sub.endDate;
+  });
+
+  const daysLeft = activeSubscription
+    ? Math.ceil(
+        (new Date(activeSubscription.endDate).getTime() - now.getTime()) /
+          (1000 * 60 * 60 * 24)
+      )
+    : null;
+
+  return {
+    id: user.id,
+    email: user.email,
+    subscribed: !!activeSubscription, // Boolean: true if there's an active subscription
+    daysLeft, // Number: days remaining in active subscription or null if no subscription
+  };
 }

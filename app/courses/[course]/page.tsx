@@ -28,11 +28,11 @@ export default async function CoursePage({
     `@/data/lessons/${courseEntry.folderName}/all-lesson-buttons`
   );
 
-  console.log(
-    "Dynamic import path:",
-    `@/data/lessons/${courseEntry.folderName}/all-lesson-buttons`
-  );
-  console.log("Imported lessonsData:", lessonsData);
+  // console.log(
+  //   "Dynamic import path:",
+  //   `@/data/lessons/${courseEntry.folderName}/all-lesson-buttons`
+  // );
+  // console.log("Imported lessonsData:", lessonsData);
 
   const resolvedLessons = lessonsData.default;
 

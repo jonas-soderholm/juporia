@@ -36,7 +36,7 @@ export async function createCourseAndProgress(courseNr: number) {
         },
       });
     });
-    console.log(`Course ${courseNr} and progress for user ${userId} ensured.`);
+    // console.log(`Course ${courseNr} and progress for user ${userId} ensured.`);
   } catch (error) {
     console.error(
       `Error creating or ensuring course ${courseNr} and progress for user:`,
