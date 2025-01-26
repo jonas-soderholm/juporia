@@ -79,19 +79,53 @@ export async function getSubscriptionDaysLeft(): Promise<number | null> {
   }
 }
 
-export async function createSubscription() {
-  const userId = await getUserId();
-  // Define the subscription start date (current time)
-  const startDate = new Date();
+// export async function createSubscription() {
+//   const userId = await getUserId();
+//   // Define the subscription start date (current time)
+//   const startDate = new Date();
 
-  // Define the subscription end date (e.g., 1 month from startDate)
+//   // Define the subscription end date (e.g., 1 month from startDate)
+//   const endDate = new Date();
+//   endDate.setMonth(endDate.getMonth() + 1); // Add 1 month
+
+//   // Create the subscription
+//   const subscription = await prisma.subscription.create({
+//     data: {
+//       userId: userId,
+//       startDate: startDate,
+//       endDate: endDate,
+//       isActive: true,
+//     },
+//   });
+
+//   return subscription;
+// }
+
+export async function createOrUpdateSubscription() {
+  const userId = await getUserId();
+
+  // Define the subscription start and end dates
+  const startDate = new Date();
   const endDate = new Date();
   endDate.setMonth(endDate.getMonth() + 1); // Add 1 month
 
-  // Create the subscription
-  const subscription = await prisma.subscription.create({
-    data: {
-      userId: userId,
+  // Find the existing subscription for the user
+  const existingSubscription = await prisma.subscription.findFirst({
+    where: { userId }, // Find by userId
+  });
+
+  // Use Prisma's upsert to either update or create a subscription
+  const subscription = await prisma.subscription.upsert({
+    where: {
+      id: existingSubscription?.id || 0, // Use the unique ID if found, otherwise provide a placeholder
+    },
+    update: {
+      startDate: startDate, // Update subscription details
+      endDate: endDate,
+      isActive: true,
+    },
+    create: {
+      userId: userId, // Create a new subscription if none exists
       startDate: startDate,
       endDate: endDate,
       isActive: true,

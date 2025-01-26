@@ -5,7 +5,7 @@ import { getLessonNr } from "@/utils/course-progression-actions";
 import { getUserId } from "@/utils/supabase/get-user";
 import {
   isSubscribed,
-  createSubscription,
+  createOrUpdateSubscription,
 } from "@/utils/supabase/subscription";
 import { useEffect } from "react";
 
@@ -13,7 +13,7 @@ export default async function AllCourses() {
   let userId: string | null = null;
   let subscribed = false;
 
-  // CREATE SUBSCRIPTION TEST
+  // // CREATE SUBSCRIPTION TEST
   try {
     // Fetch the user ID
     userId = await getUserId();
@@ -24,7 +24,7 @@ export default async function AllCourses() {
 
       // Call createSubscription if the user is not subscribed
       if (!subscribed) {
-        await createSubscription();
+        await createOrUpdateSubscription();
         console.log("Subscription created for user:", userId);
       }
     }

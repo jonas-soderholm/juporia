@@ -11,11 +11,6 @@ export default async function Layout() {
     redirect("/sign-in");
   }
 
-  // Redirect if the user is not subscribed
-  if (!accountData.subscribed) {
-    redirect("/subscribe");
-  }
-
   // Define menu items directly with the fetched data
   const menuItems = [
     {
