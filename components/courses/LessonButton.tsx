@@ -28,7 +28,7 @@ export function LessonButton({
       ) : (
         <Link href={link}>
           <button
-            className={`btn-custom-primary-lesson hover:border-transparent ${
+            className={`btn-custom-primary-lesson hover:border-transparent  ${
               done ? "!bg-gray-500  !text-gray-400" : ""
             }`}
             onClick={onClick} // Attach the click handler

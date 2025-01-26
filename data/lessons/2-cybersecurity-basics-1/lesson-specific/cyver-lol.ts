@@ -23,24 +23,5 @@ export const internetAndComputersData = {
       ],
       images: ["", "/images/hero/device-mockup.png"],
     },
-    {
-      id: 2,
-      sectionTitle: "How to Create Secure Passwords",
-      content: [
-        "A strong password should be at least 12 characters long and include a mix of uppercase and lowercase letters, numbers, and special characters.",
-        "Avoid using common words, predictable phrases, or sequences such as 'password123' or 'qwerty'. These are easy targets for attackers.",
-        "Passphrases can be a good option. For example, a sentence like 'I love hiking at 6 AM!' can be turned into a strong password: 'ILhiking@6AM!'.",
-      ],
-      question: "Name two characteristics of a strong password.",
-      answerKeywords: [
-        "asd",
-        "12 characters",
-        "uppercase",
-        "lowercase",
-        "numbers",
-        "special characters",
-      ],
-      images: [""],
-    },
   ],
 };
