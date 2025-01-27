@@ -27,7 +27,7 @@ export default function UserAccess({ subscribed, daysLeft }: UserAccessProps) {
 
   return (
     <div className="mx-auto">
-      {!subscribed ? (
+      {subscribed ? (
         <div>
           <h2 className="text-lg font-semibold text-green-600 mb-4">Active!</h2>
           <p className="mb-1">

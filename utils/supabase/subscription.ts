@@ -101,8 +101,8 @@ export async function getSubscriptionDaysLeft(): Promise<number | null> {
 //   return subscription;
 // }
 
-export async function createOrUpdateSubscription() {
-  const userId = await getUserId();
+export async function createOrUpdateSubscription(userId: string) {
+  // const userId = await getUserId();
 
   // Define the subscription start and end dates
   const startDate = new Date();

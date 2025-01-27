@@ -24,7 +24,7 @@ export default async function Header() {
                 className="w-6 md:w-10 mx-3"
               />
               <span className="text-[20px] md:text-2xl font-bold text-slate-200 ml-[-5px]">
-                ExhaleGuard
+                PangoByte
               </span>
             </div>
           </Link>

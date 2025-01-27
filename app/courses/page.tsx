@@ -30,16 +30,16 @@ export default async function AllCourses() {
   //   console.error("Error fetching user or creating subscription:", error);
   // }
 
-  // try {
-  //   // Try to fetch the user ID
-  //   userId = await getUserId();
+  try {
+    // Try to fetch the user ID
+    userId = await getUserId();
 
-  //   // Check if the user is subscribed
-  //   subscribed = await isSubscribed();
-  // } catch (error) {
-  //   // User not authenticated
-  //   userId = null;
-  // }
+    // Check if the user is subscribed
+    subscribed = await isSubscribed();
+  } catch (error) {
+    // User not authenticated
+    userId = null;
+  }
 
   // Fetch progress for all courses if user is logged in and subscribed
   const courseProgress =

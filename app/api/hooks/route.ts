@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
       try {
         // Use the existing `createOrUpdateSubscription` function
-        const subscription = await createOrUpdateSubscription();
+        const subscription = await createOrUpdateSubscription(userId);
         console.log(`Subscription created or updated for user: ${userId}`);
       } catch (error) {
         console.error("Error creating or updating subscription:", error);
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
 
       try {
         // Use the existing `createOrUpdateSubscription` function
-        const subscription = await createOrUpdateSubscription();
+        const subscription = await createOrUpdateSubscription(userId);
         console.log(`Subscription created or updated for user: ${userId}`);
       } catch (error) {
         console.error("Error creating or updating subscription:", error);
