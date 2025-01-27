@@ -6,7 +6,7 @@ import Footer from "@/components/footer/Footer";
 import BreadCrumbs from "@/components/breadcrumbs/BreadCrumbs";
 import { LogoName } from "@/constants/logo-name";
 
-const defaultUrl = "http://localhost:3000";
+const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
@@ -31,7 +31,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        <title>{LogoName.AppName}- Basic Cybersecurity Training</title>
+        <title>PnagB- Basic Cybersecurity Training</title>
         <meta
           name="description"
           content="Learn cybersecurity and privacy fundamentals with beginner-friendly, interactive courses. Try 5 free lessons today—no login required."

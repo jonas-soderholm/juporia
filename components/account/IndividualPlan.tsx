@@ -2,7 +2,7 @@
 import { Prices } from "@/constants/prices";
 import { createCheckoutSession } from "@/utils/stripe/stripe-actions";
 
-type UserAccessProps = {
+type IndividualPlanProps = {
   email: string | null;
   subscribed: boolean;
   daysLeft: number | null;
@@ -20,7 +20,10 @@ const KeySvg = () => (
   </svg>
 );
 
-export default function UserAccess({ subscribed, daysLeft }: UserAccessProps) {
+export default function IndividualPlan({
+  subscribed,
+  daysLeft,
+}: IndividualPlanProps) {
   const handleCheckout = async () => {
     try {
       const checkoutUrl = await createCheckoutSession();

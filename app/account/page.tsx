@@ -2,11 +2,11 @@ import { redirect } from "next/navigation";
 import { getFullUser } from "@/utils/supabase/get-user";
 import AccountTabsLayout from "@/components/account/AccountTabsLayout";
 import UserOverview from "@/components/account/UserOverview";
-import UserAccess from "@/components/account/UserAccess";
+import IndividualPlan from "@/components/account/IndividualPlan";
 import Team from "@/components/account/Team";
 import Invoices from "@/components/account/Invoices";
 
-export default async function Layout() {
+export default async function AccountLayout() {
   const accountData = await getFullUser();
 
   // Redirect if the user is not authenticated
@@ -29,7 +29,7 @@ export default async function Layout() {
     {
       name: "Individual Plan",
       content: (
-        <UserAccess
+        <IndividualPlan
           email={accountData.email}
           subscribed={accountData.subscribed}
           daysLeft={accountData.daysLeft}
