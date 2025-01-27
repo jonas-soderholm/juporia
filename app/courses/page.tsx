@@ -81,7 +81,7 @@ export default async function AllCourses() {
           const linkUrl = !userId
             ? "/sign-in"
             : !subscribed
-              ? "/account"
+              ? "/account?tab=1"
               : course.linkUrl;
 
           return (

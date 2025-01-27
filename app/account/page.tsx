@@ -8,7 +8,7 @@ export default async function Layout() {
   const accountData = await getFullUser();
 
   // Redirect if the user is not authenticated
-  if (!accountData.email) {
+  if (!accountData || !accountData.email) {
     redirect("/sign-in");
   }
 
@@ -25,7 +25,7 @@ export default async function Layout() {
       ),
     },
     {
-      name: "Premium Plan",
+      name: "Individual Plan",
       content: (
         <UserAccess
           email={accountData.email}
@@ -33,6 +33,10 @@ export default async function Layout() {
           daysLeft={accountData.daysLeft}
         />
       ),
+    },
+    {
+      name: "Team",
+      content: <p>View your payment history here.</p>,
     },
     {
       name: "Invoices",

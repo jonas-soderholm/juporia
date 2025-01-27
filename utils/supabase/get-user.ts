@@ -66,7 +66,7 @@ export async function getFullUser() {
   } = await supabase.auth.getUser();
 
   if (!sessionUser) {
-    throw new Error("User not authenticated");
+    return null; // Return null if no user is authenticated
   }
 
   // Fetch user details from Prisma, including subscriptions
@@ -78,7 +78,7 @@ export async function getFullUser() {
   });
 
   if (!user) {
-    throw new Error("User not found in database");
+    return null; // Return null if the user is not found in the database
   }
 
   // Determine the active subscription (if any) and calculate days left

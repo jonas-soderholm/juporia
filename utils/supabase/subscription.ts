@@ -79,28 +79,6 @@ export async function getSubscriptionDaysLeft(): Promise<number | null> {
   }
 }
 
-// export async function createSubscription() {
-//   const userId = await getUserId();
-//   // Define the subscription start date (current time)
-//   const startDate = new Date();
-
-//   // Define the subscription end date (e.g., 1 month from startDate)
-//   const endDate = new Date();
-//   endDate.setMonth(endDate.getMonth() + 1); // Add 1 month
-
-//   // Create the subscription
-//   const subscription = await prisma.subscription.create({
-//     data: {
-//       userId: userId,
-//       startDate: startDate,
-//       endDate: endDate,
-//       isActive: true,
-//     },
-//   });
-
-//   return subscription;
-// }
-
 export async function createOrUpdateSubscription(userId: string) {
   // const userId = await getUserId();
 
