@@ -3,6 +3,8 @@ import { getFullUser } from "@/utils/supabase/get-user";
 import AccountTabsLayout from "@/components/account/AccountTabsLayout";
 import UserOverview from "@/components/account/UserOverview";
 import UserAccess from "@/components/account/UserAccess";
+import Team from "@/components/account/Team";
+import Invoices from "@/components/account/Invoices";
 
 export default async function Layout() {
   const accountData = await getFullUser();
@@ -36,11 +38,23 @@ export default async function Layout() {
     },
     {
       name: "Team",
-      content: <p>View your payment history here.</p>,
+      content: (
+        <Team
+          email={accountData.email}
+          subscribed={accountData.subscribed}
+          daysLeft={accountData.daysLeft}
+        />
+      ),
     },
     {
       name: "Invoices",
-      content: <p>View your payment history here.</p>,
+      content: (
+        <Invoices
+          email={accountData.email}
+          subscribed={accountData.subscribed}
+          daysLeft={accountData.daysLeft}
+        />
+      ),
     },
   ];
 
