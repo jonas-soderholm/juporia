@@ -19,10 +19,12 @@ export default function UserOverview({
       </div>
       <div className="mb-4">
         <p>
-          <span className="font-semibold">Subscription:</span>{" "}
-          {subscribed
-            ? `Active (${daysLeft ?? "N/A"} days remaining)`
-            : "Inactive"}
+          <span className="font-semibold">Premium Plan: </span>
+          <span className={subscribed ? "text-green-500" : "text-red-500"}>
+            {subscribed
+              ? `Active (${daysLeft ?? "N/A"} days remaining)`
+              : "Inactive"}
+          </span>
         </p>
       </div>
       <div className="flex justify-end">

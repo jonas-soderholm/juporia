@@ -1,47 +1,45 @@
 import CourseCard from "@/components/courses/CourseCard";
 import { allCourses } from "@/data/courses/all-courses";
 import { getLessonNr } from "@/utils/course-progression-actions";
-
 import { getUserId } from "@/utils/supabase/get-user";
 import {
   isSubscribed,
   createOrUpdateSubscription,
 } from "@/utils/supabase/subscription";
-import { useEffect } from "react";
 
 export default async function AllCourses() {
   let userId: string | null = null;
   let subscribed = false;
 
   // // CREATE SUBSCRIPTION TEST
-  try {
-    // Fetch the user ID
-    userId = await getUserId();
+  // try {
+  //   // Fetch the user ID
+  //   userId = await getUserId();
 
-    if (userId) {
-      // Check if the user is subscribed
-      subscribed = await isSubscribed();
+  //   if (userId) {
+  //     // Check if the user is subscribed
+  //     subscribed = await isSubscribed();
 
-      // Call createSubscription if the user is not subscribed
-      if (!subscribed) {
-        await createOrUpdateSubscription();
-        console.log("Subscription created for user:", userId);
-      }
-    }
-  } catch (error) {
-    console.error("Error fetching user or creating subscription:", error);
-  }
+  //     // Call createSubscription if the user is not subscribed
+  //     if (!subscribed) {
+  //       await createOrUpdateSubscription();
+  //       console.log("Subscription created for user:", userId);
+  //     }
+  //   }
+  // } catch (error) {
+  //   console.error("Error fetching user or creating subscription:", error);
+  // }
 
-  try {
-    // Try to fetch the user ID
-    userId = await getUserId();
+  // try {
+  //   // Try to fetch the user ID
+  //   userId = await getUserId();
 
-    // Check if the user is subscribed
-    subscribed = await isSubscribed();
-  } catch (error) {
-    // User not authenticated
-    userId = null;
-  }
+  //   // Check if the user is subscribed
+  //   subscribed = await isSubscribed();
+  // } catch (error) {
+  //   // User not authenticated
+  //   userId = null;
+  // }
 
   // Fetch progress for all courses if user is logged in and subscribed
   const courseProgress =
