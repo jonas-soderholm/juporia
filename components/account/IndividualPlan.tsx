@@ -25,10 +25,8 @@ export default function IndividualPlan({
   daysLeft,
 }: IndividualPlanProps) {
   const handleCheckout = async () => {
-    const planMembers = "asd@gmail.com, aasd@gog.com";
-
     try {
-      const checkoutUrl = await createCheckoutSession(planMembers);
+      const checkoutUrl = await createCheckoutSession();
 
       if (checkoutUrl) {
         window.location.href = checkoutUrl; // Redirect to Stripe Checkout

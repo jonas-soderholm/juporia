@@ -7,13 +7,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-12-18.acacia",
 });
 
-export async function createCheckoutSession(planMembers: string) {
+export async function createCheckoutSession(planMembers?: string) {
   const priceId = process.env.NEXT_STRIPE_PRICE_ID; // Ensure this is set in your .env file
   const user = await getFullUser();
 
   if (!user) {
     throw new Error("User is not authenticated or does not exist.");
   }
+
+  // Check if planMembers is empty or null
+  const isPlanMembersEmpty = !planMembers || planMembers.trim() === "";
 
   const { id, email } = user;
 
@@ -23,13 +26,13 @@ export async function createCheckoutSession(planMembers: string) {
     metadata: {
       id, // Attach user ID for webhook reference
       email, // Attach email for webhook reference
-      planMembers,
+      planMembers: isPlanMembersEmpty ? user.email : planMembers,
     },
     payment_intent_data: {
       metadata: {
         userId: id, // Attach user ID for webhook reference in Payment Intent
         userEmail: email, // Attach email for webhook reference in Payment Intent
-        planMembers,
+        planMembers: isPlanMembersEmpty ? user.email : planMembers,
       },
     },
     line_items: [
