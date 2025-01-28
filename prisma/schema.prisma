@@ -1,18 +1,17 @@
+// datasource db {
+//   provider = "sqlite"
+//   url      = "file:./dev.db" // SQLite database file
+// }
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db" // SQLite database file
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
-
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-//   directUrl = env("DIRECT_URL")
-// }
-
 
 // User table
 model User {

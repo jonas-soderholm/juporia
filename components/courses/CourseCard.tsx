@@ -1,6 +1,8 @@
 "use client";
 
 import { createCourseAndProgress } from "@/utils/course-progression/course-progression-actions";
+import { isSubscribed } from "@/utils/user-actions/subscription";
+
 import ProgressBar from "./ProgressBar";
 
 type CourseCardProps = {
@@ -26,7 +28,12 @@ export default function CourseCard({
   const handleCourseClick = async () => {
     try {
       // Ensure course and progress creation
-      await createCourseAndProgress(courseNr);
+      const subscribed = await isSubscribed();
+
+      if (subscribed) {
+        await createCourseAndProgress(courseNr);
+      }
+
       // Redirect to the course URL
       window.location.href = linkUrl;
     } catch (error) {

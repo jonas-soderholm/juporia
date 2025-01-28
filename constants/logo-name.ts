@@ -1,4 +1,4 @@
 export enum LogoName {
-  Logo = "/images/logos/pangobyte.png",
-  AppName = "PangoBits",
+  Logo = "/images/logos/px.png",
+  AppName = "PlexiBit",
 }
