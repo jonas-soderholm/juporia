@@ -25,8 +25,10 @@ export default function IndividualPlan({
   daysLeft,
 }: IndividualPlanProps) {
   const handleCheckout = async () => {
+    const planMembers = "asd@gmail.com, aasd@gog.com";
+
     try {
-      const checkoutUrl = await createCheckoutSession();
+      const checkoutUrl = await createCheckoutSession(planMembers);
 
       if (checkoutUrl) {
         window.location.href = checkoutUrl; // Redirect to Stripe Checkout
@@ -43,7 +45,7 @@ export default function IndividualPlan({
     <div className="mx-auto">
       {subscribed ? (
         <div>
-          <div className="flex items-center mb-4 space-x-2">
+          <div className="flex items-center mb-2 space-x-2">
             <KeySvg />
             <span className="text-xl font-bold">Individual plan</span>
             <h2 className="text-lg font-semibold text-green-600">(Active)</h2>
@@ -58,16 +60,16 @@ export default function IndividualPlan({
         </div>
       ) : (
         <div>
-          <div className="flex items-center mb-4 space-x-2">
+          <div className="flex items-center mb-2 space-x-2">
             <KeySvg />
             <span className="text-xl font-bold">Individual plan</span>
             <h2 className="text-lg font-semibold text-red-600">(Inactive)</h2>
           </div>
-          <p className="text-base mb-6">
+          <p className="text-base">
             Unlock all courses with an Individual Plan. One time payment, no
             automatic renewals. Access for 1 month.
           </p>
-          <div className="border-t border-gray-400 mt-6 pt-4">
+          <div className="border-t border-gray-400 mt-4 pt-4">
             <div className="mb-4">
               <h3 className="text-xl font-semibold">Billing Settings</h3>
               <p className="text-base text-gray-500">

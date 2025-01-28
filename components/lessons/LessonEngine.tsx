@@ -10,7 +10,7 @@ import {
   getSectionNr,
   getLessonNr,
   resetSectionNr,
-} from "@/utils/course-progression-actions";
+} from "@/utils/course-progression/course-progression-actions";
 
 export default function LessonEngine({
   sections,

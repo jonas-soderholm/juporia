@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getFullUser } from "@/utils/supabase/get-user";
+import { getFullUser } from "@/utils/user-actions/get-user";
 import AccountTabsLayout from "@/components/account/AccountTabsLayout";
 import UserOverview from "@/components/account/UserOverview";
 import IndividualPlan from "@/components/account/IndividualPlan";
@@ -48,13 +48,7 @@ export default async function AccountLayout() {
     },
     {
       name: "Invoices",
-      content: (
-        <Invoices
-          email={accountData.email}
-          subscribed={accountData.subscribed}
-          daysLeft={accountData.daysLeft}
-        />
-      ),
+      content: <Invoices />,
     },
   ];
 

@@ -1,33 +1,18 @@
-type UserOverviewProps = {
-  email: string | null;
-  subscribed: boolean;
-  daysLeft: number | null;
-};
+import { getInvoice } from "@/utils/stripe/stripe-actions";
 
 type InvoiceData = {
-  email: string;
-  date: string;
-  amount: string;
+  id: number;
+  payDate: Date;
+  amount: number;
+  status: string;
+  userId: string;
+  stripeRef: string;
+  planMembers: string;
 };
 
-const invoiceData: InvoiceData[] = [
-  {
-    email: "cutefs@orkaca.com",
-    date: "2021-10-01",
-    amount: "29.00$",
-  },
-  {
-    email: "cutefs@orkaca.com",
-    date: "2021-10-01",
-    amount: "29.00$",
-  },
-];
+export default async function Invoices() {
+  const invoiceData: InvoiceData[] = await getInvoice();
 
-export default function Invoices({
-  email,
-  subscribed,
-  daysLeft,
-}: UserOverviewProps) {
   return (
     <div className="mx-auto rounded-lg">
       <div className="flex items-center mb-4 space-x-2">
@@ -47,7 +32,8 @@ export default function Invoices({
           <thead>
             <tr className="text-gray-400">
               <th></th>
-              <th className=" ">Individual Plan for</th>
+              <th>Payment ID</th>
+              <th>Individual Plan for</th>
               <th>Date</th>
               <th>Amount</th>
             </tr>
@@ -56,8 +42,9 @@ export default function Invoices({
             {invoiceData.map((invoice, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{invoice.email}</td>
-                <td>{invoice.date}</td>
+                <td>{invoice.stripeRef}</td>
+                <td>{invoice.planMembers}</td>
+                <td>{invoice.payDate.toLocaleDateString()}</td>
                 <td>{invoice.amount}</td>
               </tr>
             ))}

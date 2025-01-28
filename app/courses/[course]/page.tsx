@@ -1,7 +1,7 @@
 import AllLessonsInCourse from "@/components/courses/AllLessonsInCourse";
 import { CourseInfo } from "@/constants/course-info";
-import { getLessonNr } from "@/utils/course-progression-actions";
-import { redirectIfNotSubscribed } from "@/utils/supabase/subscription";
+import { getLessonNr } from "@/utils/course-progression/course-progression-actions";
+import { redirectIfNotSubscribed } from "@/utils/user-actions/subscription";
 
 export const revalidate = 0;
 

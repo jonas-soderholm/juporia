@@ -1,11 +1,11 @@
 import CourseCard from "@/components/courses/CourseCard";
 import { allCourses } from "@/data/courses/all-courses";
-import { getLessonNr } from "@/utils/course-progression-actions";
-import { getUserId } from "@/utils/supabase/get-user";
+import { getLessonNr } from "@/utils/course-progression/course-progression-actions";
+import { getUserId } from "@/utils/user-actions/get-user";
 import {
   isSubscribed,
   createOrUpdateSubscription,
-} from "@/utils/supabase/subscription";
+} from "@/utils/user-actions/subscription";
 
 export default async function AllCourses() {
   let userId: string | null = null;

@@ -3,7 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
-const prisma = new PrismaClient();
+import prisma from "../prisma";
 
 export async function getUserId() {
   const supabase = await createClient();

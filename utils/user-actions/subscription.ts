@@ -1,6 +1,6 @@
 "use server";
 
-import { getUserId } from "@/utils/supabase/get-user";
+import { getUserId } from "@/utils/user-actions/get-user";
 import { redirect } from "next/navigation";
 
 import { PrismaClient } from "@prisma/client";

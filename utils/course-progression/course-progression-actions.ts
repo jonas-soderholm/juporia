@@ -1,9 +1,7 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
-import { getUserId } from "./supabase/get-user";
-
-const prisma = new PrismaClient();
+import prisma from "../prisma";
+import { getUserId } from "../user-actions/get-user";
 
 export async function createCourseAndProgress(courseNr: number) {
   try {

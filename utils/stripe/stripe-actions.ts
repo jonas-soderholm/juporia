@@ -1,14 +1,21 @@
 "use server";
 import Stripe from "stripe";
-import { getFullUser } from "../supabase/get-user";
+import { getFullUser } from "../user-actions/get-user";
+import prisma from "../prisma";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-12-18.acacia",
 });
 
-export async function createCheckoutSession() {
+export async function createCheckoutSession(planMembers: string) {
   const priceId = process.env.NEXT_STRIPE_PRICE_ID; // Ensure this is set in your .env file
-  const { id, email, subscribed, daysLeft } = await getFullUser();
+  const user = await getFullUser();
+
+  if (!user) {
+    throw new Error("User is not authenticated or does not exist.");
+  }
+
+  const { id, email } = user;
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -16,11 +23,13 @@ export async function createCheckoutSession() {
     metadata: {
       id, // Attach user ID for webhook reference
       email, // Attach email for webhook reference
+      planMembers,
     },
     payment_intent_data: {
       metadata: {
         userId: id, // Attach user ID for webhook reference in Payment Intent
         userEmail: email, // Attach email for webhook reference in Payment Intent
+        planMembers,
       },
     },
     line_items: [
@@ -35,4 +44,52 @@ export async function createCheckoutSession() {
   });
 
   return session.url;
+}
+
+export async function createInvoice(
+  userId: string,
+  amount: number,
+  status: string,
+  payDate: Date,
+  stripeRef: string,
+  planMembers: string
+) {
+  try {
+    const invoice = await prisma.invoice.create({
+      data: {
+        userId,
+        amount,
+        status,
+        payDate,
+        stripeRef,
+        planMembers,
+      },
+    });
+
+    console.log("Invoice created successfully:", invoice);
+    return invoice;
+  } catch (error) {
+    console.error("Error creating invoice:", error);
+    throw new Error("Failed to create invoice");
+  }
+}
+
+export async function getInvoice() {
+  const user = await getFullUser(); // Fetch the authenticated user
+
+  if (!user) {
+    throw new Error("User not authenticated or not found");
+  }
+
+  try {
+    const invoices = await prisma.invoice.findMany({
+      where: {
+        userId: user.id, // Properly reference the user ID
+      },
+    });
+    return invoices;
+  } catch (error) {
+    console.error("Error fetching invoices:", error);
+    throw new Error("Failed to fetch invoices");
+  }
 }

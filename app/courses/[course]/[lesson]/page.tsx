@@ -1,5 +1,5 @@
 import LessonClient from "./LessonClient";
-import { redirectIfNotSubscribed } from "@/utils/supabase/subscription";
+import { redirectIfNotSubscribed } from "@/utils/user-actions/subscription";
 
 export default async function LessonPage({
   params,

@@ -1,6 +1,6 @@
 "use client";
 
-import { createCourseAndProgress } from "@/utils/course-progression-actions";
+import { createCourseAndProgress } from "@/utils/course-progression/course-progression-actions";
 import ProgressBar from "./ProgressBar";
 
 type CourseCardProps = {
