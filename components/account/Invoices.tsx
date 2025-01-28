@@ -1,4 +1,5 @@
 import { getInvoice } from "@/utils/stripe/stripe-actions";
+import { getFullUser } from "@/utils/user-actions/get-user";
 
 type InvoiceData = {
   id: number;
@@ -28,24 +29,24 @@ export default async function Invoices() {
         <span className="text-xl font-bold">Invoices</span>
       </div>
       <div className="max-h-96 overflow-y-scroll">
-        <table className="table">
+        <table className="table table-xs">
           <thead>
             <tr className="text-gray-400">
-              <th></th>
-              <th>Payment ID</th>
-              <th>Individual Plan for</th>
+              {/* <th></th> */}
               <th>Date</th>
               <th>Amount</th>
+              <th>Individual Plan For</th>
+              <th>Payment ID</th>
             </tr>
           </thead>
           <tbody>
             {invoiceData.map((invoice, index) => (
               <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{invoice.stripeRef}</td>
-                <td>{invoice.planMembers}</td>
+                {/* <td>{index + 1}</td> */}
                 <td>{invoice.payDate.toLocaleDateString()}</td>
-                <td>{invoice.amount}</td>
+                <td>{invoice.amount}.00$</td>
+                <td>{invoice.planMembers}</td>
+                <td>{invoice.stripeRef}</td>
               </tr>
             ))}
           </tbody>

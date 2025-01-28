@@ -41,7 +41,7 @@ export default function IndividualPlan({
 
   return (
     <div className="mx-auto">
-      {subscribed ? (
+      {!subscribed ? (
         <div>
           <div className="flex items-center mb-2 space-x-2">
             <KeySvg />
