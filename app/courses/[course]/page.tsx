@@ -1,22 +1,17 @@
+import { redirect } from "next/navigation";
 import AllLessonsInCourse from "@/components/courses/AllLessonsInCourse";
 import { CourseInfo } from "@/constants/course-info";
-import { getLessonNr } from "@/utils/course-progression/course-progression-actions";
-import { redirectIfNotSubscribed } from "@/utils/user-actions/subscription";
-
-export const revalidate = 0;
+import { ensureAndGetAllProgress } from "@/utils/course-progression/course-progression-actions";
+import { getUserId } from "@/utils/user-actions/get-user";
+import { isSubscribedNew } from "@/utils/user-actions/subscription";
 
 export default async function CoursePage({
-  params: rawParams,
+  params,
 }: {
-  params: { course: string };
+  params: Promise<{ course: string }>;
 }) {
-  await redirectIfNotSubscribed();
+  const { course } = await params;
 
-  const params = await Promise.resolve(rawParams); // Ensure params are awaited
-
-  const { course } = params;
-
-  // Find the course dynamically based on the URL
   const courseEntry = Object.values(CourseInfo).find(
     (entry) => entry.path.split("/").pop() === course
   );
@@ -25,33 +20,29 @@ export default async function CoursePage({
     throw new Error(`No course found for URL: ${course}`);
   }
 
-  // Dynamically import the lesson buttons from the course folder
-  const lessonsData = await import(
-    `@/data/lessons/${courseEntry.folderName}/all-lesson-buttons`
-  );
+  // Fetch user ID once
+  const userId = await getUserId();
+  if (!userId) redirect("/sign-in");
 
-  // console.log(
-  //   "Dynamic import path:",
-  //   `@/data/lessons/${courseEntry.folderName}/all-lesson-buttons`
-  // );
-  // console.log("Imported lessonsData:", lessonsData);
+  // Fetch subscription & progress in one **optimized** query
+  const [isSubscribed, progress] = await Promise.all([
+    isSubscribedNew(userId),
+    ensureAndGetAllProgress(courseEntry.courseNr), // ✅ This should now run only **once**
+  ]);
 
-  const resolvedLessons = lessonsData.default;
+  if (!isSubscribed) redirect("/sign-in");
 
-  if (!Array.isArray(resolvedLessons)) {
-    console.error("Invalid lessonsData format:", resolvedLessons);
-    throw new Error("Invalid lessonsData format. Expected an array.");
-  }
-
-  // Get the current lesson number for the course
-  const currentLessonNr = await getLessonNr(courseEntry.courseNr);
+  // ✅ Import lesson data once
+  const lessonsData = (
+    await import(`@/data/lessons/${courseEntry.folderName}/all-lesson-buttons`)
+  ).default;
 
   return (
     <AllLessonsInCourse
       lessonName={courseEntry.courseName}
       courseNr={courseEntry.courseNr}
-      lessonsData={resolvedLessons}
-      lessonNr={currentLessonNr}
+      lessonsData={lessonsData}
+      lessonNr={progress?.lessonNr ?? 0} // ✅ Avoids unnecessary re-fetching
       baseUrl={courseEntry.path}
     />
   );

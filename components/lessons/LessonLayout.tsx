@@ -51,9 +51,9 @@ const LessonContent: React.FC<LessonContentProps> = ({
       {/* Completed Sections */}
       <div className=" animate-fade-in w-full max-w-2xl p-4 rounded-lg mb-6">
         <div className="flex flex-col gap-4">
-          {completedSections.map((section) => (
+          {completedSections.map((section, index) => (
             <div
-              key={section.id}
+              key={section.id + index}
               className="p-3 rounded-lg border-2 border-gray-500 dark:text-gray-500 text-gray-500"
             >
               <h3 className="font-bold text-lg">{section.sectionTitle}</h3>
@@ -111,12 +111,12 @@ const LessonContent: React.FC<LessonContentProps> = ({
             .slice(0, currentContentIndex + 1)
             .map((text, index) => (
               <div key={index} className="mb-4">
-                {sections[currentSectionIndex].images &&
-                  sections[currentSectionIndex].images[index] && (
+                {sections[currentSectionIndex] &&
+                  Array.isArray(sections[currentSectionIndex].images) &&
+                  sections[currentSectionIndex].images?.[index] && (
                     <img
-                      src={sections[currentSectionIndex].images[index]}
+                      src={sections[currentSectionIndex].images![index]}
                       alt={`Image for ${text}`}
-                      className="mt-2 rounded-lg max-w-full mx-auto"
                     />
                   )}
                 <p className="animate-fade-in">{text}</p>

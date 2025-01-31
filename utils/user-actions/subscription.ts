@@ -2,9 +2,7 @@
 
 import { getUserId } from "@/utils/user-actions/get-user";
 import { redirect } from "next/navigation";
-
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import prisma from "../prisma";
 
 export async function redirectIfNotSubscribed() {
   try {
@@ -42,6 +40,49 @@ export async function isSubscribed(): Promise<boolean> {
     const now = new Date();
     const isActive =
       now >= subscription.startDate && now <= subscription.endDate;
+
+    return isActive;
+  } catch (error) {
+    console.error("Error checking subscription status:", error);
+    return false;
+  }
+}
+
+const cache = new Map<
+  string,
+  { isSubscribed: boolean; timer: NodeJS.Timeout }
+>();
+
+export async function isSubscribedNew(userId: string): Promise<boolean> {
+  const cacheTTL = 3600000; // Cache duration (1 hour)
+
+  if (cache.has(userId)) {
+    // Clear the old timer, and reset it to extend the cache expiration
+    clearTimeout(cache.get(userId)!.timer);
+
+    // Set a new timer to expire the cache after 1 hour from now
+    const timer = setTimeout(() => cache.delete(userId), cacheTTL);
+    cache.set(userId, { ...cache.get(userId)!, timer });
+
+    // Return cached value
+    return cache.get(userId)!.isSubscribed;
+  }
+
+  try {
+    const subscription = await prisma.subscription.findFirst({
+      where: { userId },
+      select: { startDate: true, endDate: true },
+    });
+
+    if (!subscription) return false;
+
+    const now = new Date();
+    const isActive =
+      now >= subscription.startDate && now <= subscription.endDate;
+
+    // Create a new cache entry with a timer to remove the cache after 1 hour
+    const timer = setTimeout(() => cache.delete(userId), cacheTTL);
+    cache.set(userId, { isSubscribed: isActive, timer });
 
     return isActive;
   } catch (error) {

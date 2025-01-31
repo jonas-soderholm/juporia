@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { LessonProps, Section } from "./LessonLayout";
 import LessonContent from "./LessonLayout";
 import LessonLoaderVisual from "./LessonLoaderVisual";
 import {
   updateLessonNr,
   updateSectionNr,
-  getSectionNr,
-  getLessonNr,
   resetSectionNr,
+  getProgress,
 } from "@/utils/course-progression/course-progression-actions";
+import { getUserId } from "@/utils/user-actions/get-user";
 
 export default function LessonEngine({
   sections,
@@ -32,20 +32,57 @@ export default function LessonEngine({
     window.scrollBy({ top: amount, behavior: "smooth" });
   };
 
+  // useEffect(() => {
+  //   const fetchProgress = async () => {
+  //     const userId = await getUserId();
+
+  //     try {
+  //       const lessonNrFromDB = await getLessonNr(courseNr, userId);
+  //       const sectionNrFromDB = await getSectionNr(courseNr, userId); // Fetch lesson number
+  //       console.log("lessonNrFromDB", lessonNrFromDB); // Log lessonNrFromDB to verify
+
+  //       let sectionNr = 0;
+
+  //       if (currentLessonIndex < lessonNrFromDB) {
+  //         sectionNr = 1000;
+  //       } else {
+  //         sectionNr = sectionNrFromDB; // Adjust as necessary
+  //       }
+
+  //       console.log("sectionNr (before state update):", sectionNr); // Log before updating state
+
+  //       setCurrentSectionIndex(sectionNr); // Set progress
+  //       setCompletedSections(sections.slice(0, sectionNr)); // Mark sections as completed
+  //     } catch (error) {
+  //       console.error(`Error fetching progress for course ${courseNr}:`, error);
+  //     }
+  //   };
+
+  //   fetchProgress();
+  // }, []); // Trigger when courseNr, sections, or userId changes
+
+  const hasFetched = useRef(false); // Track if data has already been fetched
   useEffect(() => {
+    if (hasFetched.current) return; // Stop duplicate fetches
+    hasFetched.current = true;
+
     const fetchProgress = async () => {
+      const userId = await getUserId();
+      if (!userId) return;
+
       try {
-        let lessonNrFromDB = await getLessonNr(courseNr); // Fetch lessonNr from DB
+        const lessonNrFromDB = await getProgress(courseNr, userId); // Fetch lesson number
+        console.log("lessonNrFromDB", lessonNrFromDB); // Log lessonNrFromDB to verify
+
         let sectionNr = 0;
 
-        if (currentLessonIndex < lessonNrFromDB) {
+        if (currentLessonIndex < lessonNrFromDB.lessonNr) {
           sectionNr = 1000;
         } else {
-          sectionNr = await getSectionNr(courseNr); // Fetch sectionNr from DB
+          sectionNr = lessonNrFromDB.sectionNr; // Adjust as necessary
         }
 
-        console.log("Lesson from DB:", lessonNrFromDB);
-        console.log("Section from DB:", sectionNr);
+        console.log("sectionNr (before state update):", sectionNr); // Log before updating state
 
         setCurrentSectionIndex(sectionNr); // Set progress
         setCompletedSections(sections.slice(0, sectionNr)); // Mark sections as completed
@@ -55,7 +92,15 @@ export default function LessonEngine({
     };
 
     fetchProgress();
-  }, [courseNr, sections]);
+  }, [courseNr, currentLessonIndex, sections]);
+
+  useEffect(() => {
+    // Log currentSectionIndex after it updates
+    console.log(
+      "Updated sectionNr (currentSectionIndex):",
+      currentSectionIndex
+    );
+  }, [currentSectionIndex]); // This will log when currentSectionIndex is updated
 
   const handleNext = () => {
     const section = sections[currentSectionIndex];
@@ -75,6 +120,7 @@ export default function LessonEngine({
     const isAnswerCorrect = currentSection.answerKeywords.some((keyword) =>
       userInputNormalized.includes(keyword.trim().toLowerCase())
     );
+    const userId = await getUserId();
 
     if (isAnswerCorrect) {
       setFeedback("Correct!");
@@ -103,8 +149,8 @@ export default function LessonEngine({
           setCurrentSectionIndex(sections.length);
           setFeedback("");
           setUserInput("");
-          resetSectionNr(courseNr);
-          updateLessonNr(courseNr);
+          resetSectionNr(courseNr, userId);
+          updateLessonNr(courseNr, userId);
         } else {
           setCurrentSectionIndex((prev) => prev + 1);
           setCurrentContentIndex(0);

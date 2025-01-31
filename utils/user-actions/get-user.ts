@@ -1,7 +1,6 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { PrismaClient } from "@prisma/client";
 import { redirect } from "next/navigation";
 import prisma from "../prisma";
 
@@ -13,11 +12,8 @@ export async function getUserId() {
     data: { user: sessionUser },
   } = await supabase.auth.getUser();
 
-  if (!sessionUser) {
-    throw new Error("User not authenticated");
-  }
-
-  return sessionUser.id;
+  // ✅ Instead of throwing an error, return `null`
+  return sessionUser ? sessionUser.id : "";
 }
 
 export async function getUserEmail() {
