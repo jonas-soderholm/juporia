@@ -129,3 +129,8 @@ body {
   transition: none !important;
   will-change: auto;
 }
+
+/* Change the color of the NProgress bar */
+#nprogress .bar {
+  background: #dbdbdb !important; /* Force orange */
+}

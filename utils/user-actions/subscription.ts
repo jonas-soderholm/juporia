@@ -1,128 +1,93 @@
 "use server";
-
-import { getUserId } from "@/utils/user-actions/get-user";
-import { redirect } from "next/navigation";
 import prisma from "../prisma";
 
-export async function redirectIfNotSubscribed() {
-  try {
-    const userId = await getUserId();
-    const subscribed = await isSubscribed();
+// export async function isSubscribedNew(
+//   userEmail: string
+// ): Promise<{ isSubscribed: boolean; daysLeft: number | null }> {
+//   try {
+//     const subscription = await prisma.subscription.findFirst({
+//       where: { email: userEmail },
+//       select: { startDate: true, endDate: true },
+//     });
 
-    if (!userId || !subscribed) {
-      redirect("/sign-in");
-      return null;
-    }
-  } catch (error) {
-    console.error("Error validating subscription:", error);
-    redirect("/sign-in");
-    return null;
-  }
-}
+//     if (!subscription) return { isSubscribed: false, daysLeft: null };
 
-export async function isSubscribed(): Promise<boolean> {
-  try {
-    const userId = await getUserId();
+//     const now = new Date();
+//     const isActive =
+//       now >= subscription.startDate && now <= subscription.endDate;
+//     const daysLeft = isActive
+//       ? Math.ceil(
+//           (subscription.endDate.getTime() - now.getTime()) /
+//             (1000 * 60 * 60 * 24)
+//         )
+//       : null;
 
-    // Fetch the user's subscription
-    const subscription = await prisma.subscription.findFirst({
-      where: {
-        userId,
-      },
-      select: {
-        startDate: true,
-        endDate: true,
-      },
-    });
-
-    if (!subscription) return false;
-
-    const now = new Date();
-    const isActive =
-      now >= subscription.startDate && now <= subscription.endDate;
-
-    return isActive;
-  } catch (error) {
-    console.error("Error checking subscription status:", error);
-    return false;
-  }
-}
+//     return { isSubscribed: isActive, daysLeft };
+//   } catch (error) {
+//     console.error("Error checking subscription status:", error);
+//     return { isSubscribed: false, daysLeft: null };
+//   }
+// }
 
 const cache = new Map<
   string,
-  { isSubscribed: boolean; timer: NodeJS.Timeout }
+  { data: { isSubscribed: boolean; daysLeft: number | null }; expires: number }
 >();
 
-export async function isSubscribedNew(userId: string): Promise<boolean> {
-  const cacheTTL = 3600000; // Cache duration (1 hour)
+export async function isSubscribedNew(
+  userEmail: string
+): Promise<{ isSubscribed: boolean; daysLeft: number | null }> {
+  const now = Date.now();
 
-  if (cache.has(userId)) {
-    // Clear the old timer, and reset it to extend the cache expiration
-    clearTimeout(cache.get(userId)!.timer);
+  // Normalize email to lowercase to avoid cache mismatches
+  const cacheKey = userEmail.toLowerCase();
 
-    // Set a new timer to expire the cache after 1 hour from now
-    const timer = setTimeout(() => cache.delete(userId), cacheTTL);
-    cache.set(userId, { ...cache.get(userId)!, timer });
-
-    // Return cached value
-    return cache.get(userId)!.isSubscribed;
+  // Check cache first
+  if (cache.has(cacheKey)) {
+    const cached = cache.get(cacheKey)!;
+    if (now < cached.expires) {
+      return cached.data;
+    } else {
+      cache.delete(cacheKey); // Expired, remove from cache
+    }
   }
 
   try {
     const subscription = await prisma.subscription.findFirst({
-      where: { userId },
+      where: { email: cacheKey },
       select: { startDate: true, endDate: true },
     });
 
-    if (!subscription) return false;
+    let result: { isSubscribed: boolean; daysLeft: number | null };
 
-    const now = new Date();
-    const isActive =
-      now >= subscription.startDate && now <= subscription.endDate;
+    if (!subscription) {
+      result = { isSubscribed: false, daysLeft: null };
+    } else {
+      const currentTime = new Date();
+      const isActive =
+        currentTime >= subscription.startDate &&
+        currentTime <= subscription.endDate;
+      const daysLeft = isActive
+        ? Math.ceil(
+            (subscription.endDate.getTime() - currentTime.getTime()) /
+              (1000 * 60 * 60 * 24)
+          )
+        : null;
 
-    // Create a new cache entry with a timer to remove the cache after 1 hour
-    const timer = setTimeout(() => cache.delete(userId), cacheTTL);
-    cache.set(userId, { isSubscribed: isActive, timer });
+      result = { isSubscribed: isActive, daysLeft };
+    }
 
-    return isActive;
+    // Store in cache with expiration (even if not subscribed)
+    cache.set(cacheKey, { data: result, expires: now + 10 * 500 });
+
+    return result;
   } catch (error) {
     console.error("Error checking subscription status:", error);
-    return false;
+    return { isSubscribed: false, daysLeft: null };
   }
 }
 
-export async function getSubscriptionDaysLeft(): Promise<number | null> {
-  try {
-    const userId = await getUserId();
-
-    // Get the active subscription
-    const subscription = await prisma.subscription.findFirst({
-      where: {
-        userId,
-        isActive: true,
-      },
-      select: { endDate: true },
-    });
-
-    if (!subscription?.endDate) return null;
-
-    const expiresAt = new Date(subscription.endDate);
-    const today = new Date();
-    const timeLeft = Math.max(
-      0,
-      Math.ceil((expiresAt.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-    );
-
-    return timeLeft;
-  } catch (error) {
-    console.error("Error checking subscription expiration:", error);
-    return null;
-  }
-}
-
-export async function createOrUpdateSubscription(userId: string) {
-  // const userId = await getUserId();
-
+export async function createOrUpdateIndividualSubscription(userEmail: string) {
   // Define the subscription start and end dates
   const startDate = new Date();
   const endDate = new Date();
@@ -130,7 +95,7 @@ export async function createOrUpdateSubscription(userId: string) {
 
   // Find the existing subscription for the user
   const existingSubscription = await prisma.subscription.findFirst({
-    where: { userId }, // Find by userId
+    where: { email: userEmail }, // Find by userId
   });
 
   // Use Prisma's upsert to either update or create a subscription
@@ -144,7 +109,7 @@ export async function createOrUpdateSubscription(userId: string) {
       isActive: true,
     },
     create: {
-      userId: userId, // Create a new subscription if none exists
+      email: userEmail, // Create a new subscription if none exists
       startDate: startDate,
       endDate: endDate,
       isActive: true,
@@ -152,4 +117,46 @@ export async function createOrUpdateSubscription(userId: string) {
   });
 
   return subscription;
+}
+
+export async function createOrUpdateTeamSubscription(teamEmails: string) {
+  // Convert the comma-separated string into an array
+  const teamEmailsArray = teamEmails.split(",");
+
+  // Define the subscription start and end dates
+  const startDate = new Date();
+  const endDate = new Date();
+  endDate.setMonth(endDate.getMonth() + 1); // Add 1 month only once
+
+  // Use Promise.all() to process all emails in parallel
+  const subscriptions = await Promise.all(
+    teamEmailsArray.map(async (email) => {
+      email = email.trim(); // Trim spaces to avoid errors
+
+      // Find the existing subscription for the user
+      const existingSubscription = await prisma.subscription.findFirst({
+        where: { email }, // Correct email reference
+      });
+
+      // Upsert the subscription
+      return prisma.subscription.upsert({
+        where: {
+          id: existingSubscription?.id || 0, // Use existing ID or fallback
+        },
+        update: {
+          startDate, // Use consistent start date
+          endDate,
+          isActive: true,
+        },
+        create: {
+          email, // Correct email reference
+          startDate,
+          endDate,
+          isActive: true,
+        },
+      });
+    })
+  );
+
+  return subscriptions; // Return all created/updated subscriptions
 }

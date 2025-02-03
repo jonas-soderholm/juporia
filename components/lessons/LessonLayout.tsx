@@ -54,7 +54,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
           {completedSections.map((section, index) => (
             <div
               key={section.id + index}
-              className="p-3 rounded-lg border-2 border-gray-500 dark:text-gray-500 text-gray-500"
+              className=" animate-fade-in p-3 rounded-lg border-2 border-gray-500 dark:text-gray-500 text-gray-500"
             >
               <h3 className="font-bold text-lg">{section.sectionTitle}</h3>
               {section.content.map((text: string, index: number) => (

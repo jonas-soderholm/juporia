@@ -1,16 +1,18 @@
 import CourseCard from "@/components/courses/CourseCard";
 import { allCourses } from "@/data/courses/all-courses";
 import { getCourseWithProgress } from "@/utils/course-progression/course-progression-actions";
-import { getIdAndSub } from "@/utils/redirect-user";
+import { getUserAuth } from "@/utils/user-actions/get-user";
+import { isSubscribedNew } from "@/utils/user-actions/subscription";
 
 export default async function AllCourses() {
-  const { userId, subscribed } = await getIdAndSub();
+  const user = await getUserAuth();
+  const subscribed = await isSubscribedNew(user.email || "");
 
   // Fetch course and progress data for all courses
   const courseProgressPromises = allCourses.map(async (course) => {
     const { progress } =
-      userId && subscribed
-        ? await getCourseWithProgress(course.courseNr, userId)
+      user.id && subscribed.isSubscribed
+        ? await getCourseWithProgress(course.courseNr, user.id)
         : { progress: { lessonNr: 0, sectionNr: 0, completed: false } };
 
     const courseProgress = Math.min(
@@ -22,7 +24,6 @@ export default async function AllCourses() {
   });
 
   const courseProgress = await Promise.all(courseProgressPromises);
-
   return (
     <>
       <h1 className="text-3xl font-bold text-center my-8">Courses</h1>
@@ -33,9 +34,9 @@ export default async function AllCourses() {
               ?.progress || 0;
 
           // Determine button text based on user state
-          const buttonText = !userId
+          const buttonText = !user.id
             ? "Sign In"
-            : !subscribed
+            : !subscribed.isSubscribed
               ? "Get Access"
               : progress === 0
                 ? "Start"
@@ -44,9 +45,9 @@ export default async function AllCourses() {
                   : "Continue";
 
           // Determine link URL based on user state
-          const linkUrl = !userId
+          const linkUrl = !user.id
             ? "/sign-in"
-            : !subscribed
+            : !subscribed.isSubscribed
               ? "/account?tab=1"
               : course.linkUrl;
 

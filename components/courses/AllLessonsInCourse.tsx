@@ -20,7 +20,6 @@ const preprocessLessons = (lessons: Level[], lessonNr: number): Level[] => {
     console.error("Error: lessonsData is not an array", lessons);
     return [];
   }
-
   let currentIndex = 0;
   return lessons.map((level) => ({
     ...level,

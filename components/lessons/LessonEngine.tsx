@@ -10,7 +10,7 @@ import {
   resetSectionNr,
   getProgress,
 } from "@/utils/course-progression/course-progression-actions";
-import { getUserId } from "@/utils/user-actions/get-user";
+import { getUserAuth } from "@/utils/user-actions/get-user";
 
 export default function LessonEngine({
   sections,
@@ -32,46 +32,17 @@ export default function LessonEngine({
     window.scrollBy({ top: amount, behavior: "smooth" });
   };
 
-  // useEffect(() => {
-  //   const fetchProgress = async () => {
-  //     const userId = await getUserId();
-
-  //     try {
-  //       const lessonNrFromDB = await getLessonNr(courseNr, userId);
-  //       const sectionNrFromDB = await getSectionNr(courseNr, userId); // Fetch lesson number
-  //       console.log("lessonNrFromDB", lessonNrFromDB); // Log lessonNrFromDB to verify
-
-  //       let sectionNr = 0;
-
-  //       if (currentLessonIndex < lessonNrFromDB) {
-  //         sectionNr = 1000;
-  //       } else {
-  //         sectionNr = sectionNrFromDB; // Adjust as necessary
-  //       }
-
-  //       console.log("sectionNr (before state update):", sectionNr); // Log before updating state
-
-  //       setCurrentSectionIndex(sectionNr); // Set progress
-  //       setCompletedSections(sections.slice(0, sectionNr)); // Mark sections as completed
-  //     } catch (error) {
-  //       console.error(`Error fetching progress for course ${courseNr}:`, error);
-  //     }
-  //   };
-
-  //   fetchProgress();
-  // }, []); // Trigger when courseNr, sections, or userId changes
-
   const hasFetched = useRef(false); // Track if data has already been fetched
   useEffect(() => {
     if (hasFetched.current) return; // Stop duplicate fetches
     hasFetched.current = true;
 
     const fetchProgress = async () => {
-      const userId = await getUserId();
-      if (!userId) return;
+      const user = await getUserAuth();
+      if (!user.id) return;
 
       try {
-        const lessonNrFromDB = await getProgress(courseNr, userId); // Fetch lesson number
+        const lessonNrFromDB = await getProgress(courseNr, user.id); // Fetch lesson number
         console.log("lessonNrFromDB", lessonNrFromDB); // Log lessonNrFromDB to verify
 
         let sectionNr = 0;
@@ -120,7 +91,7 @@ export default function LessonEngine({
     const isAnswerCorrect = currentSection.answerKeywords.some((keyword) =>
       userInputNormalized.includes(keyword.trim().toLowerCase())
     );
-    const userId = await getUserId();
+    const user = await getUserAuth();
 
     if (isAnswerCorrect) {
       setFeedback("Correct!");
@@ -149,8 +120,8 @@ export default function LessonEngine({
           setCurrentSectionIndex(sections.length);
           setFeedback("");
           setUserInput("");
-          resetSectionNr(courseNr, userId);
-          updateLessonNr(courseNr, userId);
+          resetSectionNr(courseNr, user.id);
+          updateLessonNr(courseNr, user.id);
         } else {
           setCurrentSectionIndex((prev) => prev + 1);
           setCurrentContentIndex(0);

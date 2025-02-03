@@ -24,7 +24,7 @@ export default function DeleteUserButton() {
 
   const handleDelete = async () => {
     if (!userId) return;
-    const response = await deleteUser(userId);
+    const response = await deleteUser();
 
     if (response?.success) {
       router.push("/sign-in"); // Redirect after deletion

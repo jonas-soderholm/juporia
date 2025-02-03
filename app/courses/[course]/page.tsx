@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import AllLessonsInCourse from "@/components/courses/AllLessonsInCourse";
 import { CourseInfo } from "@/constants/course-info";
 import { ensureAndGetAllProgress } from "@/utils/course-progression/course-progression-actions";
-import { getUserId } from "@/utils/user-actions/get-user";
+import { getUserAuth } from "@/utils/user-actions/get-user";
 import { isSubscribedNew } from "@/utils/user-actions/subscription";
 
 export default async function CoursePage({
@@ -21,18 +21,18 @@ export default async function CoursePage({
   }
 
   // Fetch user ID once
-  const userId = await getUserId();
-  if (!userId) redirect("/sign-in");
+  const user = await getUserAuth();
+  if (!user) redirect("/sign-in");
 
   // Fetch subscription & progress in one **optimized** query
   const [isSubscribed, progress] = await Promise.all([
-    isSubscribedNew(userId),
-    ensureAndGetAllProgress(courseEntry.courseNr), // ✅ This should now run only **once**
+    isSubscribedNew(user.email || ""),
+    ensureAndGetAllProgress(courseEntry.courseNr), // This should now run only **once**
   ]);
 
-  if (!isSubscribed) redirect("/sign-in");
+  if (!isSubscribed.isSubscribed) redirect("/sign-in");
 
-  // ✅ Import lesson data once
+  // Import lesson data once
   const lessonsData = (
     await import(`@/data/lessons/${courseEntry.folderName}/all-lesson-buttons`)
   ).default;
@@ -42,7 +42,7 @@ export default async function CoursePage({
       lessonName={courseEntry.courseName}
       courseNr={courseEntry.courseNr}
       lessonsData={lessonsData}
-      lessonNr={progress?.lessonNr ?? 0} // ✅ Avoids unnecessary re-fetching
+      lessonNr={progress?.lessonNr ?? 0} // Avoids unnecessary re-fetching
       baseUrl={courseEntry.path}
     />
   );

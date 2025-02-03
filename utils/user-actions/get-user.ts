@@ -3,17 +3,23 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import prisma from "../prisma";
+import { isSubscribedNew } from "./subscription";
+import { get } from "cypress/types/jquery";
 
-export async function getUserId() {
+export async function getUserAuth() {
   const supabase = await createClient();
 
-  // Fetch the authenticated user
+  // Fetch the authenticated user once
   const {
     data: { user: sessionUser },
   } = await supabase.auth.getUser();
 
-  // ✅ Instead of throwing an error, return `null`
-  return sessionUser ? sessionUser.id : "";
+  if (!sessionUser) {
+    return { id: "", email: "" }; // Ensures a consistent return type
+  }
+
+  // return { id: sessionUser.id, email: sessionUser.email };
+  return { id: sessionUser.id, email: sessionUser.email ?? null };
 }
 
 export async function getUserEmail() {
@@ -51,49 +57,4 @@ export async function redirectIfNotLoggedIn() {
     console.error("Error checking user authentication:", error);
     redirect("/sign-in"); // Redirect on error
   }
-}
-
-export async function getFullUser() {
-  const supabase = await createClient();
-
-  // Fetch the authenticated user from Supabase
-  const {
-    data: { user: sessionUser },
-  } = await supabase.auth.getUser();
-
-  if (!sessionUser) {
-    return null; // Return null if no user is authenticated
-  }
-
-  // Fetch user details from Prisma, including subscriptions
-  const user = await prisma.user.findUnique({
-    where: { id: sessionUser.id },
-    include: {
-      subscriptions: true, // Include related subscriptions
-    },
-  });
-
-  if (!user) {
-    return null; // Return null if the user is not found in the database
-  }
-
-  // Determine the active subscription (if any) and calculate days left
-  const now = new Date();
-  const activeSubscription = user.subscriptions.find((sub) => {
-    return sub.isActive && now >= sub.startDate && now <= sub.endDate;
-  });
-
-  const daysLeft = activeSubscription
-    ? Math.ceil(
-        (new Date(activeSubscription.endDate).getTime() - now.getTime()) /
-          (1000 * 60 * 60 * 24)
-      )
-    : null;
-
-  return {
-    id: user.id,
-    email: user.email,
-    subscribed: !!activeSubscription, // Boolean: true if there's an active subscription
-    daysLeft, // Number: days remaining in active subscription or null if no subscription
-  };
 }

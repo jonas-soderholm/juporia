@@ -1,5 +1,6 @@
 import LessonClient from "@/components/lessons/LessonClient";
-import { getIdAndSub } from "@/utils/redirect-user";
+import { getUserAuth } from "@/utils/user-actions/get-user";
+import { isSubscribedNew } from "@/utils/user-actions/subscription";
 import { redirect } from "next/navigation";
 
 export default async function LessonPage({
@@ -9,10 +10,11 @@ export default async function LessonPage({
 }) {
   // Await params to extract course and lesson
   const { course, lesson } = await params;
-  const { userId, subscribed } = await getIdAndSub();
+  const user = await getUserAuth();
+  const subscribed = await isSubscribedNew(user.email || "");
 
   // Perform subscription check
-  if (!subscribed || !userId) {
+  if (!subscribed.isSubscribed || !user.id) {
     redirect("/sign-in");
   }
 

@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import { getFullUser } from "@/utils/user-actions/get-user";
+import { getUserAuth } from "@/utils/user-actions/get-user";
+import { isSubscribedNew } from "@/utils/user-actions/subscription";
 import AccountTabsLayout from "@/components/account/AccountTabsLayout";
 import UserOverview from "@/components/account/UserOverview";
 import IndividualPlan from "@/components/account/IndividualPlan";
@@ -8,7 +9,10 @@ import Invoices from "@/components/account/Invoices";
 import Settings from "@/components/account/Settings";
 
 export default async function AccountLayout() {
-  const accountData = await getFullUser();
+  const accountData = await getUserAuth();
+  const isSubscribed = accountData.email
+    ? await isSubscribedNew(accountData.email)
+    : { isSubscribed: false, daysLeft: null };
 
   // Redirect if the user is not authenticated
   if (!accountData || !accountData.email) {
@@ -22,8 +26,8 @@ export default async function AccountLayout() {
       content: (
         <UserOverview
           email={accountData.email}
-          subscribed={accountData.subscribed}
-          daysLeft={accountData.daysLeft}
+          subscribed={isSubscribed.isSubscribed}
+          daysLeft={isSubscribed.daysLeft}
         />
       ),
     },
@@ -32,8 +36,8 @@ export default async function AccountLayout() {
       content: (
         <IndividualPlan
           email={accountData.email}
-          subscribed={accountData.subscribed}
-          daysLeft={accountData.daysLeft}
+          subscribed={isSubscribed.isSubscribed}
+          daysLeft={isSubscribed.daysLeft}
         />
       ),
     },

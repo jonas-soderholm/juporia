@@ -1,11 +1,12 @@
 "use server";
 
 import prisma from "../prisma";
-import { getUserId } from "../user-actions/get-user";
+import { getUserAuth } from "../user-actions/get-user";
 
 export async function createCourseAndProgress(courseNr: number) {
   try {
-    const userId = await getUserId();
+    const { id: userId } = await getUserAuth();
+    console.log("userId", userId);
 
     await prisma.$transaction([
       prisma.course.upsert({
@@ -61,7 +62,7 @@ export async function getCourseWithProgress(courseNr: number, userId?: string) {
 
 export async function ensureAndGetCourseProgress(courseNr: number) {
   try {
-    const userId = await getUserId();
+    const { id: userId } = await getUserAuth();
 
     // Ensure course & progress exist, then fetch both in a single query
     const [_, progress] = await prisma.$transaction([
@@ -91,7 +92,8 @@ export async function ensureAndGetCourseProgress(courseNr: number) {
 }
 
 export async function updateSectionNr(courseNr: number) {
-  const userId = await getUserId(); // Obtain the user ID dynamically
+  const { id: userId } = await getUserAuth();
+
   try {
     await prisma.$transaction(async (tx) => {
       // Increment the section number in the Progress table for the given user and course
@@ -233,25 +235,24 @@ export async function courseCompleted(courseNr: number, userId: string) {
 }
 
 export async function ensureAndGetAllProgress(courseNr: number) {
-  const userId = await getUserId();
+  const { id: userId } = await getUserAuth();
 
-  return prisma.$transaction(async (tx) => {
-    // First, fetch existing progress
-    const existingProgress = await tx.progress.findUnique({
-      where: { userId_courseNr: { userId, courseNr } },
-      select: { lessonNr: true, sectionNr: true, completed: true },
-    });
+  // First, fetch existing progress outside of the transaction
+  const existingProgress = await prisma.progress.findUnique({
+    where: { userId_courseNr: { userId, courseNr } },
+    select: { lessonNr: true, sectionNr: true, completed: true },
+  });
 
-    if (existingProgress) return existingProgress; // Avoid unnecessary inserts
+  if (existingProgress) return existingProgress; // Avoid unnecessary inserts
 
-    // If progress doesn't exist, ensure course & progress are inserted **once**
-    await tx.course.upsert({
+  // Use a batch transaction instead
+  await prisma.$transaction([
+    prisma.course.upsert({
       where: { id: courseNr },
       update: {},
       create: { id: courseNr, name: `Course ${courseNr}` },
-    });
-
-    return await tx.progress.create({
+    }),
+    prisma.progress.create({
       data: {
         userId,
         courseNr,
@@ -259,6 +260,12 @@ export async function ensureAndGetAllProgress(courseNr: number) {
         sectionNr: 0,
         completed: false,
       },
-    });
+    }),
+  ]);
+
+  // Fetch and return the newly created progress
+  return prisma.progress.findUnique({
+    where: { userId_courseNr: { userId, courseNr } },
+    select: { lessonNr: true, sectionNr: true, completed: true },
   });
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { isSubscribedNew } from "@/utils/user-actions/subscription";
-import { getUserId } from "@/utils/user-actions/get-user";
+import { getUserAuth } from "@/utils/user-actions/get-user";
 import ProgressBar from "./ProgressBar";
 
 type CourseCardProps = {
@@ -26,19 +26,25 @@ export default function CourseCard({
   const handleCourseClick = async () => {
     try {
       // Check if user is logged in first
-      const userId = await getUserId(); // If not authenticated, this will throw
+      const user = await getUserAuth(); // If not authenticated, this will throw
 
       // If getUserId() fails, catch the error and redirect
-      if (!userId) {
+      if (!user) {
         console.error("User not authenticated");
         window.location.href = "/sign-up";
         return;
       }
 
       // Now check subscription status
-      const subscribed = await isSubscribedNew(userId);
+      if (!user.email) {
+        console.error("User email is undefined");
+        window.location.href = "/sign-up";
+        return;
+      }
 
-      if (!subscribed) {
+      const subscribed = await isSubscribedNew(user.email);
+
+      if (!subscribed.isSubscribed) {
         window.location.href = "/account?tab=1"; // Redirect to subscription page
         return;
       }
