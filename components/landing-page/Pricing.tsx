@@ -2,7 +2,7 @@ import { LogoName } from "@/constants/logo-name";
 import { Prices } from "@/constants/prices";
 import Link from "next/link";
 
-export default function Subscriptions() {
+export default function Pricing() {
   const subscriptions = [
     {
       title: "Free",
@@ -45,11 +45,11 @@ export default function Subscriptions() {
 
   return (
     <>
-      <div className="flex justify-center mx-auto font-bold text-3xl mb-14 mt-[10rem]">
+      <div className="flex justify-center mx-auto font-bold text-[3rem]  mt-36">
         Pricing
       </div>
 
-      <div className="flex flex-wrap justify-center max-w-[80rem] mx-auto px-4 gap-8">
+      <div className="flex flex-wrap justify-center max-w-[80rem] mx-auto px-4 gap-8 mt-12">
         {subscriptions.map((subscription, index) => (
           <div
             key={index}

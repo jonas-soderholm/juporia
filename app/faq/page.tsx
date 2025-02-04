@@ -1,8 +1,8 @@
 const faq = [
   {
-    question: "Why do you offer one-time payments instead of subscriptions?",
+    question: "Are your courses beginner-friendly?",
     answer:
-      "Right now, our courses are designed to be completed within a month, ensuring you get full value from your access. We believe in ethical billing—one-time payments ensure you won't be charged unexpectedly. As our platform grows and we offer more content, we may introduce optional subscriptions in the future.",
+      "Yes! Our cybersecurity courses cover everything from the basics to advanced techniques. Whether you're a complete beginner or looking to sharpen your skills, we have structured content to guide you step by step.",
   },
   {
     question: "Can I gift access to friends and coworkers?",
@@ -10,29 +10,29 @@ const faq = [
       "Yes! With the team plan in your account, you can add up to 10 members per purchase. If you need more, simply make additional purchases. Team plans come at a discounted rate, making it the most simple and cost-effective way to provide access.",
   },
   {
-    question: "Are your courses beginner-friendly?",
+    question: "Why do you offer one-time payments instead of subscriptions?",
     answer:
-      "Yes! Our cybersecurity courses cover everything from the basics to advanced techniques. Whether you're a complete beginner or looking to sharpen your skills, we have structured content to guide you step by step.",
+      "Right now, our courses are designed to be completed within a month, ensuring you get full value from your access. We believe in ethical billing—one-time payments ensure you won't be charged unexpectedly. As our platform grows and we offer more content, we may introduce optional subscriptions in the future.",
   },
   {
     question: "Do I get lifetime access to the course?",
     answer:
       "No, each purchase grants access for one month. This ensures the content stays relevant and up-to-date as cybersecurity threats evolve. If you need more time, you can always renew your access with another one-time payment.",
   },
-  {
-    question: "What topics are covered in your courses?",
-    answer:
-      "Our courses cover essential cybersecurity topics, including ethical hacking, penetration testing, network security, threat analysis, and more. We focus on practical, real-world skills to help you defend against modern threats.",
-  },
-  {
-    question: "Is there a certificate upon completion?",
-    answer:
-      "Yes! Upon completing a course, you'll receive a certificate that you can add to your resume or LinkedIn profile to showcase your cybersecurity expertise.",
-  },
+  // {
+  //   question: "What topics are covered in your courses?",
+  //   answer:
+  //     "Our courses cover essential cybersecurity topics, including ethical hacking, penetration testing, network security, threat analysis, and more. We focus on practical, real-world skills to help you defend against modern threats.",
+  // },
+  // {
+  //   question: "Is there a certificate upon completion?",
+  //   answer:
+  //     "Yes! Upon completing a course, you'll receive a certificate that you can add to your resume or LinkedIn profile to showcase your cybersecurity expertise.",
+  // },
   {
     question: "What is your technology stack?",
     answer:
-      "Our frontend and backend are both written in TypeScript. The frontend is built with Next.js and React, while the backend runs on Node.js with a PostgreSQL database. We use Prisma for database management and Supabase for authentication.",
+      "Our frontend and backend are both written in TypeScript. The frontend is built with Next.js and React, while the backend runs on Node.js with a PostgreSQL database.",
   },
 ];
 

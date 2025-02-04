@@ -1,23 +1,15 @@
 import Hero from "@/components/landing-page/Hero";
-import Subscriptions from "@/components/landing-page/Subscriptions";
+import Pricing from "@/components/landing-page/Pricing";
 import { ValueProposition } from "@/components/landing-page/ValueProposition";
+import UseAccordion from "@/components/landing-page/UseAccordion";
 
 export default async function ProtectedPage() {
-  // const supabase = await createClient();
-
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
-
-  // if (!user) {
-  //   return redirect("/sign-in");
-  // }
-
   return (
     <>
       <Hero />
       <ValueProposition />
-      <Subscriptions />
+      <UseAccordion />
+      <Pricing />
     </>
   );
 }
