@@ -42,10 +42,10 @@ export default function Hero() {
 
         <div className="justify-center items-center h-[500px] hidden xl:flex">
           <img
-            src="./images/hero/device-mockup.png"
+            src="./images/hero/device-mockup3.png"
             alt="Cybersecurity course background promoting basic cybersecurity training"
             loading="lazy"
-            className="w-auto h-auto max-w-full max-h-full object-contain"
+            className="w-auto h-72 max-w-full max-h-full object-contain"
           />
         </div>
       </section>
