@@ -43,7 +43,7 @@ export default function UseAccordion() {
           {accordionItems.map((item, index) => (
             <div
               key={index}
-              className="collapse collapse-plus border border-slate-600 mb-2"
+              className="collapse collapse-plus border-2 border-gray-600 mb-2"
             >
               <input
                 type="radio"
