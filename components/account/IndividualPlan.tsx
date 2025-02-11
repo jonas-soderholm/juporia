@@ -105,13 +105,22 @@ export default function IndividualPlan({
                 <div className="mt-2">
                   <button
                     onClick={() => handleCheckout()}
-                    className="bg-blue-600 text-white py-3 px-6 rounded-md text-lg font-semibold transition-all hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                    className=" bg-blue-600 text-white py-3 px-6 rounded-md text-lg font-semibold transition-all hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
                   >
                     Secure Checkout
                   </button>
                 </div>
               </div>
             </div>
+            {/* Combined Terms & Privacy Notice */}
+            <p className="text-[12px] text-gray-500 text-right ml-auto">
+              By continuing, you agree to our
+              <a href="/legal" className="text-blue-600 hover:underline">
+                {" "}
+                Terms & Privacy Policy
+              </a>
+              .
+            </p>
           </div>
           <div className="flex justify-center mt-6">
             <div className="flex items-center gap-2 text-sm text-gray-600">

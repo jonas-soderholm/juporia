@@ -254,6 +254,15 @@ export default function Team() {
           </div>
         </div>
       </div>
+      {/* Combined Terms & Privacy Notice */}
+      <p className="text-[12px] text-gray-500 text-right ml-auto">
+        By continuing, you agree to our
+        <a href="/legal" className="text-blue-600 hover:underline">
+          {" "}
+          Terms & Privacy Policy
+        </a>
+        .
+      </p>
       <div className="flex justify-center mt-6">
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <p>Powered by </p>

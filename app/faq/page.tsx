@@ -1,3 +1,5 @@
+import { LogoName } from "@/constants/logo-name";
+
 const faq = [
   {
     question: "Are your courses beginner-friendly?",
@@ -29,6 +31,10 @@ const faq = [
   //   answer:
   //     "Yes! Upon completing a course, you'll receive a certificate that you can add to your resume or LinkedIn profile to showcase your cybersecurity expertise.",
   // },
+  {
+    question: "I need to come in contact with you. How can I do that?",
+    answer: `For any inquiries or support, you can reach us at ${LogoName.supportMail}`,
+  },
   {
     question: "What is your technology stack?",
     answer:
