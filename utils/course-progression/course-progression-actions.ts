@@ -2,6 +2,8 @@
 
 import prisma from "../prisma";
 import { getUserAuth } from "../user-actions/get-user";
+import { revalidatePath } from "next/cache";
+import { CourseInfo } from "@/constants/course-info";
 
 export async function createCourseAndProgress(courseNr: number) {
   try {
@@ -120,10 +122,50 @@ export async function updateSectionNr(courseNr: number) {
       `Error incrementing section number for course ${courseNr} and user ${userId}:`,
       error
     );
-  } finally {
-    await prisma.$disconnect(); // Optional, depends on your environment
   }
 }
+
+// export async function updateSectionNr(courseNr: number) {
+//   const { id: userId } = await getUserAuth();
+
+//   try {
+//     await prisma.$transaction(async (tx) => {
+//       // Increment section number for the given user & course
+//       await tx.progress.update({
+//         where: {
+//           userId_courseNr: {
+//             userId: userId,
+//             courseNr: courseNr,
+//           },
+//         },
+//         data: {
+//           sectionNr: { increment: 1 },
+//         },
+//       });
+//     });
+
+//     console.log(
+//       `Section number incremented for course ${courseNr} and user ${userId}.`
+//     );
+
+//     // Get the correct course path dynamically
+//     const courseEntry = Object.values(CourseInfo).find(
+//       (entry) => entry.courseNr === courseNr
+//     );
+
+//     if (courseEntry) {
+//       revalidatePath(`/courses/${courseEntry.path}`); // ✅ Correct dynamic revalidation
+//       console.log(`Revalidated path: /courses/${courseEntry.path}`);
+//     } else {
+//       console.warn(`Course path not found for courseNr: ${courseNr}`);
+//     }
+//   } catch (error) {
+//     console.error(
+//       `Error updating section number for course ${courseNr}:`,
+//       error
+//     );
+//   }
+// }
 
 export async function updateLessonNr(courseNr: number, userId: string) {
   try {
@@ -152,8 +194,6 @@ export async function updateLessonNr(courseNr: number, userId: string) {
       `Error incrementing lesson number for course ${courseNr} and user ${userId}:`,
       error
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
@@ -182,8 +222,6 @@ export async function resetSectionNr(courseNr: number, userId: string) {
       `Error resetting section number for course ${courseNr} and user ${userId}:`,
       error
     );
-  } finally {
-    await prisma.$disconnect(); // Optional, depends on your environment
   }
 }
 
@@ -229,8 +267,6 @@ export async function courseCompleted(courseNr: number, userId: string) {
       `Error updating lesson number to ${courseNr} for course ${courseNr} and user:`,
       error
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
 

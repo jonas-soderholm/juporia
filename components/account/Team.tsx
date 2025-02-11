@@ -145,12 +145,12 @@ export default function Team() {
           Invite Team Members ({Prices.Team}$ / Seat)
         </span>
       </div>
-      <p className="text-xs text-gray-500 ">
-        If the added emails are not currently registered on {LogoName.AppName},
-        an account will be created, and an invitation will be sent to the user
-        to log in. Additionally, they will be subscribed to an individual plan
-        for one month.
+      <p className="text-xs text-gray-500">
+        The added emails will have access to an individual plan for one month
+        after a successful purchase. The one-month plan starts at the moment of
+        purchase.
       </p>
+
       <div className="mt-8 flex flex-col items-center gap-4">
         <p>Up to {MAX_TEAM_MEMBERS} team members for each invitation</p>
         <form
