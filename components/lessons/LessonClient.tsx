@@ -4,12 +4,11 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import LessonEngine from "@/components/lessons/LessonEngine";
 import { CourseInfo } from "@/constants/course-info";
-import { Section } from "@/components/lessons/LessonLayout"; // Import the Section type
+import { Section } from "@/components/lessons/LessonLayout";
 
 // Define a type for the lesson data
 interface Lesson {
   link: string;
-  // Add other properties of a lesson if available
 }
 
 interface LessonButtons {
@@ -31,19 +30,6 @@ export default function LessonClient({
   courseSlug: string;
   lesson: string;
 }) {
-  // ✅ Hide footer when this component is active
-  useEffect(() => {
-    const footer = document.querySelector("footer");
-    if (footer) {
-      footer.style.display = "none";
-    }
-
-    return () => {
-      if (footer) {
-        footer.style.display = "";
-      }
-    };
-  }, []);
   const pathname = usePathname();
 
   const [lessonData, setLessonData] = useState<LessonData | null>(null);
@@ -51,6 +37,17 @@ export default function LessonClient({
     null
   );
   const [error, setError] = useState<string | null>(null);
+
+  // Hide footer when rendering the lessons
+  useEffect(() => {
+    const footer = document.querySelector("footer");
+
+    if (footer) footer.style.display = "none";
+
+    return () => {
+      if (footer) footer.style.display = "";
+    };
+  }, [pathname]);
 
   useEffect(() => {
     async function fetchLessonData() {
@@ -111,11 +108,13 @@ export default function LessonClient({
   }
 
   return (
-    <LessonEngine
-      lessonsOverviewUrl={lessonData.lessonsOverviewUrl}
-      sections={lessonData.sections}
-      courseNr={lessonData.courseNr}
-      currentLessonIndex={currentLessonIndex ?? 0}
-    />
+    <>
+      <LessonEngine
+        lessonsOverviewUrl={lessonData.lessonsOverviewUrl}
+        sections={lessonData.sections}
+        courseNr={lessonData.courseNr}
+        currentLessonIndex={currentLessonIndex ?? 0}
+      />
+    </>
   );
 }

@@ -37,7 +37,7 @@ export default function UseAccordion() {
       <header className="text-[3rem] text-center mt-36 font-bold">
         It should not be complex
       </header>
-      <div className="flex justify-center items-center mt-12 gap-8">
+      <div className="flex justify-center items-center mt-12 gap-8 p-4">
         {/* Accordion Section */}
         <div className="w-full max-w-[35rem]">
           {accordionItems.map((item, index) => (
@@ -62,7 +62,7 @@ export default function UseAccordion() {
         </div>
 
         {/* Image Section with Animation Fix */}
-        <div className="w-96 h-[20rem] flex justify-center items-center">
+        <div className="w-96 h-[20rem] md:flex hidden justify-center items-center">
           {showImage && (
             <img
               src={accordionItems[selectedIndex].image}

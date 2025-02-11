@@ -6,7 +6,7 @@ export const internetAndComputersData = {
   sections: [
     {
       id: 1,
-      sectionTitle: "The Importance of Strong Passwords",
+      sectionTitle: "1",
       content: [
         "A password is often the first line of defense against unauthorized access to your online accounts. Weak passwords make it easier for attackers to gain control over your sensitive information.",
         "Using strong passwords reduces the likelihood of your accounts being compromised in case of brute force or dictionary attacks. Strong passwords are also harder to guess or crack, even by sophisticated algorithms.",
@@ -25,7 +25,7 @@ export const internetAndComputersData = {
     },
     {
       id: 2,
-      sectionTitle: "How to Create Secure Passwords",
+      sectionTitle: "2",
       content: [
         "A strong password should be at least 12 characters long and include a mix of uppercase and lowercase letters, numbers, and special characters.",
         "Avoid using common words, predictable phrases, or sequences such as 'password123' or 'qwerty'. These are easy targets for attackers.",
@@ -44,7 +44,7 @@ export const internetAndComputersData = {
     },
     {
       id: 3,
-      sectionTitle: "zzz",
+      sectionTitle: "3",
       content: [
         "A strong password should be at least 12 characters long and include a mix of uppercase and lowercase letters, numbers, and special characters.",
         "Avoid using common words, predictable phrases, or sequences such as 'password123' or 'qwerty'. These are easy targets for attackers.",

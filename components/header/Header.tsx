@@ -27,7 +27,7 @@ export default async function Header() {
 
   return (
     <>
-      <nav className="w-full flex justify-between shadow-md h-[4rem] bg-exhaleguard-primary sticky top-0 z-50 overflow-hidden">
+      <header className="w-full flex justify-between shadow-md h-[4rem] bg-exhaleguard-primary sticky top-0 z-50 overflow-hidden">
         <div className="w-full flex justify-between items-center text-sm">
           {/* Logo */}
           <Link href="/">
@@ -79,7 +79,7 @@ export default async function Header() {
             <NavigationDrawer user={user} />
           </div>
         </div>
-      </nav>
+      </header>
     </>
   );
 }
