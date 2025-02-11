@@ -47,7 +47,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
   const isLessonCompleted = currentSectionIndex >= sections.length;
 
   return (
-    <>
+    <div className="mb-32">
       {/* Completed Sections */}
       <div className=" animate-fade-in w-full max-w-2xl p-4 rounded-lg mb-6">
         <div className="flex flex-col gap-4">
@@ -218,7 +218,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
           </Link>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

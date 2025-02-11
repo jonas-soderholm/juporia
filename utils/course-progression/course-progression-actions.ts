@@ -93,44 +93,12 @@ export async function ensureAndGetCourseProgress(courseNr: number) {
   }
 }
 
-export async function updateSectionNr(courseNr: number) {
-  const { id: userId } = await getUserAuth();
-
-  try {
-    await prisma.$transaction(async (tx) => {
-      // Increment the section number in the Progress table for the given user and course
-      await tx.progress.update({
-        where: {
-          userId_courseNr: {
-            userId: userId,
-            courseNr: courseNr,
-          },
-        },
-        data: {
-          sectionNr: {
-            increment: 1, // Increment the current value of sectionNr by 1
-          },
-        },
-      });
-    });
-
-    console.log(
-      `Section number incremented for course ${courseNr} and user ${userId}.`
-    );
-  } catch (error) {
-    console.error(
-      `Error incrementing section number for course ${courseNr} and user ${userId}:`,
-      error
-    );
-  }
-}
-
 // export async function updateSectionNr(courseNr: number) {
 //   const { id: userId } = await getUserAuth();
 
 //   try {
 //     await prisma.$transaction(async (tx) => {
-//       // Increment section number for the given user & course
+//       // Increment the section number in the Progress table for the given user and course
 //       await tx.progress.update({
 //         where: {
 //           userId_courseNr: {
@@ -139,7 +107,9 @@ export async function updateSectionNr(courseNr: number) {
 //           },
 //         },
 //         data: {
-//           sectionNr: { increment: 1 },
+//           sectionNr: {
+//             increment: 1, // Increment the current value of sectionNr by 1
+//           },
 //         },
 //       });
 //     });
@@ -147,25 +117,55 @@ export async function updateSectionNr(courseNr: number) {
 //     console.log(
 //       `Section number incremented for course ${courseNr} and user ${userId}.`
 //     );
-
-//     // Get the correct course path dynamically
-//     const courseEntry = Object.values(CourseInfo).find(
-//       (entry) => entry.courseNr === courseNr
-//     );
-
-//     if (courseEntry) {
-//       revalidatePath(`/courses/${courseEntry.path}`); // ✅ Correct dynamic revalidation
-//       console.log(`Revalidated path: /courses/${courseEntry.path}`);
-//     } else {
-//       console.warn(`Course path not found for courseNr: ${courseNr}`);
-//     }
 //   } catch (error) {
 //     console.error(
-//       `Error updating section number for course ${courseNr}:`,
+//       `Error incrementing section number for course ${courseNr} and user ${userId}:`,
 //       error
 //     );
 //   }
 // }
+
+export async function updateSectionNr(courseNr: number) {
+  const { id: userId } = await getUserAuth();
+
+  try {
+    await prisma.$transaction(async (tx) => {
+      // Increment section number for the given user & course
+      await tx.progress.update({
+        where: {
+          userId_courseNr: {
+            userId: userId,
+            courseNr: courseNr,
+          },
+        },
+        data: {
+          sectionNr: { increment: 1 },
+        },
+      });
+    });
+
+    console.log(
+      `Section number incremented for course ${courseNr} and user ${userId}.`
+    );
+
+    // Get the correct course path dynamically
+    const courseEntry = Object.values(CourseInfo).find(
+      (entry) => entry.courseNr === courseNr
+    );
+
+    if (courseEntry) {
+      revalidatePath(`/courses/${courseEntry.path}`); // Correct dynamic revalidation
+      console.log(`Revalidated path: /courses/${courseEntry.path}`);
+    } else {
+      console.warn(`Course path not found for courseNr: ${courseNr}`);
+    }
+  } catch (error) {
+    console.error(
+      `Error updating section number for course ${courseNr}:`,
+      error
+    );
+  }
+}
 
 export async function updateLessonNr(courseNr: number, userId: string) {
   try {

@@ -73,13 +73,18 @@ export default function LessonEngine({
     );
   }, [currentSectionIndex]); // This will log when currentSectionIndex is updated
 
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 100);
+  };
+
   const handleNext = () => {
     const section = sections[currentSectionIndex];
-
-    setTimeout(() => {
-      scrollDown(250);
-    }, 100);
-
+    scrollToBottom();
     if (currentContentIndex < section.content.length - 1) {
       setCurrentContentIndex((prev) => prev + 1);
     }
@@ -115,6 +120,8 @@ export default function LessonEngine({
           }
           return prev;
         });
+
+        scrollToBottom();
 
         if (isLastSection) {
           setCurrentSectionIndex(sections.length);
