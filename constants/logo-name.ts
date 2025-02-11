@@ -1,5 +1,6 @@
 export enum LogoName {
-  Logo = "/images/logos/px.png",
-  AppName = "PlexiBit",
+  Logo = "/images/logos/linkobit.png",
+  // SaaS App Name
+  AppName = "Linkobit",
   supportMail = "support@plexibit.com",
 }

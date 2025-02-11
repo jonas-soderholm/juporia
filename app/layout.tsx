@@ -31,7 +31,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        <title>PnagB- Basic Cybersecurity Training</title>
+        <title>LinkoBit - Basic Cybersecurity Training</title>
         <meta
           name="description"
           content="Learn cybersecurity and privacy fundamentals with beginner-friendly, interactive courses. Try 5 free lessons today—no login required."

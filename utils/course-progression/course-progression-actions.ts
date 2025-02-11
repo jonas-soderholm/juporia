@@ -5,37 +5,6 @@ import { getUserAuth } from "../user-actions/get-user";
 import { revalidatePath } from "next/cache";
 import { CourseInfo } from "@/constants/course-info";
 
-export async function createCourseAndProgress(courseNr: number) {
-  try {
-    const { id: userId } = await getUserAuth();
-    console.log("userId", userId);
-
-    await prisma.$transaction([
-      prisma.course.upsert({
-        where: { id: courseNr },
-        update: {}, // No updates needed for existing courses
-        create: { id: courseNr, name: `Course ${courseNr}` },
-      }),
-      prisma.progress.upsert({
-        where: { userId_courseNr: { userId, courseNr } },
-        update: {}, // No updates needed for existing progress
-        create: {
-          userId,
-          courseNr,
-          lessonNr: 0,
-          sectionNr: 0,
-          completed: false,
-        },
-      }),
-    ]);
-  } catch (error) {
-    console.error(
-      `Error ensuring course ${courseNr} and progress for user:`,
-      error
-    );
-  }
-}
-
 // Fetch both Course and Progress in a single query
 export async function getCourseWithProgress(courseNr: number, userId?: string) {
   const courseData = await prisma.course.findUnique({
@@ -92,38 +61,6 @@ export async function ensureAndGetCourseProgress(courseNr: number) {
     return { lessonNr: 0, sectionNr: 0, completed: false };
   }
 }
-
-// export async function updateSectionNr(courseNr: number) {
-//   const { id: userId } = await getUserAuth();
-
-//   try {
-//     await prisma.$transaction(async (tx) => {
-//       // Increment the section number in the Progress table for the given user and course
-//       await tx.progress.update({
-//         where: {
-//           userId_courseNr: {
-//             userId: userId,
-//             courseNr: courseNr,
-//           },
-//         },
-//         data: {
-//           sectionNr: {
-//             increment: 1, // Increment the current value of sectionNr by 1
-//           },
-//         },
-//       });
-//     });
-
-//     console.log(
-//       `Section number incremented for course ${courseNr} and user ${userId}.`
-//     );
-//   } catch (error) {
-//     console.error(
-//       `Error incrementing section number for course ${courseNr} and user ${userId}:`,
-//       error
-//     );
-//   }
-// }
 
 export async function updateSectionNr(courseNr: number) {
   const { id: userId } = await getUserAuth();

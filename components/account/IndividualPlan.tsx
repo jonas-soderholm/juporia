@@ -115,7 +115,12 @@ export default function IndividualPlan({
             {/* Combined Terms & Privacy Notice */}
             <p className="text-[12px] text-gray-500 text-right ml-auto">
               By continuing, you agree to our
-              <a href="/legal" className="text-blue-600 hover:underline">
+              <a
+                href="/legal"
+                className="text-blue-600 hover:underline"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {" "}
                 Terms & Privacy Policy
               </a>
