@@ -1,6 +1,6 @@
 import { CourseInfo } from "@/constants/course-info";
 
-export const internetAllLessonButtons = [
+const internetAllLessonButtons = [
   {
     courseNr: CourseInfo.InternetAndComputers.courseNr,
     title: "Level 1",

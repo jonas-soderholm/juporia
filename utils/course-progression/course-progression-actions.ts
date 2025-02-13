@@ -6,12 +6,15 @@ import { revalidatePath } from "next/cache";
 import { CourseInfo } from "@/constants/course-info";
 
 // Fetch both Course and Progress in a single query
-export async function getCourseWithProgress(courseNr: number, userId?: string) {
+export async function getCourseWithProgress(
+  courseNr: number,
+  userEmail?: string
+) {
   const courseData = await prisma.course.findUnique({
     where: { id: courseNr },
     include: {
       progress: {
-        where: { userId },
+        where: { userEmail },
         select: {
           lessonNr: true,
           sectionNr: true,
@@ -31,48 +34,21 @@ export async function getCourseWithProgress(courseNr: number, userId?: string) {
   };
 }
 
-export async function ensureAndGetCourseProgress(courseNr: number) {
-  try {
-    const { id: userId } = await getUserAuth();
-
-    // Ensure course & progress exist, then fetch both in a single query
-    const [_, progress] = await prisma.$transaction([
-      prisma.course.upsert({
-        where: { id: courseNr },
-        update: {},
-        create: { id: courseNr, name: `Course ${courseNr}` },
-      }),
-      prisma.progress.upsert({
-        where: { userId_courseNr: { userId, courseNr } },
-        update: {},
-        create: {
-          userId,
-          courseNr,
-          lessonNr: 0,
-          sectionNr: 0,
-          completed: false,
-        },
-      }),
-    ]);
-
-    return progress;
-  } catch (error) {
-    console.error(`Error ensuring/fetching course ${courseNr}:`, error);
-    return { lessonNr: 0, sectionNr: 0, completed: false };
-  }
-}
-
 export async function updateSectionNr(courseNr: number) {
-  const { id: userId } = await getUserAuth();
+  const { email: userEmail } = await getUserAuth();
+
+  if (!userEmail) {
+    throw new Error("User email is null");
+  }
 
   try {
     await prisma.$transaction(async (tx) => {
       // Increment section number for the given user & course
       await tx.progress.update({
         where: {
-          userId_courseNr: {
-            userId: userId,
-            courseNr: courseNr,
+          userEmail_courseNr: {
+            userEmail,
+            courseNr,
           },
         },
         data: {
@@ -82,7 +58,7 @@ export async function updateSectionNr(courseNr: number) {
     });
 
     console.log(
-      `Section number incremented for course ${courseNr} and user ${userId}.`
+      `Section number incremented for course ${courseNr} and user ${userEmail}.`
     );
 
     // Get the correct course path dynamically
@@ -91,7 +67,7 @@ export async function updateSectionNr(courseNr: number) {
     );
 
     if (courseEntry) {
-      revalidatePath(`/courses/${courseEntry.path}`); // Correct dynamic revalidation
+      revalidatePath(`/courses/${courseEntry.path}`);
       console.log(`Revalidated path: /courses/${courseEntry.path}`);
     } else {
       console.warn(`Course path not found for courseNr: ${courseNr}`);
@@ -104,69 +80,83 @@ export async function updateSectionNr(courseNr: number) {
   }
 }
 
-export async function updateLessonNr(courseNr: number, userId: string) {
+export async function updateLessonNr(courseNr: number) {
+  const { email: userEmail } = await getUserAuth();
+
+  if (!userEmail) {
+    throw new Error("User email is null");
+  }
+
   try {
     await prisma.$transaction(async (tx) => {
-      // Increment the lesson number in the Progress table for the given user and course
       await tx.progress.update({
         where: {
-          userId_courseNr: {
-            userId: userId,
-            courseNr: courseNr,
+          userEmail_courseNr: {
+            userEmail,
+            courseNr,
           },
         },
         data: {
-          lessonNr: {
-            increment: 1, // Increment the current value of lessonNr by 1
-          },
+          lessonNr: { increment: 1 },
         },
       });
     });
 
     console.log(
-      `Lesson number incremented for course ${courseNr} and user ${userId}.`
+      `Lesson number incremented for course ${courseNr} and user ${userEmail}.`
     );
   } catch (error) {
     console.error(
-      `Error incrementing lesson number for course ${courseNr} and user ${userId}:`,
+      `Error incrementing lesson number for course ${courseNr} and user ${userEmail}:`,
       error
     );
   }
 }
 
-export async function resetSectionNr(courseNr: number, userId: string) {
+export async function resetSectionNr(courseNr: number) {
+  const { email: userEmail } = await getUserAuth();
+
+  if (!userEmail) {
+    throw new Error("User email is null");
+  }
+
   try {
     await prisma.$transaction(async (tx) => {
-      // Reset the section number in the Progress table for the given user and course
       await tx.progress.update({
         where: {
-          userId_courseNr: {
-            userId: userId,
-            courseNr: courseNr,
+          userEmail_courseNr: {
+            userEmail,
+            courseNr,
           },
         },
         data: {
-          sectionNr: 0, // Reset sectionNr to 0
+          sectionNr: 0,
         },
       });
     });
 
     console.log(
-      `Section number reset to 0 for course ${courseNr} and user ${userId}.`
+      `Section number reset to 0 for course ${courseNr} and user ${userEmail}.`
     );
   } catch (error) {
     console.error(
-      `Error resetting section number for course ${courseNr} and user ${userId}:`,
+      `Error resetting section number for course ${courseNr} and user ${userEmail}:`,
       error
     );
   }
 }
 
-export async function getProgress(courseNr: number, userId: string) {
+export async function getProgress(courseNr: number) {
+  const { email: userEmail } = await getUserAuth();
+
+  if (!userEmail) {
+    throw new Error("User email is null");
+  }
+
   try {
     const progress = await prisma.progress.findUnique({
-      where: { userId_courseNr: { userId, courseNr } },
-      select: { lessonNr: true, sectionNr: true }, // Fetch both fields at once
+      where: { userEmail_courseNr: { userEmail, courseNr } },
+      select: { lessonNr: true, sectionNr: true },
     });
 
     return {
@@ -179,44 +169,20 @@ export async function getProgress(courseNr: number, userId: string) {
   }
 }
 
-export async function courseCompleted(courseNr: number, userId: string) {
-  try {
-    await prisma.$transaction(async (tx) => {
-      // Update the lesson number in the Progress table for the given user and course
-      await tx.progress.update({
-        where: {
-          userId_courseNr: {
-            userId: userId,
-            courseNr: courseNr,
-          },
-        },
-        data: {
-          completed: true,
-        },
-      });
-    });
-
-    console.log(
-      `Lesson number updated to ${courseNr} for course ${courseNr} and user ${userId}.`
-    );
-  } catch (error) {
-    console.error(
-      `Error updating lesson number to ${courseNr} for course ${courseNr} and user:`,
-      error
-    );
-  }
-}
-
 export async function ensureAndGetAllProgress(courseNr: number) {
-  const { id: userId } = await getUserAuth();
+  const { email: userEmail } = await getUserAuth();
+
+  if (!userEmail) {
+    throw new Error("User email is null");
+  }
 
   // First, fetch existing progress outside of the transaction
   const existingProgress = await prisma.progress.findUnique({
-    where: { userId_courseNr: { userId, courseNr } },
+    where: { userEmail_courseNr: { userEmail, courseNr } },
     select: { lessonNr: true, sectionNr: true, completed: true },
   });
 
-  if (existingProgress) return existingProgress; // Avoid unnecessary inserts
+  if (existingProgress) return existingProgress;
 
   // Use a batch transaction instead
   await prisma.$transaction([
@@ -227,7 +193,7 @@ export async function ensureAndGetAllProgress(courseNr: number) {
     }),
     prisma.progress.create({
       data: {
-        userId,
+        userEmail,
         courseNr,
         lessonNr: 0,
         sectionNr: 0,
@@ -236,9 +202,8 @@ export async function ensureAndGetAllProgress(courseNr: number) {
     }),
   ]);
 
-  // Fetch and return the newly created progress
   return prisma.progress.findUnique({
-    where: { userId_courseNr: { userId, courseNr } },
+    where: { userEmail_courseNr: { userEmail, courseNr } },
     select: { lessonNr: true, sectionNr: true, completed: true },
   });
 }

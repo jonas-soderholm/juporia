@@ -1,6 +1,6 @@
 "use client";
 
-import { isSubscribedNew } from "@/utils/user-actions/subscription";
+import { isSubscribedNow } from "@/utils/user-actions/subscription";
 import { getUserAuth } from "@/utils/user-actions/get-user";
 import ProgressBar from "./ProgressBar";
 
@@ -19,6 +19,7 @@ export default function CourseCard({
   title,
   description,
   buttonText,
+  courseNr,
   image,
   linkUrl,
   progress,
@@ -42,7 +43,13 @@ export default function CourseCard({
         return;
       }
 
-      const subscribed = await isSubscribedNew(user.email);
+      // Free course (courseNr 0) should be accessible without a subscription
+      if (courseNr === 0) {
+        window.location.href = linkUrl;
+        return;
+      }
+
+      const subscribed = await isSubscribedNow(user.email);
 
       if (!subscribed.isSubscribed) {
         window.location.href = "/account?tab=1"; // Redirect to subscription page

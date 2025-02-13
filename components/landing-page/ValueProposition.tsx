@@ -52,19 +52,18 @@ export function ValueProposition() {
 
   return (
     <>
-      <header className=" text-[3rem] text-center mt-24 font-bold">
+      <header className="md:text-[3rem] text-4xl text-center mt-24 font-bold">
         Knowledge is your best defense
       </header>
-      <div className="flex w-full max-w-7xl gap-8 mt-6 text-md justify-center mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-7xl gap-8 mt-12 text-md justify-center items-start mx-auto">
         {cards.map((card, index) => (
           <div
             key={index}
-            className="rounded-lg p-6 text-center md:text-left max-w-sm"
+            className="rounded-lg p-6 text-center md:text-left max-w-sm flex flex-col"
           >
             <div className="flex justify-center mb-4">{card.svg}</div>
-            <div className="flex justify-center mb-4"></div>
             <h2 className="text-2xl font-bold mb-4">{card.title}</h2>
-            <p>{card.description}</p>
+            <p className="flex-grow">{card.description}</p>
           </div>
         ))}
       </div>

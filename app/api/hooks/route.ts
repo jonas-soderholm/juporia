@@ -22,15 +22,14 @@ export async function POST(req: NextRequest) {
       process.env.STRIPE_WEBHOOK_SECRET!
     );
   } catch (err) {
-    console.error("Webhook signature verification failed:", err);
     return new NextResponse("Webhook Error", { status: 400 });
   }
 
   try {
     if (event.type === "checkout.session.completed") {
-      // Payment completed successfully
+      // Extract session data
       const session = event.data.object as Stripe.Checkout.Session;
-      const userId = session.metadata?.userId;
+
       const userEmail = session.metadata?.userEmail;
       const planType = session.metadata?.planType;
       const planMembers = session.metadata?.planMembers || "";
@@ -39,39 +38,40 @@ export async function POST(req: NextRequest) {
       const stripeRef = session.payment_intent as string;
       const payDate = new Date();
 
-      if (!userId || !userEmail) {
-        return new NextResponse("User ID is missing", { status: 400 });
+      if (!userEmail) {
+        return new NextResponse("User email is missing", { status: 400 });
       }
 
-      // Failsafe: Check if the invoice already exists if supabase is down and the webhook retries
+      // Check if invoice already exists
       try {
-        // Prevent duplicate invoices
         const existingInvoice = await prisma.invoice.findUnique({
           where: { stripeRef },
         });
 
         if (existingInvoice) {
-          console.log("Duplicate webhook ignored:", stripeRef);
-          return new NextResponse("Duplicate webhook ignored", { status: 200 }); // Stripe will NOT retry
+          return new NextResponse("Duplicate webhook ignored", { status: 200 });
         }
 
         // Create invoice if it doesn’t exist
         await prisma.invoice.create({
-          data: { userId, amount, status, payDate, stripeRef, planMembers },
+          data: { userEmail, amount, status, payDate, stripeRef, planMembers },
         });
       } catch (error) {
-        console.error(`Error processing event ${event.type}:`, error);
-        return new NextResponse("Internal Server Error", { status: 500 }); // ✅ Stripe WILL retry
+        return new NextResponse("Internal Server Error", { status: 500 });
       }
 
-      if (planType === "individual") {
-        await createOrUpdateIndividualSubscription(userEmail);
-      } else {
-        await createOrUpdateTeamSubscription(planMembers);
+      // Create or update subscription
+      try {
+        if (planType === "individual") {
+          await createOrUpdateIndividualSubscription(userEmail);
+        } else {
+          await createOrUpdateTeamSubscription(planMembers);
+        }
+      } catch (error) {
+        return new NextResponse("Internal Server Error", { status: 500 });
       }
     }
   } catch (error) {
-    console.error(`Error processing event ${event.type}:`, error);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 

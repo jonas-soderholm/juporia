@@ -88,8 +88,7 @@ export default function LessonClient({
         const data = await import(
           `@/data/lessons/${course}/lesson-specific/${lesson}`
         );
-
-        setLessonData(data.default || data.internetAndComputersData);
+        setLessonData(data.default || data.LessonData);
       } catch (err) {
         console.error("[DEBUG] Error loading lesson data:", err);
         setError("Failed to load lesson data.");

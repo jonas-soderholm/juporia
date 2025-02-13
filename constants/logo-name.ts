@@ -1,6 +1,11 @@
 export enum LogoName {
-  Logo = "/images/logos/linkobit.png",
+  Logo = "/images/logos/juporia-logo.png",
   // SaaS App Name
-  AppName = "Linkobit",
-  supportMail = "support@plexibit.com",
+  AppName = "JUPORIA",
+  supportMail = "support@juporia.com",
 }
+
+// juporia.com
+// jupobit.com
+// polebyte.com
+// plexibit.com

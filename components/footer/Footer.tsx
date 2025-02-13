@@ -17,7 +17,7 @@ export default function Footer() {
           </a>
         </nav>
         <div>
-          <p>support@plexibit.com</p>
+          <p>{LogoName.supportMail}</p>
         </div>
 
         <aside>

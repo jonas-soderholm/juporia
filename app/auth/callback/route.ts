@@ -29,7 +29,7 @@ export async function GET(request: Request) {
   if (sessionUser) {
     // Check if user exists in Prisma DB
     const existingUser = await prisma.user.findUnique({
-      where: { id: sessionUser.id },
+      where: { email: sessionUser.email },
     });
 
     // If not, create a new record

@@ -38,11 +38,11 @@ export default function LessonEngine({
     hasFetched.current = true;
 
     const fetchProgress = async () => {
-      const user = await getUserAuth();
-      if (!user.id) return;
+      // const user = await getUserAuth();
+      // if (!user.email) return;
 
       try {
-        const lessonNrFromDB = await getProgress(courseNr, user.id); // Fetch lesson number
+        const lessonNrFromDB = await getProgress(courseNr); // Fetch lesson number
         console.log("lessonNrFromDB", lessonNrFromDB); // Log lessonNrFromDB to verify
 
         let sectionNr = 0;
@@ -96,7 +96,7 @@ export default function LessonEngine({
     const isAnswerCorrect = currentSection.answerKeywords.some((keyword) =>
       userInputNormalized.includes(keyword.trim().toLowerCase())
     );
-    const user = await getUserAuth();
+    // const user = await getUserAuth();
 
     if (isAnswerCorrect) {
       setFeedback("Correct!");
@@ -127,8 +127,8 @@ export default function LessonEngine({
           setCurrentSectionIndex(sections.length);
           setFeedback("");
           setUserInput("");
-          resetSectionNr(courseNr, user.id);
-          updateLessonNr(courseNr, user.id);
+          resetSectionNr(courseNr);
+          updateLessonNr(courseNr);
         } else {
           setCurrentSectionIndex((prev) => prev + 1);
           setCurrentContentIndex(0);

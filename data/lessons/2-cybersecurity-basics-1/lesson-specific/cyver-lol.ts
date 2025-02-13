@@ -1,6 +1,6 @@
 import { CourseInfo } from "@/constants/course-info";
 
-export const internetAndComputersData = {
+const LessonData = {
   courseNr: CourseInfo.Cyber1.courseNr,
   lessonsOverviewUrl: CourseInfo.Cyber1.path,
   sections: [
@@ -25,3 +25,5 @@ export const internetAndComputersData = {
     },
   ],
 };
+
+export default LessonData;

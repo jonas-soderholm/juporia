@@ -27,7 +27,6 @@ export async function createCheckoutSessionIndividual() {
     customer_email: email, // Prefill the email in Stripe Checkout
 
     metadata: {
-      userId: id, // User ID
       userEmail: email, // Email
       planType: "individual",
       planMembers: email, // Tells Stripe this is an Individual Plan
@@ -47,8 +46,8 @@ export async function createCheckoutSessionIndividual() {
       },
     ],
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cancel`,
+    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment/success`,
+    cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment/cancel`,
   });
 
   return session.url;
@@ -78,7 +77,6 @@ export async function createCheckoutSessionTeam(teamEmails: string[]) {
     customer_email: user.email,
 
     metadata: {
-      userId: user.id, // User ID
       userEmail: user.email, // Email
       planType: "team", // Tells Stripe this is a Team Plan
       planMembers: sanitizedEmails.join(", "), // Store team members as JSON
@@ -106,7 +104,7 @@ export async function createCheckoutSessionTeam(teamEmails: string[]) {
 }
 
 export async function createInvoice(
-  userId: string,
+  userEmail: string, // Updated: Use email instead of userId
   amount: number,
   status: string,
   payDate: Date,
@@ -116,7 +114,7 @@ export async function createInvoice(
   try {
     const invoice = await prisma.invoice.create({
       data: {
-        userId,
+        userEmail, // Updated: Use email as reference
         amount,
         status,
         payDate,
@@ -141,11 +139,17 @@ export async function getInvoice() {
   }
 
   try {
+    if (!user.email) {
+      throw new Error("User email is not available");
+    }
+
     const invoices = await prisma.invoice.findMany({
       where: {
-        userId: user.id, // Properly reference the user ID
+        userEmail: user.email, // Updated: Use email instead of userId
       },
     });
+
+    console.log("Fetched invoices:", invoices);
     return invoices;
   } catch (error) {
     console.error("Error fetching invoices:", error);

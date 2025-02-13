@@ -72,22 +72,26 @@ export const signInAction = async (formData: FormData) => {
     data: { user: sessionUser },
   } = await supabase.auth.getUser();
 
-  if (sessionUser) {
-    // Check if user exists in Prisma DB
-    const existingUser = await prisma.user.findUnique({
-      where: { id: sessionUser.id },
-    });
-
-    // If not, create a new record
-    if (!existingUser) {
-      await prisma.user.create({
-        data: {
-          id: sessionUser.id,
-          email: sessionUser.email || "",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
+  if (sessionUser?.email) {
+    try {
+      // Check if user exists in Prisma DB using email instead of id
+      const existingUser = await prisma.user.findUnique({
+        where: { email: sessionUser.email },
       });
+
+      if (!existingUser) {
+        await prisma.user.create({
+          data: {
+            id: sessionUser.id,
+            email: sessionUser.email,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        });
+      }
+    } catch (dbError) {
+      console.error("Database error while creating user:", dbError);
+      return encodedRedirect("error", "/sign-in", "Failed to create user.");
     }
   }
 
@@ -162,7 +166,7 @@ export const resetPasswordAction = async (formData: FormData) => {
     );
   }
 
-  return encodedRedirect("success", "/reset-password", "Password updated");
+  return encodedRedirect("success", "/", "Password updated");
 };
 
 export const signOutAction = async () => {

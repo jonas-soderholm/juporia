@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getUserAuth } from "@/utils/user-actions/get-user";
-import { isSubscribedNew } from "@/utils/user-actions/subscription";
+import { isSubscribedNow } from "@/utils/user-actions/subscription";
 import AccountTabsLayout from "@/components/account/AccountTabsLayout";
 import UserOverview from "@/components/account/UserOverview";
 import IndividualPlan from "@/components/account/IndividualPlan";
@@ -11,7 +11,7 @@ import Settings from "@/components/account/Settings";
 export default async function AccountLayout() {
   const accountData = await getUserAuth();
   const isSubscribed = accountData.email
-    ? await isSubscribedNew(accountData.email)
+    ? await isSubscribedNow(accountData.email)
     : { isSubscribed: false, daysLeft: null };
 
   // Redirect if the user is not authenticated

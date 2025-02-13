@@ -1,40 +1,12 @@
 "use server";
 import prisma from "../prisma";
 
-// export async function isSubscribedNew(
-//   userEmail: string
-// ): Promise<{ isSubscribed: boolean; daysLeft: number | null }> {
-//   try {
-//     const subscription = await prisma.subscription.findFirst({
-//       where: { email: userEmail },
-//       select: { startDate: true, endDate: true },
-//     });
-
-//     if (!subscription) return { isSubscribed: false, daysLeft: null };
-
-//     const now = new Date();
-//     const isActive =
-//       now >= subscription.startDate && now <= subscription.endDate;
-//     const daysLeft = isActive
-//       ? Math.ceil(
-//           (subscription.endDate.getTime() - now.getTime()) /
-//             (1000 * 60 * 60 * 24)
-//         )
-//       : null;
-
-//     return { isSubscribed: isActive, daysLeft };
-//   } catch (error) {
-//     console.error("Error checking subscription status:", error);
-//     return { isSubscribed: false, daysLeft: null };
-//   }
-// }
-
 const cache = new Map<
   string,
   { data: { isSubscribed: boolean; daysLeft: number | null }; expires: number }
 >();
 
-export async function isSubscribedNew(
+export async function isSubscribedNow(
   userEmail: string
 ): Promise<{ isSubscribed: boolean; daysLeft: number | null }> {
   const now = Date.now();
@@ -77,8 +49,8 @@ export async function isSubscribedNew(
       result = { isSubscribed: isActive, daysLeft };
     }
 
-    // Store in cache with expiration (even if not subscribed)
-    cache.set(cacheKey, { data: result, expires: now + 10 * 500 });
+    // Store in cache with expiration (even if not subscribed) 7 sec
+    cache.set(cacheKey, { data: result, expires: now + 10 * 700 });
 
     return result;
   } catch (error) {
@@ -106,13 +78,11 @@ export async function createOrUpdateIndividualSubscription(userEmail: string) {
     update: {
       startDate: startDate, // Update subscription details
       endDate: endDate,
-      isActive: true,
     },
     create: {
       email: userEmail, // Create a new subscription if none exists
       startDate: startDate,
       endDate: endDate,
-      isActive: true,
     },
   });
 
@@ -146,13 +116,11 @@ export async function createOrUpdateTeamSubscription(teamEmails: string) {
         update: {
           startDate, // Use consistent start date
           endDate,
-          isActive: true,
         },
         create: {
           email, // Correct email reference
           startDate,
           endDate,
-          isActive: true,
         },
       });
     })

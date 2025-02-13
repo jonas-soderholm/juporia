@@ -31,12 +31,12 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        <title>LinkoBit - Basic Cybersecurity Training</title>
+        <title>JUPORIA - Basic Cybersecurity Training</title>
         <meta
           name="description"
           content="Learn cybersecurity and privacy fundamentals with beginner-friendly, interactive courses. Try 5 free lessons today—no login required."
         />
-        <link rel="icon" href={LogoName.Logo} />
+        <link rel="icon" href={LogoName.Logo} type="image/png" />
       </head>
       <body className="bg-background text-foreground">
         <ThemeProvider
@@ -49,7 +49,6 @@ export default function RootLayout({
             {/* Header/Nav Section */}
             <Header />
             {/* Main Content Area */}
-
             <BreadCrumbs />
             <div className="flex-1">{children}</div>
             <Footer />

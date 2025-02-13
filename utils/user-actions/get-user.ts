@@ -2,9 +2,6 @@
 
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import prisma from "../prisma";
-import { isSubscribedNew } from "./subscription";
-import { get } from "cypress/types/jquery";
 
 export async function getUserAuth() {
   const supabase = await createClient();

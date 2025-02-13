@@ -1,7 +1,8 @@
 import LessonClient from "@/components/lessons/LessonClient";
 import { getUserAuth } from "@/utils/user-actions/get-user";
-import { isSubscribedNew } from "@/utils/user-actions/subscription";
+import { isSubscribedNow } from "@/utils/user-actions/subscription";
 import { redirect } from "next/navigation";
+import { CourseInfo } from "@/constants/course-info";
 
 export default async function LessonPage({
   params,
@@ -11,10 +12,20 @@ export default async function LessonPage({
   // Await params to extract course and lesson
   const { course, lesson } = await params;
   const user = await getUserAuth();
-  const subscribed = await isSubscribedNew(user.email || "");
+  const subscribed = await isSubscribedNow(user.email || "");
 
-  // Perform subscription check
-  if (!subscribed.isSubscribed || !user.id) {
+  // Find the course entry to get courseNr
+  const courseEntry = Object.values(CourseInfo).find(
+    (entry) => entry.path.split("/").pop() === course
+  );
+
+  if (!courseEntry) {
+    throw new Error(`No course found for URL: ${course}`);
+  }
+
+  // Redirect if not free lesson and not subscribed
+  const courseNr = courseEntry.courseNr;
+  if (!subscribed.isSubscribed && courseNr !== 0) {
     redirect("/sign-in");
   }
 

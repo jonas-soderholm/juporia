@@ -4,14 +4,13 @@ import { internetComputerTotalLessons } from "../lessons/1-internet-computers/al
 
 export const allCourses = [
   {
-    courseNr: CourseInfo.InternetAndComputers.courseNr,
+    courseNr: CourseInfo.FreeCourse.courseNr,
     lessonAmount: internetComputerTotalLessons,
-    title: "Internet and Computer Basics",
-    description:
-      "Learn how computers and the internet work—no prior knowledge needed! Build a foundation for understanding cybersecurity better.",
+    title: "5 Free Mixed Lessons",
+    description: "Free and only 1 level.",
     buttonText: "Start",
     image: "/images/courses-backgrounds/internetcomputer_bg.jpg",
-    linkUrl: CourseInfo.InternetAndComputers.path,
+    linkUrl: CourseInfo.FreeCourse.path,
   },
   {
     courseNr: CourseInfo.Cyber1.courseNr,
@@ -42,6 +41,16 @@ export const allCourses = [
     buttonText: "Start",
     image: "/images/courses-backgrounds/privacy_bg.jpg",
     linkUrl: CourseInfo.Privacy.path,
+  },
+  {
+    courseNr: CourseInfo.InternetAndComputers.courseNr,
+    lessonAmount: internetComputerTotalLessons,
+    title: "Internet and Computer Basics",
+    description:
+      "Learn how computers and the internet work—no prior knowledge needed! Build a foundation for understanding cybersecurity better.",
+    buttonText: "Start",
+    image: "/images/courses-backgrounds/internetcomputer_bg.jpg",
+    linkUrl: CourseInfo.InternetAndComputers.path,
   },
   {
     courseNr: CourseInfo.ThirdParty.courseNr,

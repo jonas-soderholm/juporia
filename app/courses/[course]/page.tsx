@@ -3,7 +3,7 @@ import AllLessonsInCourse from "@/components/courses/AllLessonsInCourse";
 import { CourseInfo } from "@/constants/course-info";
 import { ensureAndGetAllProgress } from "@/utils/course-progression/course-progression-actions";
 import { getUserAuth } from "@/utils/user-actions/get-user";
-import { isSubscribedNew } from "@/utils/user-actions/subscription";
+import { isSubscribedNow } from "@/utils/user-actions/subscription";
 
 export default async function CoursePage({
   params,
@@ -26,11 +26,13 @@ export default async function CoursePage({
 
   // Fetch subscription & progress in one **optimized** query
   const [isSubscribed, progress] = await Promise.all([
-    isSubscribedNew(user.email || ""),
+    isSubscribedNow(user.email || ""),
     ensureAndGetAllProgress(courseEntry.courseNr), // This should now run only **once**
   ]);
 
-  if (!isSubscribed.isSubscribed) redirect("/sign-in");
+  // Redirect if not free lesson and not subscribed
+  if (!isSubscribed.isSubscribed && courseEntry.courseNr !== 0)
+    redirect("/sign-in");
 
   // Import lesson data once
   const lessonsData = (

@@ -7,35 +7,35 @@ const termsContent = [
     content: `Welcome to ${LogoName.AppName}. These Terms of Service and Privacy Policy govern your access to and use of our cybersecurity courses and services.`,
   },
   {
-    title: "2. Payment & Refund Policy",
-    content: `All payments are final, and we do not offer refunds. However, if you experience any issues with your purchase, please contact us at ${LogoName.supportMail}, and we’ll be happy to assist you.`,
-  },
-  {
-    title: "3. Access",
+    title: "2. Access",
     content:
       "An individual plan grants access for one user for one month. You may also purchase access for others. Access does not automatically renew and must be repurchased after expiration.",
   },
   {
-    title: "4. Account & Security",
+    title: "3. Account & Security",
     content:
       "You are responsible for maintaining the confidentiality of your account credentials and ensuring the security of your account. If you suspect unauthorized access, contact us immediately.",
   },
   {
-    title: "5. Intellectual Property",
+    title: "4. Intellectual Property",
     content: `All content, materials, and resources provided within ${LogoName.AppName} are owned by us and may not be shared, resold, or redistributed without explicit permission.`,
   },
   {
-    title: "6. GDPR & Data Protection",
+    title: "5. GDPR & Data Protection",
     content: `As a company operating within the EU, ${LogoName.AppName} complies with the General Data Protection Regulation (GDPR). 
-      - We collect only necessary data for account creation and login via OAuth (Google, GitHub) or manual login.
-      - No user data is stored beyond what is required for authentication.
-      - We do not track, profile, or resell user data.
-      - Users can delete their accounts and all associated data at any time in the settings panel.`,
+    - We collect only necessary data for account creation and login via OAuth (Google, GitHub) or manual login.
+    - No user data is stored beyond what is required for authentication.
+    - We do not track, profile, or resell user data.
+    - Users can delete their accounts and all associated data at any time in the settings panel.`,
   },
   {
-    title: "7. Account Deletion & User Rights",
+    title: "6. Account Deletion & User Rights",
     content: `You have the right to request data deletion at any time. ${LogoName.AppName} provides a self-service option in settings where users can permanently delete their accounts and all related data. 
-      If an account is deleted, all associated course access and data are permanently removed and cannot be recovered.`,
+    If an account is deleted, all associated course access and data are permanently removed and cannot be recovered.`,
+  },
+  {
+    title: "7. Payment & Refund Policy",
+    content: `All payments are final, and we do not offer refunds. However, if you experience any issues with your purchase, please contact us at ${LogoName.supportMail}, and we’ll be happy to assist you.`,
   },
   {
     title: "8. Modifications to Terms",
