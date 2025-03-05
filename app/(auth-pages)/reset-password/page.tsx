@@ -4,7 +4,6 @@ import { SubmitButton } from "@/components/header/auth/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { LogoName } from "@/constants/logo-name";
 
 export default async function ResetPassword(props: {
   searchParams: Promise<Message>;
@@ -14,9 +13,11 @@ export default async function ResetPassword(props: {
   return (
     <>
       {/* Header */}
-      <h1 className="text-2xl mb-4 font-bold">Reset Your Password</h1>
+      <h1 className="md:text-2xl text-xl mb-4 font-bold">
+        Reset Your Password
+      </h1>
       {/* Form */}
-      <div className="flex justify-center items-center bg-base-300 px-6 py-6 rounded-lg border-slate-700 border-2  w-full md:max-w-sm max-w-xs mx-auto">
+      <div className="flex justify-center items-center bg-base-300 p-4 rounded-lg border-slate-700 border-2  w-full md:max-w-sm max-w-xs mx-auto">
         <form className="flex flex-col w-full" action={resetPasswordAction}>
           <div className="flex flex-col gap-2 [&>input]:mb-3 mb-2 mt-3">
             <Label className="text-slate-200" htmlFor="password">

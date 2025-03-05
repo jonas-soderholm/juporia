@@ -14,7 +14,6 @@ export default function PaymentFailed() {
   useEffect(() => {
     async function fetchUser() {
       const userData = await getUserAuth();
-      console.log(userData);
 
       if (!userData || !userData.email) {
         router.push("/sign-in");

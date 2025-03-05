@@ -32,7 +32,13 @@ export default async function AllCourses() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center my-8">Courses</h1>
+      <div className="my-8">
+        <h1 className="text-3xl font-bold text-center">Courses</h1>
+        <p className="text-center md:text-xs text-[12px] my-1 max-w-sm mx-auto px-4">
+          The courses are structured for a smooth learning experience, but
+          you’re free to start with the one that suits you best.
+        </p>
+      </div>
       <div className="flex flex-col items-center px-4">
         {visibleCourses.map((course) => {
           const progress =
@@ -75,9 +81,10 @@ export default async function AllCourses() {
               lessonAmount={course.lessonAmount}
               description={course.description}
               buttonText={buttonText}
-              image={course.image}
               linkUrl={linkUrl}
               progress={progress}
+              available={course.available}
+              svg={course.svg || <></>}
             />
           );
         })}

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { LessonButton } from "@/components/courses/LessonButton";
+import "./course.css";
 
 interface Lesson {
   name: string;
@@ -82,7 +83,8 @@ export default function AllLessonsInCourse({
       {lessons.map((lessonGroup, courseIndex) => (
         <div key={courseIndex} className="w-full max-w-3xl">
           <h2 className="text-lg text-center mb-6">{lessonGroup.title}</h2>
-          <div className="bg-gray-700 p-6 rounded-lg border border-gray-500">
+          {/* <div className="dot-background md:px-6 py-6 rounded-lg border-2 border-gray-500">*/}
+          <div className="dot-background md:px-6 py-6 rounded-lg border-2 border-gray-500 shadow-[inset_4px_4px_10px_rgba(0,0,0,0.4)]">
             <ul className="timeline timeline-vertical relative">
               {lessonGroup.lessons.map((lesson, lessonIndex) => (
                 <li key={lessonIndex} className="relative">

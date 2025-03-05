@@ -16,7 +16,8 @@ export default async function AccountLayout() {
 
   // Redirect if the user is not authenticated
   if (!accountData || !accountData.email) {
-    redirect("/sign-in");
+    // redirect("/sign-in");
+    redirect(`/sign-in?redirect=${encodeURIComponent("/account?tab=1")}`);
   }
 
   // Define menu items directly with the fetched data

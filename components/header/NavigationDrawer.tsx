@@ -133,10 +133,7 @@ export default function NavigationDrawer({ user }: { user: User | null }) {
             </li>
             <li>
               <Link
-                href={{
-                  pathname: user ? "/account" : "/sign-in",
-                  query: { tab: 0 },
-                }}
+                href={{ pathname: "/account", query: { tab: 0 } }}
                 onClick={closeDrawer}
               >
                 <div className="flex items-center gap-2">

@@ -20,7 +20,7 @@ export function ValueProposition() {
     {
       title: `Why ${LogoName.AppName}?`,
       description:
-        "Our easy-to-learn courses provide essential cybersecurity knowledge, ensuring your team has a solid foundation—even with no prior experience.",
+        "Our easy-to-learn courses provide essential cybersecurity knowledge, ensuring your team has a solid foundation even without prior experience while also teaching managers how to protect their business.",
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -34,8 +34,8 @@ export function ValueProposition() {
       ),
     },
     {
-      title: "Security Frameworks?",
-      description: `CIS 18, NIST, and ISO 27000 are often out of reach for SMBs. ${LogoName.AppName} introduces these frameworks in a simplified way, bridging the knowledge gap.`,
+      title: "Cybersecurity for SMBs",
+      description: `Many SMBs lack an incident response and disaster recovery plan. ${LogoName.AppName} provides practical examples to secure data and prevent attacks—easy to understand and apply.`,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ export function ValueProposition() {
           width="150px"
           fill="#2563eb"
         >
-          <path d="M160-80q-33 0-56.5-23.5T80-160v-480q0-33 23.5-56.5T160-720h160l160-160 160 160h160q33 0 56.5 23.5T880-640v480q0 33-23.5 56.5T800-80H160Zm0-80h640v-480H160v480Zm80-80h480L570-440 450-280l-90-120-120 160Zm460-200q25 0 42.5-17.5T760-500q0-25-17.5-42.5T700-560q-25 0-42.5 17.5T640-500q0 25 17.5 42.5T700-440ZM404-720h152l-76-76-76 76ZM160-160v-480 480Z" />
+          <path d="M0-240v-63q0-43 44-70t116-27q13 0 25 .5t23 2.5q-14 21-21 44t-7 48v65H0Zm240 0v-65q0-32 17.5-58.5T307-410q32-20 76.5-30t96.5-10q53 0 97.5 10t76.5 30q32 20 49 46.5t17 58.5v65H240Zm540 0v-65q0-26-6.5-49T754-397q11-2 22.5-2.5t23.5-.5q72 0 116 26.5t44 70.5v63H780Zm-455-80h311q-10-20-55.5-35T480-370q-55 0-100.5 15T325-320ZM160-440q-33 0-56.5-23.5T80-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T160-440Zm640 0q-33 0-56.5-23.5T720-520q0-34 23.5-57t56.5-23q34 0 57 23t23 57q0 33-23 56.5T800-440Zm-320-40q-50 0-85-35t-35-85q0-51 35-85.5t85-34.5q51 0 85.5 34.5T600-600q0 50-34.5 85T480-480Zm0-80q17 0 28.5-11.5T520-600q0-17-11.5-28.5T480-640q-17 0-28.5 11.5T440-600q0 17 11.5 28.5T480-560Zm1 240Zm-1-280Z" />
         </svg>
       ),
     },
@@ -52,14 +52,15 @@ export function ValueProposition() {
 
   return (
     <>
-      <header className="md:text-[3rem] text-4xl text-center mt-24 font-bold">
+      <header className="md:text-[3rem] text-4xl text-center mt-6 font-bold md:p-10 p-4 leading-snug">
         Knowledge is your best defense
       </header>
-      <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-7xl gap-8 mt-12 text-md justify-center items-start mx-auto">
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 w-full max-w-7xl gap-8 mt-12 text-md place-items-center mx-auto">
         {cards.map((card, index) => (
           <div
             key={index}
-            className="rounded-lg p-6 text-center md:text-left max-w-sm flex flex-col"
+            className="rounded-lg p-6 text-center md:text-left max-w-sm flex flex-col h-full"
           >
             <div className="flex justify-center mb-4">{card.svg}</div>
             <h2 className="text-2xl font-bold mb-4">{card.title}</h2>

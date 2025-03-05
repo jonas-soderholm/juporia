@@ -3,7 +3,8 @@ import Stripe from "stripe";
 import { getUserAuth } from "../user-actions/get-user";
 import prisma from "../prisma";
 import { Prices } from "@/constants/prices";
-import { SupabaseClient } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
+
 import {
   MIN_TEAM_MEMBERS,
   MAX_TEAM_MEMBERS,
@@ -17,10 +18,10 @@ export async function createCheckoutSessionIndividual() {
   const user = await getUserAuth();
 
   if (!user || !user.email) {
-    throw new Error("User is not authenticated or does not exist.");
+    redirect("/sign-in");
   }
 
-  const { id, email } = user;
+  const { email } = user;
 
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
@@ -46,7 +47,7 @@ export async function createCheckoutSessionIndividual() {
       },
     ],
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment/success`,
+    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/account?tab=1`,
     cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/payment/cancel`,
   });
 
@@ -57,7 +58,7 @@ export async function createCheckoutSessionTeam(teamEmails: string[]) {
   const user = await getUserAuth();
 
   if (!user || !user.email) {
-    throw new Error("User is not authenticated or does not exist.");
+    redirect("/sign-in");
   }
 
   // Backend validation (prevents API abuse)
@@ -65,7 +66,8 @@ export async function createCheckoutSessionTeam(teamEmails: string[]) {
     teamEmails.length < MIN_TEAM_MEMBERS ||
     teamEmails.length > MAX_TEAM_MEMBERS
   ) {
-    throw new Error("Team size must be between 2 and 3 members.");
+    // throw new Error("Team size must be between 2 and 3 members.");
+    redirect("/account?tab=2");
   }
 
   const sanitizedEmails = [
@@ -96,7 +98,7 @@ export async function createCheckoutSessionTeam(teamEmails: string[]) {
       },
     ],
     mode: "payment",
-    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/success`,
+    success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/account?tab=3`,
     cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/cancel`,
   });
 
@@ -123,11 +125,9 @@ export async function createInvoice(
       },
     });
 
-    console.log("Invoice created successfully:", invoice);
     return invoice;
-  } catch (error) {
-    console.error("Error creating invoice:", error);
-    throw new Error("Failed to create invoice");
+  } catch {
+    redirect("/");
   }
 }
 
@@ -135,12 +135,12 @@ export async function getInvoice() {
   const user = await getUserAuth();
 
   if (!user) {
-    throw new Error("User not authenticated or not found");
+    redirect("/sign-in");
   }
 
   try {
     if (!user.email) {
-      throw new Error("User email is not available");
+      redirect("/sign-in");
     }
 
     const invoices = await prisma.invoice.findMany({
@@ -149,10 +149,9 @@ export async function getInvoice() {
       },
     });
 
-    console.log("Fetched invoices:", invoices);
     return invoices;
-  } catch (error) {
-    console.error("Error fetching invoices:", error);
-    throw new Error("Failed to fetch invoices");
+  } catch {
+    // throw new Error("Failed to fetch invoices");
+    redirect("/");
   }
 }

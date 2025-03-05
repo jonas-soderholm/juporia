@@ -11,7 +11,7 @@ type InvoiceData = {
   payDate: Date;
   amount: number;
   status: string;
-  userId: string;
+  userEmail: string;
   stripeRef: string;
   planMembers: string;
 };

@@ -17,7 +17,8 @@ export default async function CoursePage({
   );
 
   if (!courseEntry) {
-    throw new Error(`No course found for URL: ${course}`);
+    // throw new Error(`No course found for URL: ${course}`);
+    redirect("/sign-in");
   }
 
   // Fetch user ID once
@@ -40,12 +41,14 @@ export default async function CoursePage({
   ).default;
 
   return (
-    <AllLessonsInCourse
-      lessonName={courseEntry.courseName}
-      courseNr={courseEntry.courseNr}
-      lessonsData={lessonsData}
-      lessonNr={progress?.lessonNr ?? 0} // Avoids unnecessary re-fetching
-      baseUrl={courseEntry.path}
-    />
+    <>
+      <AllLessonsInCourse
+        lessonName={courseEntry.courseName}
+        courseNr={courseEntry.courseNr}
+        lessonsData={lessonsData}
+        lessonNr={progress?.lessonNr ?? 0} // Avoids unnecessary re-fetching
+        baseUrl={courseEntry.path}
+      />
+    </>
   );
 }

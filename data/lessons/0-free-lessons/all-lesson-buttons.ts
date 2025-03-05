@@ -7,28 +7,18 @@ const freeLessonAllLessonButtons = [
     lessons: [
       {
         name: "Passwords: How Long Does It Take to Hack?",
-        link: "/free1",
+        link: "/free-password",
         position: "start",
       },
       {
-        name: "Who Can See Your Online Activity?",
-        link: "/free2",
+        name: "Who Can See Your Private Messages Online?",
+        link: "/free-who-can-see",
         position: "end",
       },
       {
-        name: "How Hackers Target You Without You Knowing",
-        link: "/free3",
-        position: "start",
-      },
-      {
-        name: "2024 Annual Report on the Most Used Hacking Techniques",
-        link: "/free4",
+        name: "Malware and Viruses: How Computers Get Infected",
+        link: "/free-what-is-malware",
         position: "end",
-      },
-      {
-        name: "The 3 Biggest Cybersecurity Mistakes",
-        link: "/free5",
-        position: "start",
       },
     ],
   },

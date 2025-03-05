@@ -6,12 +6,12 @@ export default function Pricing() {
   const subscriptions = [
     {
       title: "Free",
-      description: `5 Lessons for free. Try them out and see if ${LogoName.AppName} is for you or your team.`,
+      description: `3 Lessons for free. Try them out and see if ${LogoName.AppName} is for you or your team.`,
       price: Prices.Free,
-      buttontext: "Try 5 Free Lessons Now",
+      buttontext: "Try 3 Free Lessons Now",
       route: "/courses",
       features: [
-        "5 Free Lessons",
+        "3 Free Lessons",
         "No Credit Card Required",
         "Limited Course Access",
       ],

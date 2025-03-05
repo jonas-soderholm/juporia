@@ -4,6 +4,7 @@ import prisma from "../prisma";
 import { getUserAuth } from "../user-actions/get-user";
 import { revalidatePath } from "next/cache";
 import { CourseInfo } from "@/constants/course-info";
+import { redirect } from "next/navigation";
 
 // Fetch both Course and Progress in a single query
 export async function getCourseWithProgress(
@@ -38,7 +39,7 @@ export async function updateSectionNr(courseNr: number) {
   const { email: userEmail } = await getUserAuth();
 
   if (!userEmail) {
-    throw new Error("User email is null");
+    return redirect("/sign-in");
   }
 
   try {
@@ -57,10 +58,6 @@ export async function updateSectionNr(courseNr: number) {
       });
     });
 
-    console.log(
-      `Section number incremented for course ${courseNr} and user ${userEmail}.`
-    );
-
     // Get the correct course path dynamically
     const courseEntry = Object.values(CourseInfo).find(
       (entry) => entry.courseNr === courseNr
@@ -68,7 +65,7 @@ export async function updateSectionNr(courseNr: number) {
 
     if (courseEntry) {
       revalidatePath(`/courses/${courseEntry.path}`);
-      console.log(`Revalidated path: /courses/${courseEntry.path}`);
+      // console.log(`Revalidated path: /courses/${courseEntry.path}`);
     } else {
       console.warn(`Course path not found for courseNr: ${courseNr}`);
     }
@@ -84,7 +81,7 @@ export async function updateLessonNr(courseNr: number) {
   const { email: userEmail } = await getUserAuth();
 
   if (!userEmail) {
-    throw new Error("User email is null");
+    return redirect("/sign-in");
   }
 
   try {
@@ -101,10 +98,6 @@ export async function updateLessonNr(courseNr: number) {
         },
       });
     });
-
-    console.log(
-      `Lesson number incremented for course ${courseNr} and user ${userEmail}.`
-    );
   } catch (error) {
     console.error(
       `Error incrementing lesson number for course ${courseNr} and user ${userEmail}:`,
@@ -117,7 +110,7 @@ export async function resetSectionNr(courseNr: number) {
   const { email: userEmail } = await getUserAuth();
 
   if (!userEmail) {
-    throw new Error("User email is null");
+    return redirect("/sign-in");
   }
 
   try {
@@ -134,10 +127,6 @@ export async function resetSectionNr(courseNr: number) {
         },
       });
     });
-
-    console.log(
-      `Section number reset to 0 for course ${courseNr} and user ${userEmail}.`
-    );
   } catch (error) {
     console.error(
       `Error resetting section number for course ${courseNr} and user ${userEmail}:`,
@@ -150,7 +139,7 @@ export async function getProgress(courseNr: number) {
   const { email: userEmail } = await getUserAuth();
 
   if (!userEmail) {
-    throw new Error("User email is null");
+    return redirect("/sign-in");
   }
 
   try {
@@ -173,7 +162,7 @@ export async function ensureAndGetAllProgress(courseNr: number) {
   const { email: userEmail } = await getUserAuth();
 
   if (!userEmail) {
-    throw new Error("User email is null");
+    return redirect("/sign-in");
   }
 
   // First, fetch existing progress outside of the transaction

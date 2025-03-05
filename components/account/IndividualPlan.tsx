@@ -70,13 +70,6 @@ export default function IndividualPlan({
           <div className="border-t border-gray-400 mt-4 pt-4">
             <div className="mb-4">
               <h3 className="text-xl font-semibold">Billing Settings</h3>
-              <p className="text-base text-gray-500">
-                You are logged in as{" "}
-                <span className="font-semibold text-gray-500">
-                  jonas.soderholm89@gmail.com
-                </span>
-                .
-              </p>
               <p className="text-sm text-gray-500"></p>
             </div>
 

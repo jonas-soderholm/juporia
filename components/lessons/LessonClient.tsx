@@ -103,7 +103,7 @@ export default function LessonClient({
   }
 
   if (!lessonData) {
-    return <p>Loading...</p>;
+    return <p></p>;
   }
 
   return (

@@ -1,5 +1,5 @@
 "use client";
-import { LogoName } from "@/constants/logo-name";
+
 import { useState, useEffect, useMemo } from "react";
 import { Prices } from "@/constants/prices";
 import { createCheckoutSessionTeam } from "@/utils/stripe/stripe-actions";

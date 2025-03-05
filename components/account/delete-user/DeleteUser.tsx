@@ -43,7 +43,7 @@ export const deleteUser = async () => {
     }
 
     return { success: true };
-  } catch (error) {
+  } catch {
     return { error: "Failed to delete user" };
   }
 };

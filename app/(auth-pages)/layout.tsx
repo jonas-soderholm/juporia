@@ -4,7 +4,7 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mx-auto h-screen flex flex-col items-center pt-10">
+    <div className="mx-auto h-screen flex flex-col items-center pt-10 px-2">
       {/* Add BreadCrumbs */}
       {children}
     </div>

@@ -28,7 +28,7 @@ export async function getUserEmail() {
   } = await supabase.auth.getUser();
 
   if (!sessionUser) {
-    throw new Error("User not authenticated");
+    redirect("/sign-in");
   }
 
   return sessionUser.email;

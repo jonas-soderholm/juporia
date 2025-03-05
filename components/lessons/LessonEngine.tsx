@@ -4,13 +4,13 @@ import { useState, useEffect, useRef } from "react";
 import { LessonProps, Section } from "./LessonLayout";
 import LessonContent from "./LessonLayout";
 import LessonLoaderVisual from "./LessonLoaderVisual";
+import { PreloadLessonImages } from "./PreloadLessonImages";
 import {
   updateLessonNr,
   updateSectionNr,
   resetSectionNr,
   getProgress,
 } from "@/utils/course-progression/course-progression-actions";
-import { getUserAuth } from "@/utils/user-actions/get-user";
 
 export default function LessonEngine({
   sections,
@@ -27,10 +27,12 @@ export default function LessonEngine({
   const [userInput, setUserInput] = useState("");
   const [feedback, setFeedback] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  let saveTimer: number;
 
-  const scrollDown = (amount: number) => {
-    window.scrollBy({ top: amount, behavior: "smooth" });
-  };
+  useEffect(() => {
+    PreloadLessonImages({ sections }); // ✅ Now runs only on mount
+  }, []);
 
   const hasFetched = useRef(false); // Track if data has already been fetched
   useEffect(() => {
@@ -38,12 +40,8 @@ export default function LessonEngine({
     hasFetched.current = true;
 
     const fetchProgress = async () => {
-      // const user = await getUserAuth();
-      // if (!user.email) return;
-
       try {
         const lessonNrFromDB = await getProgress(courseNr); // Fetch lesson number
-        console.log("lessonNrFromDB", lessonNrFromDB); // Log lessonNrFromDB to verify
 
         let sectionNr = 0;
 
@@ -52,8 +50,6 @@ export default function LessonEngine({
         } else {
           sectionNr = lessonNrFromDB.sectionNr; // Adjust as necessary
         }
-
-        console.log("sectionNr (before state update):", sectionNr); // Log before updating state
 
         setCurrentSectionIndex(sectionNr); // Set progress
         setCompletedSections(sections.slice(0, sectionNr)); // Mark sections as completed
@@ -65,14 +61,6 @@ export default function LessonEngine({
     fetchProgress();
   }, [courseNr, currentLessonIndex, sections]);
 
-  useEffect(() => {
-    // Log currentSectionIndex after it updates
-    console.log(
-      "Updated sectionNr (currentSectionIndex):",
-      currentSectionIndex
-    );
-  }, [currentSectionIndex]); // This will log when currentSectionIndex is updated
-
   const scrollToBottom = () => {
     setTimeout(() => {
       window.scrollTo({
@@ -83,23 +71,41 @@ export default function LessonEngine({
   };
 
   const handleNext = () => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+
     const section = sections[currentSectionIndex];
     scrollToBottom();
+
     if (currentContentIndex < section.content.length - 1) {
       setCurrentContentIndex((prev) => prev + 1);
     }
+
+    // Re-enable the button after a short delay
+    setTimeout(() => {
+      setIsProcessing(false);
+    }, 250);
   };
 
   const handleSubmit = async () => {
+    if (isProcessing) return;
+    setIsProcessing(true);
+
     const currentSection = sections[currentSectionIndex];
     const userInputNormalized = userInput.trim().toLowerCase();
     const isAnswerCorrect = currentSection.answerKeywords.some((keyword) =>
       userInputNormalized.includes(keyword.trim().toLowerCase())
     );
-    // const user = await getUserAuth();
 
     if (isAnswerCorrect) {
-      setFeedback("Correct!");
+      if (userInput) {
+        saveTimer = 600;
+        setFeedback("Correct!");
+      } else {
+        saveTimer = 350;
+        setFeedback("Saving progress...");
+      }
+
       updateSectionNr(courseNr);
 
       setTimeout(() => {
@@ -120,7 +126,6 @@ export default function LessonEngine({
           }
           return prev;
         });
-
         scrollToBottom();
 
         if (isLastSection) {
@@ -135,7 +140,7 @@ export default function LessonEngine({
           setUserInput("");
           setFeedback("");
         }
-      }, 700);
+      }, saveTimer);
     } else {
       setFeedback("Try again.");
       setIsAnimating(true);
@@ -144,6 +149,11 @@ export default function LessonEngine({
         setIsAnimating(false);
       }, 1500);
     }
+
+    // Re-enable the button after a short delay
+    setTimeout(() => {
+      setIsProcessing(false);
+    }, saveTimer);
   };
 
   return (
@@ -161,6 +171,7 @@ export default function LessonEngine({
           setUserInput={setUserInput}
           isAnimating={isAnimating}
           lessonsOverviewUrl={lessonsOverviewUrl}
+          isProcessing={isProcessing}
         />
       </LessonLoaderVisual>
     </div>

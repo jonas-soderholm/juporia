@@ -29,6 +29,7 @@ interface LessonContentProps {
   handleSubmit: () => void;
   setUserInput: (value: string) => void;
   lessonsOverviewUrl: string;
+  isProcessing: boolean;
 }
 
 const LessonContent: React.FC<LessonContentProps> = ({
@@ -40,6 +41,7 @@ const LessonContent: React.FC<LessonContentProps> = ({
   userInput,
   isAnimating,
   lessonsOverviewUrl,
+  isProcessing,
   handleNext,
   handleSubmit,
   setUserInput,
@@ -54,16 +56,16 @@ const LessonContent: React.FC<LessonContentProps> = ({
           {completedSections.map((section, index) => (
             <div
               key={section.id + index}
-              className=" animate-fade-in p-3 rounded-lg border-2 border-gray-500 dark:text-gray-500 text-gray-500"
+              className=" animate-fade-in p-3 rounded-lg border-2 border-gray-500 dark:text-gray-300 text-gray-500 "
             >
               <h3 className="font-bold text-lg">{section.sectionTitle}</h3>
               {section.content.map((text: string, index: number) => (
-                <div key={index} className="mt-1">
+                <div key={index} className="mt-1 my-4">
                   {section.images && section.images[index] && (
                     <img
                       src={section.images[index]}
                       alt={`Image for ${text}`}
-                      className="mt-2 rounded-lg max-w-full mx-auto"
+                      className="my-4 rounded-lg max-w-full mx-auto"
                     />
                   )}
                   <p className="text-sm">{text}</p>
@@ -110,16 +112,17 @@ const LessonContent: React.FC<LessonContentProps> = ({
           {sections[currentSectionIndex].content
             .slice(0, currentContentIndex + 1)
             .map((text, index) => (
-              <div key={index} className="mb-4">
+              <div key={index} className="mb-4 text-sm">
                 {sections[currentSectionIndex] &&
                   Array.isArray(sections[currentSectionIndex].images) &&
                   sections[currentSectionIndex].images?.[index] && (
                     <img
+                      className=" rounded-lg my-4 mx-auto"
                       src={sections[currentSectionIndex].images![index]}
                       alt={`Image for ${text}`}
                     />
                   )}
-                <p className="animate-fade-in">{text}</p>
+                <p>{text}</p>
               </div>
             ))}
           {currentContentIndex ===
@@ -129,21 +132,30 @@ const LessonContent: React.FC<LessonContentProps> = ({
                 {sections[currentSectionIndex].question}
               </p>
               <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={userInput}
-                  onChange={(e) => setUserInput(e.target.value)}
-                  placeholder="Your answer"
-                  className="border border-gray-300 rounded-lg p-2 w-full"
-                />
+                {sections[currentSectionIndex].answerKeywords.some(
+                  (kw) => kw.trim() !== ""
+                ) && (
+                  <input
+                    type="text"
+                    value={userInput}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    placeholder="Your answer"
+                    className="border border-gray-300 rounded-lg p-2 w-full"
+                  />
+                )}
+
                 <button
+                  disabled={isProcessing}
                   onClick={() => {
                     handleSubmit();
-                    handleNext();
                   }}
-                  className="bg-blue-500 text-white p-2 rounded-lg"
+                  className="bg-gray-500 text-white p-2 rounded-lg"
                 >
-                  Submit
+                  {sections[currentSectionIndex].answerKeywords.some(
+                    (kw) => kw.trim() !== ""
+                  )
+                    ? "Submit"
+                    : "Next"}
                 </button>
               </div>
               {feedback && (
@@ -151,11 +163,14 @@ const LessonContent: React.FC<LessonContentProps> = ({
                   className={`flex items-center gap-2 mt-2 font-bold ${
                     feedback === "Correct!"
                       ? "text-green-600"
-                      : `text-red-600 ${isAnimating ? "animate-bounce" : ""}`
+                      : feedback === "Saving progress..."
+                        ? "text-gray-600"
+                        : `text-red-600 ${isAnimating ? "animate-bounce" : ""}`
                   }`}
                 >
                   {feedback === "Correct!" ? (
                     <>
+                      {/* Green check icon and text */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -172,8 +187,34 @@ const LessonContent: React.FC<LessonContentProps> = ({
                       </svg>
                       <span>{feedback}</span>
                     </>
+                  ) : feedback === "Saving progress..." ? (
+                    <>
+                      {/* Gray spinner or icon to indicate saving */}
+                      <svg
+                        className="animate-spin h-6 w-6 text-gray-500 mt-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v8H4z"
+                        />
+                      </svg>
+                      <span>{feedback}</span>
+                    </>
                   ) : (
                     <>
+                      {/* Red error icon and text */}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
@@ -193,11 +234,20 @@ const LessonContent: React.FC<LessonContentProps> = ({
               )}
             </>
           ) : (
+            // Next button
             <button
               onClick={handleNext}
               className="mt-4 bg-gray-500 text-white p-2 rounded-lg"
             >
-              Next
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="#ffffff"
+              >
+                <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+              </svg>
             </button>
           )}
         </div>

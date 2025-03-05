@@ -2,7 +2,7 @@ import { LogoName } from "@/constants/logo-name";
 
 export default function Footer() {
   return (
-    <footer className="footer footer-center p-10 mt-28">
+    <footer className="footer footer-center p-10 mt-14">
       <div className="flex w-full flex-col">
         <div className="divider h-[2px] bg-gray-600"></div>
       </div>
@@ -13,7 +13,11 @@ export default function Footer() {
           </a>
           <p>|</p>
           <a href="/legal" className="link link-hover">
-            Terms & Privacy Policy
+            Terms
+          </a>
+          <p>|</p>
+          <a href="/privacy-policy" className="link link-hover">
+            Privacy Policy
           </a>
         </nav>
         <div>

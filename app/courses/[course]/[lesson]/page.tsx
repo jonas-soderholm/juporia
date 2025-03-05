@@ -20,7 +20,8 @@ export default async function LessonPage({
   );
 
   if (!courseEntry) {
-    throw new Error(`No course found for URL: ${course}`);
+    // throw new Error(`No course found for URL: ${course}`);
+    redirect("/sign-in");
   }
 
   // Redirect if not free lesson and not subscribed

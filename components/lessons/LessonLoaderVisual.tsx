@@ -15,8 +15,14 @@ function LessonLoaderVisual({ children }: { children: ReactNode }) {
 
   if (!showContent) {
     return (
-      <div className="flex justify-center items-start h-screen pt-40">
-        <div className="loader" />
+      <div className="loader">
+        <div className="logo-container mt-40">
+          <img
+            src="/images/logos/juporia-rounded-logo-opt.png"
+            alt="Juporia Logo"
+            className="rotating-logo rounded-full"
+          />
+        </div>
       </div>
     );
   }

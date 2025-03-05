@@ -11,41 +11,35 @@
 
 .animate-fade-in {
   animation: fade-in 0.7s ease-out;
-  opacity: 1; /* Ensure fully visible after animation */
+  opacity: 1;
 }
 
-/* loading lesson */
 .loader {
-  width: 40px;
-  aspect-ratio: 1;
-  color: rgb(11, 88, 197);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container {
   position: relative;
-  background:
-    conic-gradient(from 134deg at top, currentColor 92deg, #0000 0) top,
-    conic-gradient(from -46deg at bottom, currentColor 92deg, #0000 0) bottom;
-  background-size: 100% 50%;
-  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
 }
-.loader:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  --g: currentColor 14.5px, #0000 0 calc(100% - 14.5px), currentColor 0;
-  background: linear-gradient(45deg, var(--g)),
-    linear-gradient(-45deg, var(--g));
-  animation: l7 0.75s infinite cubic-bezier(0.3, 1, 0, 1);
+
+.rotating-logo {
+  width: 100%;
+  height: 100%;
+  animation:
+    rotateLogo 3s linear infinite,
+    fadeIn 3s ease-in-out infinite alternate;
 }
-@keyframes l7 {
-  33% {
-    inset: -10px;
+
+@keyframes rotateLogo {
+  0% {
     transform: rotate(0deg);
   }
-  66% {
-    inset: -10px;
-    transform: rotate(90deg);
-  }
   100% {
-    inset: 0;
-    transform: rotate(90deg);
+    transform: rotate(360deg);
   }
 }

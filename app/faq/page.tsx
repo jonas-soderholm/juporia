@@ -37,11 +37,11 @@ function FAQPage() {
     <>
       <header className="text-4xl text-center mt-2 mb-6 font-bold ">FAQ</header>
       <div className="flex justify-center mx-4">
-        <div className="join join-vertical w-full max-w-2xl bg-base-400 text-slate-300">
+        <div className="join join-vertical w-full max-w-2xl">
           {faq.map((item, index) => (
             <div
               key={index}
-              className="collapse collapse-arrow bg-base-200 mb-2"
+              className="collapse collapse-plus border-2 border-gray-600 mb-2"
             >
               <input type="radio" name="my-accordion-1" id={`faq-${index}`} />
               <label

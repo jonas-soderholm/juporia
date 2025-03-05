@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET!
     );
-  } catch (err) {
+  } catch {
     return new NextResponse("Webhook Error", { status: 400 });
   }
 
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         await prisma.invoice.create({
           data: { userEmail, amount, status, payDate, stripeRef, planMembers },
         });
-      } catch (error) {
+      } catch {
         return new NextResponse("Internal Server Error", { status: 500 });
       }
 
@@ -67,11 +67,11 @@ export async function POST(req: NextRequest) {
         } else {
           await createOrUpdateTeamSubscription(planMembers);
         }
-      } catch (error) {
+      } catch {
         return new NextResponse("Internal Server Error", { status: 500 });
       }
     }
-  } catch (error) {
+  } catch {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 
