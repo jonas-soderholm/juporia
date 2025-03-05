@@ -83,7 +83,7 @@ export const createClient = async () => {
               }
             }
           } catch (error) {
-            console.error("❌ Error setting cookies:", error);
+            console.error("Error setting cookies:", error);
           }
         },
       },

@@ -73,5 +73,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  return NextResponse.next(); // ✅ This is all you need!
+  const response = NextResponse.next();
+  response.headers.set("Cookie", request.headers.get("Cookie") || "");
+  return response;
 }
