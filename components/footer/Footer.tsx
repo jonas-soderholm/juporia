@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="footer footer-center p-10 mt-14">
       <div className="flex w-full flex-col">
-        <div className="divider h-[2px] bg-gray-600"></div>
+        <div className="divider h-[1px] bg-gray-600"></div>
       </div>
       <div className="flex flex-col items-center justify-center gap-4">
         <nav className="grid grid-flow-col gap-2">
