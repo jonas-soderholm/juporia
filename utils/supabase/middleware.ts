@@ -46,26 +46,41 @@
 //   }
 // };
 
-import { type NextRequest, NextResponse } from "next/server";
+// import { type NextRequest, NextResponse } from "next/server";
 
-export const updateSession = async (request: NextRequest) => {
-  // This `try/catch` block is only here for the interactive tutorial.
-  // Feel free to remove once you have Supabase connected.
-  try {
-    // Create an unmodified response
-    const response = NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
+// export const updateSession = async (request: NextRequest) => {
+//   // This `try/catch` block is only here for the interactive tutorial.
+//   // Feel free to remove once you have Supabase connected.
+//   try {
+//     // Create an unmodified response
+//     const response = NextResponse.next({
+//       request: {
+//         headers: request.headers,
+//       },
+//     });
 
-    return response;
-  } catch (e) {
-    console.error("Error occurred while creating Supabase client:", e);
-    return NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
-  }
-};
+//     return response;
+//   } catch (e) {
+//     console.error("Error occurred while creating Supabase client:", e);
+//     return NextResponse.next({
+//       request: {
+//         headers: request.headers,
+//       },
+//     });
+//   }
+// };
+
+// import { type NextRequest, NextResponse } from "next/server";
+
+// export const updateSession = async (request: NextRequest) => {
+//   try {
+//     return NextResponse.next({
+//       request: {
+//         headers: request.headers,
+//       },
+//     });
+//   } catch (error) {
+//     console.error("❌ Error updating session:", error);
+//     return NextResponse.next();
+//   }
+// };
