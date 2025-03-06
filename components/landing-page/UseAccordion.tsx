@@ -25,7 +25,7 @@ export default function UseAccordion() {
     {
       title: "Why not a full security framework?",
       content:
-        "Many SMBs can’t afford enterprise-level security frameworks—they require significant resources and cost too much. As a result, many businesses skip security altogether, leaving them vulnerable. We bridge this gap by offering an affordable alternative that goes a long way. Plus, we introduce these frameworks so businesses know what they are and when they might become relevant.",
+        "Traditional security frameworks and third-party solutions are built for enterprises, making them complex, costly, and impractical for SMBs. But security isn't all or nothing. Our approach provides protection without the heavy burden—helping businesses stay secure while understanding when more advanced solutions might be necessary.",
 
       svg: (
         <svg
