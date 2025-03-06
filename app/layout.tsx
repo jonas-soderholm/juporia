@@ -10,9 +10,10 @@ const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: `${LogoName.AppName} - Basic Cybersecurity Training`,
+  title:
+    "Juporia - Cybersecurity & Privacy Training for Small & Medium Businesses",
   description:
-    "Learn cybersecurity and privacy fundamentals with beginner-friendly, interactive courses. Try 5 free lessons today—no login required.",
+    "Beginner-friendly cybersecurity and privacy courses for teams, business owners, and individuals. Protect data, reduce risks, and respond to threats. Try free lessons today!",
 };
 
 export default function RootLayout({
@@ -31,12 +32,33 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        <title>JUPORIA - Basic Cybersecurity Training</title>
-        <meta
-          name="description"
-          content="Learn cybersecurity and privacy fundamentals with beginner-friendly, interactive courses. Try 5 free lessons today—no login required."
+
+        <title>{metadata.title}</title>
+
+        <meta name="description" content={metadata.description} />
+
+        <link
+          rel="icon"
+          href="https://juporia.com/images/logos/juporia-rounded-logo-opt.png"
+          type="image/png"
         />
-        <link rel="icon" href={LogoName.Logo} type="image/png" />
+
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content="Juporia - Cybersecurity & Privacy Training"
+        />
+        <meta property="og:description" content={metadata.description} />
+
+        <meta
+          property="og:image"
+          content="https://juporia.com/images/logos/juporia-rounded-logo-opt.png"
+        />
+        <meta property="og:image:alt" content="Juporia Rounded Logo" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://juporia.com" />
+        <meta property="og:type" content="website" />
       </head>
       <body className="bg-background text-foreground">
         <ThemeProvider
