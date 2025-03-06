@@ -102,7 +102,15 @@ const LessonData = {
       ],
       question:
         "Which communication channels should you avoid for sending sensitive information like passwords?",
-      answerKeywords: ["facebook", "messenger", "sms", "email"],
+      answerKeywords: [
+        "facebook",
+        "messenger",
+        "sms",
+        "email",
+        "social media",
+        "instagram",
+        "snapchat",
+      ],
     },
   ],
 };

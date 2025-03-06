@@ -26,12 +26,14 @@
 //   );
 // };
 
-// Correct the server-side cookie manipulation by awaiting cookies()
+// Working
+"use server";
+
 import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers"; // This is used only server-side
+import { cookies } from "next/headers";
 
 export const createClient = async () => {
-  const cookieStore = await cookies(); // Await to ensure cookies() resolves properly
+  const cookieStore = await cookies(); // Ensure cookies are awaited
 
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -39,16 +41,25 @@ export const createClient = async () => {
     {
       cookies: {
         getAll() {
-          return cookieStore.getAll(); // Accessing cookies once it's awaited
-        },
-        async setAll(cookiesToSet) {
           try {
-            // Setting cookies after awaiting cookieStore
+            return cookieStore.getAll();
+          } catch (error) {
+            console.error("❌ Error getting cookies:", error);
+            return [];
+          }
+        },
+        setAll(cookiesToSet) {
+          try {
             cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options); // Setting cookies after awaiting cookieStore
+              try {
+                cookieStore.set(name, value, options);
+                console.log(`✅ Cookie set: ${name}`);
+              } catch (error) {
+                console.error(`❌ Error setting cookie [${name}]:`, error);
+              }
             });
           } catch (error) {
-            console.error("Error setting cookies:", error);
+            console.error("❌ Error setting cookies:", error);
           }
         },
       },

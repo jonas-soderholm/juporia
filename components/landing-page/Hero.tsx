@@ -16,17 +16,15 @@ export default function Hero() {
         <div>
           <h1
             id="main-heading"
-            className="text-[1.5rem] lg:text-[2.5rem] 2xl:text-[3.2rem] font-bold mb-4 max-w-[50rem]"
+            className="text-[1.6rem] lg:text-[2.5rem] 2xl:text-[3.3rem] font-bold mb-4 max-w-[50rem]"
           >
-            Cybersecurity And Privicy Awareness Training.
+            Cybersecurity & Privacy Awareness Training.
           </h1>
-
           <p className="text-[1rem] mb-8 max-w-[35rem]">
-            Structured, beginner-friendly, interactive courses for daily users,
-            team members, and managers to cover the fundamentals of
-            cybersecurity and privacy.
+            Structured, beginner-friendly courses for teams, business owners,
+            and individuals. Learn how to protect data, reduce risks, and
+            respond effectively when security is compromised.
           </p>
-
           <Link href="/courses" aria-label="View free cybersecurity lessons">
             <button
               className="btn-custom-primary"
@@ -35,7 +33,6 @@ export default function Hero() {
               Try 3 Free Lessons Now
             </button>
           </Link>
-
           <p className="mt-3 text-slate-400 text-sm">
             No credit card required.
           </p>

@@ -4,7 +4,7 @@ export function ValueProposition() {
   const cards = [
     {
       title: "Is Cybersecurity Important?",
-      description: `A team is only as strong as its weakest link. An untrained employee can become an entry point for threats. ${LogoName.AppName} helps companies educate all employees to strengthen security.`,
+      description: `A team is only as strong as its weakest link, especially in cybersecurity. An untrained individual can become an entry point for threats, compromising both their personal life and the security of their business or employer.`,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ export function ValueProposition() {
     {
       title: `Why ${LogoName.AppName}?`,
       description:
-        "Our easy-to-learn courses provide essential cybersecurity knowledge, ensuring your team has a solid foundation even without prior experience while also teaching managers how to protect their business.",
+        "Our easy-to-learn courses provide essential cybersecurity and privacy knowledge, empowering individuals, teams, and business owners to feel confident knowing they’re up-to-date on the latest practices and solutions.",
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export function ValueProposition() {
     },
     {
       title: "Cybersecurity for SMBs",
-      description: `Many SMBs lack an incident response and disaster recovery plan. ${LogoName.AppName} provides practical examples to secure data and prevent attacks—easy to understand and apply.`,
+      description: `Many small and medium-sized businesses can't afford enterprise-level security, leading some to neglect it altogether. ${LogoName.AppName} bridges that gap with practical solutions to help them stay secure.`,
       svg: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
