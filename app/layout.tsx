@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
 import BreadCrumbs from "@/components/breadcrumbs/BreadCrumbs";
-import { LogoName } from "@/constants/logo-name";
 
 const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
