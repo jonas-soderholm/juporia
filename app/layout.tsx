@@ -1,21 +1,18 @@
-import DeployButton from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import HeaderAuth from "@/components/header-auth";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { hasEnvVars } from "@/utils/supabase/check-env-vars";
-import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "next-themes";
-import Link from "next/link";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import Header from "@/components/header/Header";
+import Footer from "@/components/footer/Footer";
+import BreadCrumbs from "@/components/breadcrumbs/BreadCrumbs";
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+const defaultUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title:
+    "Juporia - Cybersecurity & Privacy Training for Small & Medium Businesses",
+  description:
+    "Beginner-friendly cybersecurity and privacy courses for teams, business owners, and individuals. Protect data, reduce risks, and respond to threats. Try free lessons today!",
 };
 
 export default function RootLayout({
@@ -24,7 +21,44 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.className} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${GeistSans.className} overflow-y-scroll`}
+      suppressHydrationWarning
+    >
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+
+        <title>{metadata.title}</title>
+
+        <meta name="description" content={metadata.description} />
+
+        <link
+          rel="icon"
+          href="https://juporia.com/images/logos/juporia-rounded-logo-opt.png"
+          type="image/png"
+        />
+
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content="Juporia - Cybersecurity & Privacy Training"
+        />
+        <meta property="og:description" content={metadata.description} />
+
+        <meta
+          property="og:image"
+          content="https://juporia.com/images/logos/juporia-rounded-logo-opt.png"
+        />
+        <meta property="og:image:alt" content="Juporia Rounded Logo" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content="https://juporia.com" />
+        <meta property="og:type" content="website" />
+      </head>
       <body className="bg-background text-foreground">
         <ThemeProvider
           attribute="class"
@@ -32,38 +66,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="min-h-screen flex flex-col items-center">
-            <div className="flex-1 w-full flex flex-col gap-20 items-center">
-              <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-                <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-                  <div className="flex gap-5 items-center font-semibold">
-                    <Link href={"/"}>Next.js Supabase Starter</Link>
-                    <div className="flex items-center gap-2">
-                      <DeployButton />
-                    </div>
-                  </div>
-                  {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
-                </div>
-              </nav>
-              <div className="flex flex-col gap-20 max-w-5xl p-5">
-                {children}
-              </div>
-
-              <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-                <p>
-                  Powered by{" "}
-                  <a
-                    href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-                    target="_blank"
-                    className="font-bold hover:underline"
-                    rel="noreferrer"
-                  >
-                    Supabase
-                  </a>
-                </p>
-                <ThemeSwitcher />
-              </footer>
-            </div>
+          <main className="min-h-screen flex flex-col">
+            {/* Header/Nav Section */}
+            <Header />
+            {/* Main Content Area */}
+            <BreadCrumbs />
+            <div className="flex-1">{children}</div>
+            <Footer />
           </main>
         </ThemeProvider>
       </body>

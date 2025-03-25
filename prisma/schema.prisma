@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String     @id // Supabase auth.users.id
+  email         String     @unique
+  progress      Progress[]
+  invoices      Invoice[] 
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+model Subscription {
+  id        Int      @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+  email     String   @unique
+}
+
+model Invoice {
+  id          Int      @id @default(autoincrement())
+  payDate     DateTime
+  amount      Float
+  status      String
+  userEmail   String
+  user        User     @relation(fields: [userEmail], references: [email])
+  stripeRef   String   @unique 
+  planMembers String
+}
+
+model Progress {
+  id          Int      @id @default(autoincrement())
+  userEmail   String
+  courseNr    Int
+  lessonNr    Int      @default(0) // Number of lessons completed
+  sectionNr   Int      @default(0) // Number of sections completed
+  completed   Boolean  @default(false) // Tracks if the course is fully completed
+  user        User     @relation(fields: [userEmail], references: [email])
+  course      Course   @relation(fields: [courseNr], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userEmail, courseNr]) // Ensure a single progress row per user per course
+}
+
+model Course {
+  id        Int      @id @default(autoincrement())
+  name      String   @default("Default Course Name") // Add a default value
+  progress  Progress[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

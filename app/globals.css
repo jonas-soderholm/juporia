@@ -2,10 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* black white */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --background: 0, 0%, 90%;
+    --foreground: 0 0% 20%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
@@ -32,7 +38,8 @@
   }
 
   .dark {
-    --background: 0 0% 3.9%;
+    /* --background: 220 15% 10%; //dark blue */
+    --background: 0 0% 10%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -59,6 +66,15 @@
   }
 }
 
+input:-webkit-autofill {
+  background-color: rgb(11, 88, 197) important;
+  -webkit-box-shadow: 0 0 0px 1000px #191e24 inset !important; /* Tailwind's bg-base-200 */
+  -webkit-text-fill-color: rgb(
+    226 232 240
+  ) !important; /* Tailwind's text-gray-300 */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -66,4 +82,74 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  /* background-image: url("/grid.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-position: center; 
+  background-attachment: fixed;  */
+}
+
+.bg-darkmode {
+  background-color: #0a0a0a;
+}
+
+.btn-custom-primary {
+  @apply btn text-slate-200 dark:text-slate-200 bg-transparent px-4 py-2 hover:bg-blue-900
+ hover:text-slate-200 rounded-full border-slate-200 border-2 hover:border-transparent;
+}
+
+.btn-custom-primary-border {
+  @apply btn text-slate-200 dark:text-slate-200 bg-transparent px-4 py-2 hover:bg-blue-600
+  hover:text-slate-200 rounded-full border-slate-200 border-2 hover:border-transparent;
+}
+
+.btn-custom-primary-reverse {
+  @apply btn bg-blue-600  text-slate-200 px-4 py-2 hover:bg-blue-900 hover:text-slate-200 rounded-full border-none;
+}
+
+/* .btn-custom-primary-course {
+  @apply btn btn-sm   bg-transparent px-4 py-2 hover:bg-blue-600
+ hover:text-slate-200 rounded-full border-2 text-blue-600 border-blue-600 hover:border-transparent;
+} */
+
+.btn-custom-primary-course {
+  @apply btn btn-sm bg-blue-600  text-slate-200 px-4 py-2 hover:bg-blue-900 hover:text-slate-200 rounded-full border-none;
+}
+
+.btn-custom-primary-lesson {
+  @apply btn bg-blue-600 text-slate-200 rounded-full border-none hover:bg-blue-500
+   hover:text-slate-200 px-3 py-1 text-[10px] md:px-4 lg:text-sm md:text-xs;
+}
+
+.bg-exhaleguard-primary {
+  background-color: #2563eb;
+}
+
+.text-exhaleguard-primary {
+  color: #2563eb;
+}
+
+.btn-custom-primary-lesson {
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  will-change: auto;
+}
+
+/* Change the color of the NProgress bar */
+#nprogress .bar {
+  background: #dbdbdb !important; /* Force orange */
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-in.loaded {
+  opacity: 1;
 }

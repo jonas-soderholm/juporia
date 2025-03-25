@@ -4,6 +4,9 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="max-w-7xl flex flex-col gap-12 items-start">{children}</div>
+    <div className="mx-auto h-screen flex flex-col items-center pt-10 px-2">
+      {/* Add BreadCrumbs */}
+      {children}
+    </div>
   );
 }
