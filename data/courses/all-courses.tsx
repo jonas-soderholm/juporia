@@ -13,7 +13,7 @@ export const allCourses = [
     lessonAmount: freeLessonsTotalLessons,
     title: "Free Lessons",
     description:
-      "Explore our free lessons to see if the full course is right for you. Get hands-on experience before making a commitment—no payment or subscription required!",
+      "Explore our free lessons to see if full access is right for you!",
     buttonText: "Start",
     linkUrl: CourseInfo.FreeCourse.path,
     available: true,
@@ -76,7 +76,7 @@ export const allCourses = [
     lessonAmount: cyber2TotalLessons,
     title: "Cybersecurity 2.0",
     description:
-      "Strengthen your cybersecurity skills with topics like risk management, disaster recovery, and Zero Trust security. Ideal for protecting organizations or anyone looking to improve their security expertise.",
+      "Learn how to protect your business with practical cybersecurity strategies, risk management, disaster recovery, and Zero Trust security. Gain hands-on skills to prevent, detect, and respond to threats effectively.",
     buttonText: "Start",
     linkUrl: CourseInfo.Cyber2.path,
     available: true,
