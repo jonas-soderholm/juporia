@@ -9,6 +9,7 @@ export async function middleware(request: NextRequest) {
     "www.juporia.com",
     "juporia-j131313-h09rt816b-jonas-soderholms-projects.vercel.app"
   ]);
+  
   // Get the real host from request headers (ensures Heroku doesn’t bypass the check)
   const requestHost = request.headers.get("host")?.split(":")[0]; // Strips port if present
 
