@@ -46,7 +46,7 @@ export default async function Header() {
           {/* Right-side links */}
           <div className="flex items-center justify-center">
             {/* Theme Switcher */}
-            <ThemeSwitcher />
+            {/* <ThemeSwitcher /> */}
 
             {/* Courses Link */}
             <div className="hover:underline ml-2 text-slate-200">
