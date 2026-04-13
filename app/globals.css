@@ -94,7 +94,8 @@ body {
 }
 
 .bg-darkmode {
-  background-color: #0a0a0a;
+  /* background-color: #0a0a0a; */
+  background-color: #e6e6e6;
 }
 
 .btn-custom-primary {
