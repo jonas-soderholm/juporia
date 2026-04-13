@@ -60,14 +60,14 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
       </head>
       <body className="bg-background text-foreground">
-        {/* <script
-          src="https://zvarly//widget.js"
-          data-api-key="juporia_key_2039kdas09i2"
-        ></script> */}
         <script
           src="https://zvarly.se/widget.js"
           data-api-key="juporia_key_2039kdas09i2"
         ></script>
+        {/* <script
+          src="http://localhost:3000/widget.js"
+          data-api-key="juporia_key_2039kdas09i2"
+        ></script> */}
         <ThemeProvider
           attribute="class"
           forcedTheme="light"
