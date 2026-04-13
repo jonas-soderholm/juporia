@@ -66,8 +66,7 @@ export default function RootLayout({
         ></script>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          forcedTheme="light"
           disableTransitionOnChange
         >
           <main className="min-h-screen flex flex-col">
