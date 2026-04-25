@@ -63,7 +63,6 @@ export default function RootLayout({
         <script
           src="https://zvarly.se/widget.js"
           data-api-key="juporia_key_2039kdas09i2"
-          data-mobile="false"
         ></script>
         {/* <script
           src="http://localhost:3000/widget.js"
