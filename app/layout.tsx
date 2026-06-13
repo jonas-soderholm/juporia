@@ -62,7 +62,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground">
         <script
           async
-          src="https://zvarly.se/widget.js"
+          src="https://www.zvarly.se/widget.js"
           data-api-key="juporia_key_2039kdas09i2"
         ></script>
         {/* <script
